@@ -1,155 +1,165 @@
 <?php
-	include( "session.php" );
-	include("include.php");
+include( "session.php" );
+include("include.php");
 
-	// establish connection to MySQL database or output error message.
-	$link = mysql_connect ($dbHost, $dbUser, $dbPassword);
-	if (!mysql_select_db($dbName, $link)) echo mysql_errno().": ".mysql_error()."<BR>";
+// establish connection to MySQL database or output error message.
+$link = mysql_connect ($dbHost, $dbUser, $dbPassword);
+if (!mysql_select_db($dbName, $link)) echo mysql_errno().": ".mysql_error()."<BR>";
 
-	$hdnUserId = $_REQUEST[ 'hdnUserId' ];
-	$btnSubmit = $_REQUEST[ 'btnSubmit' ];
-	$txtPassword = $_REQUEST[ 'txtPassword' ];
-	$txtVerifyPassword = $_REQUEST[ 'txtVerifyPassword' ];
-	$txtUsername = $_REQUEST[ 'txtUsername' ];
-	$txtUserNumber = $_REQUEST[ 'txtUserNumber' ];
-	$txtEmail = $_REQUEST[ 'txtEmail' ];
-	$txtURL = $_REQUEST[ 'txtURL' ];
-	$txtGMTOffset = $_REQUEST[ 'txtGMTOffset' ];
-	$sessionUserId = $_SESSION[ 'sessionUserId' ];
-	if( Empty( $sessionUserId )) $sessionUserId = -1;
-	$hdnUserId = $sessionUserId;
+$hdnUserId = $_REQUEST[ 'hdnUserId' ];
+$btnSubmit = $_REQUEST[ 'btnSubmit' ];
+$txtPassword = $_REQUEST[ 'txtPassword' ];
+$txtVerifyPassword = $_REQUEST[ 'txtVerifyPassword' ];
+$txtUsername = $_REQUEST[ 'txtUsername' ];
+$txtUserNumber = $_REQUEST[ 'txtUserNumber' ];
+$txtEmail = $_REQUEST[ 'txtEmail' ];
+$txtURL = $_REQUEST[ 'txtURL' ];
+$txtGMTOffset = $_REQUEST[ 'txtGMTOffset' ];
+$sessionUserId = $_SESSION[ 'sessionUserId' ];
+if( Empty( $sessionUserId )) $sessionUserId = -1;
+$hdnUserId = $sessionUserId;
 
-	$chkPublicEmail = $_REQUEST[ 'chkPublicEmail' ];
-	if( $chkPublicEmail == "on" )
-	{
-		$sPublicEmail = " checked ";
-		$iPublicEmail = 1;
-	}else
-	{
-		$sPublicEmail = "";
-		$iPublicEmail = 0;		
-	}
+$chkPublicEmail = $_REQUEST[ 'chkPublicEmail' ];
+if( $chkPublicEmail == "on" ) {
+	$sPublicEmail = " checked ";
+	$iPublicEmail = 1;
+} else {
+	$sPublicEmail = "";
+	$iPublicEmail = 0;		
+}
 	
-	if( Empty( $hdnUserId ) || ( $hdnUserId == -1  && Empty( $btnSubmit )) )
-	
-{
-// New User Entering Profile Data, load values with empty info.
-$hdnUserId = -1;
-		$txtUsername = "";
-		$txtPassword = "";
-		$txtVerifyPassword = "";
-		$txtEmail = "";
-		$txtURL = "http://";
-		$txtDateJoined = "";
-		$txtDateLastVisit = "";
-		$txtUserNumber = "";
-		$txtGMTOffset = "0";
-		$sPublicEmail = "";
-	} else if ($hdnUserId == -1 && !Empty( $btnSubmit ) )
-	{
-		// New User Saving Profile Data.
-		if( $txtPassword != $txtVerifyPassword )
-		{
-			echo "Passwords do not match, please try again.<br />";
-		}else
-		{		
-			// Check for an existing user with that username.
-			$ProfileQuery = "SELECT i_UID FROM Users ";
-			$ProfileQuery .= "WHERE vc_Username = \"$txtUsername\"";
+if( Empty( $hdnUserId ) || ( $hdnUserId == -1  && Empty( $btnSubmit )) ) {
+	// New User Entering Profile Data, load values with empty info.
+	$hdnUserId = -1;
+	$txtUsername = "";
+	$txtPassword = "";
+	$txtVerifyPassword = "";
+	$txtEmail = "";
+	$txtURL = "http://";
+	$txtDateJoined = "";
+	$txtDateLastVisit = "";
+	$txtUserNumber = "";
+	$txtGMTOffset = "0";
+	$sPublicEmail = "";
+} else if ($hdnUserId == -1 && !Empty( $btnSubmit ) ) {
+	// New User Saving Profile Data.
+	if( $txtPassword != $txtVerifyPassword ) {
+		echo "Passwords do not match, please try again.<br />";
+	} else {
+		// Check for an existing user with that username.
+		$ProfileQuery = "SELECT i_UID FROM Users ";
+		$ProfileQuery .= "WHERE vc_Username = \"$txtUsername\"";
 			
-			// Check for an existing user with that usernumber.
-			$UserNumberQuery = "SELECT i_UID FROM Users ";
-			$UserNumberQuery .= "WHERE vc_UserId = \"$txtUserNumber\"";
+		// Check for an existing user with that usernumber.
+		$UserNumberQuery = "SELECT i_UID FROM Users ";
+		$UserNumberQuery .= "WHERE vc_UserId = \"$txtUserNumber\"";
 
-			$UpdateUserQueryId = mysql_query ($ProfileQuery, $link);
-			$UserProfile = mysql_fetch_object($UpdateUserQueryId);
+		$UpdateUserQueryId = mysql_query ($ProfileQuery, $link);
+		$UserProfile = mysql_fetch_object($UpdateUserQueryId);
 
-			$UserNumberQueryId = mysql_query ($UserNumberQuery, $link);
-			$UserNumber = mysql_fetch_object($UserNumberQueryId);
+		$UserNumberQueryId = mysql_query ($UserNumberQuery, $link);
+		$UserNumber = mysql_fetch_object($UserNumberQueryId);
 
-			if( $UserProfile->i_UID > 0 )
-			{
-				echo ("Sorry, that username already exists.  Please pick another.<BR>");
-			}
-			else
-			{
-				if( $UserNumber->i_UID > 0 )
-				{
-					echo ("Sorry, that usernumber already exists.  Please pick another.<BR>");
+		if( $UserProfile->i_UID > 0 ) {
+			echo ("Sorry, that username already exists.  Please pick another.<BR>");
+		} else {
+			if( $UserNumber->i_UID > 0 ) {
+				echo ("Sorry, that usernumber already exists.  Please pick another.<BR>");
+			} else {
+				$ProfileQuery = "
+					INSERT INTO Users (
+						  vc_UserName
+						, vc_Email
+						, vc_URL
+						, dt_DateJoined
+						, dt_LastVisit
+						, vc_Password
+						, vc_UserId
+						, b_PublicEmail
+						, vc_GMTOffset
+					) VALUES (
+						  \"$txtUsername\"
+						, \"$txtEmail\"
+						, \"$txtURL\"
+						, NOW()
+						, NOW()
+						, md5(\"$txtPassword\")
+						, \"$txtUserNumber\"
+						, $iPublicEmail
+						, \"$txtGMTOffset\"
+					)";
+				$UpdateUserQueryId = mysql_query ($ProfileQuery, $link);
+
+				if( $UpdateUserQueryId ) {
+					echo "Saved!";
+				} else {
+					echo "Error:<br>".$ProfileQuery;
+					echo "<br>".mysql_errno().": ".mysql_error()."<BR>";
 				}
-				else
-				{
-					$ProfileQuery = "INSERT INTO Users ";
-					$ProfileQuery .= "	(vc_UserName, vc_Email, vc_URL, dt_DateJoined, dt_LastVisit, vc_Password, vc_UserId, b_PublicEmail, vc_GMTOffset) ";
-					$ProfileQuery .= "VALUES ";
-					$ProfileQuery .= "	(\"$txtUsername\", \"$txtEmail\", \"$txtURL\", NOW(), NOW(), md5(\"$txtPassword\"), \"$txtUserNumber\", $iPublicEmail, \"$txtGMTOffset\") ";
 
-					$UpdateUserQueryId = mysql_query ($ProfileQuery, $link);
-
-					if( $UpdateUserQueryId )
-					{
-						echo "Saved!";
-					}else
-					{
-						echo "Error:<br>".$ProfileQuery;
-						echo "<br>".mysql_errno().": ".mysql_error()."<BR>";
-					}
-
-					$ProfileQuery = "SELECT MAX(i_UID) i_UID FROM Users";
-					$UpdateUserQueryId = mysql_query ($ProfileQuery, $link);
-					if( $UpdateUserQueryId )
-					{
-						$UserProfile = mysql_fetch_object($UpdateUserQueryId);
-						$hdnUserId = $UserProfile->i_UID;
-					}else echo "User update/creation got fucked.  Bitch to Rob.";
+				$ProfileQuery = "SELECT MAX(i_UID) i_UID FROM Users";
+				$UpdateUserQueryId = mysql_query ($ProfileQuery, $link);
+				if( $UpdateUserQueryId ) {
+					$UserProfile = mysql_fetch_object($UpdateUserQueryId);
+					$hdnUserId = $UserProfile->i_UID;
+				} else {
+					echo "User update/creation got fucked.  Bitch to Rob.";
 				}
 			}
 		}
-	}else if ($hdnUserId > -1 && !Empty( $btnSubmit ) )
-	{
-	// Old User Updating Profile Data
-		if( $txtPassword != $txtVerifyPassword ) {
-			echo "Passwords Do Not Match!<BR>";
-		} else if( '' === $txtPassword || '' === $txtVerifyPassword ) {
-			echo 'You must enter your password to update your profile. Sorry.';
-		} else {
-			$ProfileQuery = "UPDATE Users  
-							set vc_Email = \"$txtEmail\", 
-							vc_Password =  md5(\"$txtPassword\"),
-							dt_LastVisit = NOW(),
-							vc_UserId = \"$txtUserNumber\",
-							b_PublicEmail = $iPublicEmail,
-							vc_GMTOffset = \"$txtGMTOffset\"
-							WHERE i_UID = $hdnUserId";
-
-			$UpdateUserQueryId = mysql_query ($ProfileQuery, $link);
-
-			// returning user editing profile
-			$PreferencesQuery = "SELECT i_PreferenceId, vc_PreferenceName";
-			$PreferencesQuery .= " FROM Preferences ORDER BY i_PreferenceId ASC";
-			$PreferencesResultsId = mysql_query ($PreferencesQuery, $link);
-	}	
-	}else
-	{
-		// returning user editing profile
-		$ProfileQuery = "SELECT vc_UserName, vc_Password, vc_Email, vc_URL, dt_DateJoined, dt_LastVisit, vc_UserId, i_ShareStyles, vc_GMTOffset ";
-		$ProfileQuery .= "FROM Users ";
-		$ProfileQuery .= "WHERE i_UID = $hdnUserId";
-
-		$ProfileResultsIdId = mysql_query ($ProfileQuery, $link);
-		$UserProfile = mysql_fetch_object($ProfileResultsIdId);
-
-		$txtUsername = $UserProfile->vc_UserName;
-		$txtPassword = $UserProfile->vc_Password;
-		$txtVerifyPassword = $UserProfile->vc_Password;
-		$txtEmail = $UserProfile->vc_Email;
-		$txtURL = $UserProfile->vc_URL;
-		$txtDateJoined = $UserProfile->dt_DateJoined;
-		$txtDateLastVisit = $UserProfile->dt_LastVisit;
-		$txtUserNumber = $UserProfile->vc_UserId;
-		$iShareStyles = $UserProfile->i_ShareStyles;
-		$txtGMTOffset = $UserProfile->vc_GMTOffset;
 	}
+} else if ($hdnUserId > -1 && !Empty( $btnSubmit ) ) {
+	// Old User Updating Profile Data
+	if( $txtPassword != $txtVerifyPassword ) {
+		echo "Passwords Do Not Match!<BR>";
+	} else if( '' === $txtPassword || '' === $txtVerifyPassword ) {
+		echo 'You must enter your password to update your profile. Sorry.';
+	} else {
+		$ProfileQuery = "UPDATE Users  
+						set vc_Email = \"$txtEmail\", 
+						vc_Password =  md5(\"$txtPassword\"),
+						dt_LastVisit = NOW(),
+						vc_UserId = \"$txtUserNumber\",
+						b_PublicEmail = $iPublicEmail,
+						vc_GMTOffset = \"$txtGMTOffset\"
+						WHERE i_UID = $hdnUserId";
+
+		$UpdateUserQueryId = mysql_query ($ProfileQuery, $link);
+
+		// returning user editing profile
+		$PreferencesQuery = "SELECT i_PreferenceId, vc_PreferenceName";
+		$PreferencesQuery .= " FROM Preferences ORDER BY i_PreferenceId ASC";
+		$PreferencesResultsId = mysql_query ($PreferencesQuery, $link);
+	}	
+} else {
+	// returning user editing profile
+	$ProfileQuery = "
+		SELECT vc_UserName
+			   , vc_Password
+			   , vc_Email
+			   , vc_URL
+			   , dt_DateJoined
+			   , dt_LastVisit
+			   , vc_UserId
+			   , i_ShareStyles
+			   , vc_GMTOffset
+		 FROM Users 
+		WHERE i_UID = {$hdnUserId}";
+
+	$ProfileResultsIdId = mysql_query ($ProfileQuery, $link);
+	$UserProfile = mysql_fetch_object($ProfileResultsIdId);
+
+	$txtUsername = $UserProfile->vc_UserName;
+	$txtPassword = $UserProfile->vc_Password;
+	$txtVerifyPassword = $UserProfile->vc_Password;
+	$txtEmail = $UserProfile->vc_Email;
+	$txtURL = $UserProfile->vc_URL;
+	$txtDateJoined = $UserProfile->dt_DateJoined;
+	$txtDateLastVisit = $UserProfile->dt_LastVisit;
+	$txtUserNumber = $UserProfile->vc_UserId;
+	$iShareStyles = $UserProfile->i_ShareStyles;
+	$txtGMTOffset = $UserProfile->vc_GMTOffset;
+}
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <HTML>

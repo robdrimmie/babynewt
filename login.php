@@ -26,11 +26,11 @@ if( ( !Empty( $_POST['userLoginSubmit'] ) ) || ( !Empty($_COOKIE['cookieUsername
 			$txtPassword = $_COOKIE['cookiePassword'];
 		}
 	}
-	$txtPassword = md5( $txtPassword );
+
 	$UserLoginQuery = "SELECT i_UID 
 						 FROM Users 
 						WHERE vc_Username=\"$txtUsername\" 
-						AND vc_Password = \"$txtPassword\""; 
+						AND vc_Password = md5( \"$txtPassword\" )"; 
 	$UserLoginResultId = mysql_query ($UserLoginQuery, $link);
 	$UserLoginResults = mysql_fetch_object($UserLoginResultId);
 
