@@ -82,7 +82,7 @@ $hdnUserId = -1;
 					$ProfileQuery = "INSERT INTO Users ";
 					$ProfileQuery .= "	(vc_UserName, vc_Email, vc_URL, dt_DateJoined, dt_LastVisit, vc_Password, vc_UserId, b_PublicEmail, vc_GMTOffset) ";
 					$ProfileQuery .= "VALUES ";
-					$ProfileQuery .= "	(\"$txtUsername\", \"$txtEmail\", \"$txtURL\", NOW(), NOW(), \"$txtPassword\", \"$txtUserNumber\", $iPublicEmail, \"$txtGMTOffset\") ";
+					$ProfileQuery .= "	(\"$txtUsername\", \"$txtEmail\", \"$txtURL\", NOW(), NOW(), md5(\"$txtPassword\"), \"$txtUserNumber\", $iPublicEmail, \"$txtGMTOffset\") ";
 
 					$UpdateUserQueryId = mysql_query ($ProfileQuery, $link);
 
@@ -108,14 +108,14 @@ $hdnUserId = -1;
 	}else if ($hdnUserId > -1 && !Empty( $btnSubmit ) )
 	{
 	// Old User Updating Profile Data
-		if( $txtPassword != $txtVerifyPassword )
-		{
+		if( $txtPassword != $txtVerifyPassword ) {
 			echo "Passwords Do Not Match!<BR>";
-		}else
-		{
+		} else if( '' === $txtPassword || '' === $txtVerifyPassword ) {
+			echo 'You must enter your password to update your profile. Sorry.';
+		} else {
 			$ProfileQuery = "UPDATE Users  
 							set vc_Email = \"$txtEmail\", 
-							vc_Password =  \"$txtPassword\",
+							vc_Password =  md5(\"$txtPassword\"),
 							dt_LastVisit = NOW(),
 							vc_UserId = \"$txtUserNumber\",
 							b_PublicEmail = $iPublicEmail,
@@ -198,7 +198,7 @@ value="<?PHP echo $txtUserNumber;?>" maxlength="500">
 			Password
 		</td>
 		<td>
-			<input type="password" name="txtPassword" value="<?PHP echo $txtPassword;?>" maxlength="20">
+			<input type="password" name="txtPassword" value="" maxlength="20">
 		</td>
 	</tr>
 	<tr>
@@ -206,7 +206,7 @@ value="<?PHP echo $txtUserNumber;?>" maxlength="500">
 			Verify Password
 		</td>
 		<td>
-			<input type="password" name="txtVerifyPassword" value="<?PHP echo $txtVerifyPassword;?>" maxlength="20">
+			<input type="password" name="txtVerifyPassword" value="" maxlength="20">
 		</td>
 	</tr>
 	<tr>
