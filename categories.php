@@ -12,11 +12,11 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head>
-<title><?php echo $siteTitle</title>
+<title><?php echo $siteTitle ?></title>
 <body>
 <?php
 	$sessionUserId = $_SESSION[ "sessionUserId" ];
-		
+
 	echo "<style>";
 	echo "DIV.bnLogo{ position: absolute; top: 2px; left: 10px; font-size: 42px; font-weight: bold; color: #CCCCCC;}";
 	echo "DIV.bnTagline{ position: absolute; top: 21px; left: 70px; font-size: 16px; font-weight: bold; color: black;}";
@@ -46,24 +46,37 @@
 
 	$TemplateID = $_REQUEST[ 'TemplateID' ];
 	if(Empty($TemplateID)){
-		$UserTemplateQuery = "SELECT i_TemplateID FROM UserTemplate WHERE UserTemplate.i_UID = $sessionUserId";
+		$UserTemplateQuery = "SELECT i_TemplateID 
+								FROM UserTemplate 
+							   WHERE UserTemplate.i_UID = $sessionUserId";
 		$TemplateResId = mysql_query ($UserTemplateQuery, $link);
 		$TemplateRes = mysql_fetch_object($TemplateResId);
 
 		if(!Empty($TemplateRes->i_TemplateID))
-			$TemplateQuery = "SELECT t_TemplateHdr, t_TemplateCmt, t_TemplateFtr FROM Template WHERE i_TemplateID = $TemplateRes->i_TemplateID";
+			$TemplateQuery = "SELECT t_TemplateHdr
+								   , t_TemplateCmt
+								   , t_TemplateFtr 
+								FROM Template 
+							   WHERE i_TemplateID = $TemplateRes->i_TemplateID";
 		else
-			$TemplateQuery = "SELECT t_TemplateHdr, t_TemplateCmt, t_TemplateFtr FROM Template WHERE i_TemplateID = 1";
+			$TemplateQuery = "SELECT t_TemplateHdr
+								   , t_TemplateCmt
+								   , t_TemplateFtr 
+								FROM Template 
+							   WHERE i_TemplateID = 1";
 	} else {
-		$TemplateQuery = "SELECT t_TemplateHdr, t_TemplateCmt, t_TemplateFtr FROM Template WHERE i_TemplateID = $TemplateID";
+		$TemplateQuery = "SELECT t_TemplateHdr
+							   , t_TemplateCmt
+							   , t_TemplateFtr 
+							FROM Template 
+						   WHERE i_TemplateID = $TemplateID";
 	}
 
-  $TemplateResId = mysql_query ($TemplateQuery, $link);
+	$TemplateResId = mysql_query ($TemplateQuery, $link);
 	$TemplateRes = mysql_fetch_object($TemplateResId);
 	$Comment = $TemplateRes->t_TemplateCmt;
 
-	while( $CategoryListResult = mysql_fetch_object($CategoryListResultId))
-	{
+	while( $CategoryListResult = mysql_fetch_object($CategoryListResultId)) {
 		$category_info = "Stylename:$CategoryListResult->vc_CSSName";
 		$category_info .= "<br />Description: $CategoryListResult->t_Description";
 
@@ -75,7 +88,7 @@
 		$tComment = str_replace("[\$CATNAMELINK\$]", $CategoryListResult->vc_Name, $tComment);
 		echo $tComment."\n";
 	}
-	echo "<BR>";
+	echo "<br />";
 	echo "<a href=\"index.php\" alt=\"return to front page\" title=\"return to front page\">";
 	echo "return to front page";
 	echo "</a>";

@@ -1,25 +1,20 @@
 <?php
 
 if( $_REQUEST[ 'btnExpireSession' ] == '1' ){
-		
-//	echo "<!-- break cookies -->";
+	// break cookies
 	setcookie( "cookieUsername", FALSE, mktime(0,0,0,12,1,2015));
 	setcookie( "cookiePassword", FALSE, mktime(0,0,0,12,1,1999));			
 	$_SESSION[ 'sessionUserId' ] = -1;
 	header( "Location: main.php");
 }
 
-if( ( !Empty( $_POST['userLoginSubmit'] ) ) || ( !Empty($_COOKIE['cookieUsername']) && !Empty($_COOKIE['cookiePassword']) ) )
-{
-	
-	
+if( ( !Empty( $_POST['userLoginSubmit'] ) ) || ( !Empty($_COOKIE['cookieUsername']) && !Empty($_COOKIE['cookiePassword']) ) ) {
 	$txtUsername = $_POST['txtUsername'];
 	$txtPassword = $_POST['txtPassword'];
 
 	if( Empty( $_POST['btnExpireSession'] ) )
 	{
-		// don't fetch the cookie information if 
-		// the user logs out.
+		// don't fetch the cookie information if the user logs out.
 		if( !Empty($_COOKIE['cookieUsername']) && !Empty($_COOKIE['cookiePassword']))
 		{
 			$txtUsername = $_COOKIE['cookieUsername'];

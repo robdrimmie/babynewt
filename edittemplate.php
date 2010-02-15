@@ -1,23 +1,22 @@
-<?PHP
+<?php
 	include("session.php");
 	include("include.php");
-
-  // establish connection to MySQL database or output error message.
+	// establish connection to MySQL database or output error message.
 	$link = mysql_connect ($dbHost, $dbUser, $dbPassword);
 	if (!mysql_select_db($dbName, $link)) echo mysql_errno().": ".mysql_error()."<BR>";
 
 	$sessionUserId = $_SESSION[ 'sessionUserId' ];
-	
-	if( Empty( $sessionUserId )) $sessionUserId = -
-	;
+
+	if( Empty( $sessionUserId )) $sessionUserId = -;
 	$hdnUserId = $sessionUserId;
 
 
 	$selTemplate = $_REQUEST[ 'selTemplate' ];
 	if( Empty( $selTemplate ) ) {
 		// get current template from db
-		$CurTemplateSQL = "SELECT i_TemplateId FROM UserTemplate
-					WHERE i_UID = $sessionUserId";
+		$CurTemplateSQL = "SELECT i_TemplateId 
+							 FROM UserTemplate
+							WHERE i_UID = $sessionUserId";
 
 		$CurTemplateSQLId = mysql_query( $CurTemplateSQL );
 
@@ -29,9 +28,9 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 	<head>
-<?php
-	echo "<title>$siteTitle - Edit Your Template</title>";
-?>
+	<?php
+		echo "<title>$siteTitle - Edit Your Template</title>";
+	?>
 	</head>
 	<body>
 	<a href="main.php">return to index</a> |
@@ -59,7 +58,7 @@
 		if ( $chkTemplatePublic == "on" ) 
 			$iTemplatePublic = 1;
 
-		if( $hdnTemplateId == -1 ){
+	 	if( $hdnTemplateId == -1 ) {
 			$InsTemplateQuery = "INSERT INTO Template VALUES (0 , \"$txtHeader\", \"$txtComment\", \"$txtFooter\", $hdnUserId, $iTemplatePublic, \"$txtTemplateName\")";
 			$InsTemplateQueryId = mysql_query( $InsTemplateQuery );
 		}
@@ -81,10 +80,11 @@
 	}
 
 	//	get a drop-down of all the users templates.
-	$TemplateQuery = "SELECT i_TemplateID, vc_TemplateName 
-										FROM Template 
-										WHERE i_UID = $hdnUserId
-										ORDER BY i_TemplateID";
+	$TemplateQuery = "SELECT i_TemplateID
+						   , vc_TemplateName 
+						FROM Template 
+					   WHERE i_UID = $hdnUserId
+					ORDER BY i_TemplateID";
 	$TemplateQueryId = mysql_query ($TemplateQuery, $link);
 
 	echo "<form name=\"frmSelection\" action=\"EditTemplate.php\" method=\"post\">\n";
