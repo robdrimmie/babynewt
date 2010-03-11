@@ -21,10 +21,7 @@
 
 	$sessionUserId = $_SESSION['sessionUserId'];
 
-	$txtPageSize = $_REQUEST[ 'txtPageSize' ];
-
-	// Default page to show 50 comments
-	if (Empty( $txtPageSize )) $txtPageSize = 50;
+	$txtPageSize = array_key_exists( 'txtPageSize', $_REQUEST) ? $_REQUEST[ 'txtPageSize' ] : 50;
 	if( $txtPageSize > 500 ) $txtPageSize = 500;
 
 	$MyLastCommentQuery = "SELECT i_CommentId FROM Users WHERE Users.i_UID = $sessionUserId";
@@ -35,8 +32,8 @@
 	$MaxCmtResId = mysql_query ($MaxCmtQuery, $link);
 	$MaxCmtRes = mysql_fetch_object($MaxCmtResId);
 	// Start at the first comment if there's none already set in the database.
-	$hdnCurrentRecord = $_REQUEST[ 'hdnCurrentRecord' ];
-	if( Empty( $hdnCurrentRecord ) && !Empty( $MyLastCommentResult->i_CommentId )){
+	$hdnCurrentRecord = array_key_exists( 'hdnCurrentRecord', $_REQUEST ) ? $_REQUEST[ 'hdnCurrentRecord' ] : '';
+	if( ('' === $hdnCurrentRecord ) && !Empty( $MyLastCommentResult->i_CommentId )){
 		$hdnCurrentRecord = $MyLastCommentResult->i_CommentId;
 	}else if( Empty($hdnCurrentRecord) ){
 		$hdnCurrentRecord = 0;
@@ -50,10 +47,10 @@
 	}
 
 	// increment or decrement by page size.
-	$btnNextPage = $_REQUEST[ 'btnNextPage' ];
-	$btnPrevPage = $_REQUEST[ 'btnPrevPage' ];
-	if (!Empty( $btnNextPage )) $hdnCurrentRecord += $txtPageSize;
-	if (!Empty( $btnPrevPage )) $hdnCurrentRecord -= $txtPageSize;
+	$btnNextPage = array_key_exists( 'btnNextPage', $_REQUEST ) ? $_REQUEST[ 'btnNextPage' ] : null;
+	$btnPrevPage = array_key_exists( 'btnNextPage', $_REQUEST ) ? $_REQUEST[ 'btnPrevPage' ] : null;
+	if ( null !== $btnNextPage ) $hdnCurrentRecord += $txtPageSize;
+	if ( null !== $btnPrevPage ) $hdnCurrentRecord -= $txtPageSize;
 
 
 	if( $hdnCurrentRecord < 1450000 ) {
@@ -125,8 +122,8 @@
 	// comment before it was pressed.
 	//	Previous comment because CommentsQuery starts at that id and mySQL apparently
 	//	starts array-type things at 1, rather than 0.
-	$btnUpdateMyLastComment = $_REQUEST[ 'btnUpdateMyLastComment' ];
-	if (!Empty( $btnUpdateMyLastComment )){
+	$btnUpdateMyLastComment = array_key_exists( 'btnUpdateMyLastComment', $_REQUEST ) ? $_REQUEST[ 'btnUpdateMyLastComment' ] : null;
+	if ( null !== $btnUpdateMyLastComment ) {
 //		if( $btnUpdateMyLastComment > 1 ) $btnUpdateMyLastComment -= 1;
 		$UpdateMyLastCommentQuery = "UPDATE Users SET i_CommentId = $btnUpdateMyLastComment WHERE Users.i_UID = $sessionUserId";
 
@@ -136,8 +133,8 @@
 
 	// Get the user select template
 	// Added Outer If/Else structure for $TemplateID
-	$TemplateID = $_REQUEST[ 'TemplateID' ];
-	if(Empty($TemplateID)){
+	$TemplateID = array_key_exists( 'TemplateID', $_REQUEST ) ? $_REQUEST[ 'TemplateID' ] : null;
+	if( null === $TemplateID ) {
 		$UserTemplateQuery = "SELECT i_TemplateID FROM UserTemplate WHERE UserTemplate.i_UID = $sessionUserId";
 		$TemplateResId = mysql_query ($UserTemplateQuery, $link);
 		$TemplateRes = mysql_fetch_object($TemplateResId);
@@ -161,6 +158,7 @@
 	$TaglineResId = mysql_query ($TaglineQuery, $link);
 	$TaglineRes = mysql_fetch_object($TaglineResId);
 
+	if( null === $TaglineRes->i_TaglineId ) $TaglineRes->i_TaglineId = 1;
 	$TaglineId = (rand()%$TaglineRes->i_TaglineId) + 1;
 
 	// Add the taglines
@@ -174,6 +172,8 @@
 			i_TaglinePrefixId FROM TaglinePrefix";
 	$TaglinePrefixResId = mysql_query ($TaglinePrefixQuery, $link);
 	$TaglinePrefixRes = mysql_fetch_object($TaglinePrefixResId);
+	
+	if( null === $TaglinePrefixRes->i_TaglinePrefixId ) $TaglinePrefixRes->i_TaglinePrefixId = 1;
 	$TaglinePrefixId = (rand()%$TaglinePrefixRes->i_TaglinePrefixId) + 1;
 	$TaglinePrefixQuery = "SELECT vc_TaglinePrefix,  
                                 vc_TaglineSuffix
@@ -181,60 +181,69 @@
 				WHERE i_TaglinePrefixId = $TaglinePrefixId";
 	$TaglinePrefixResId = mysql_query ($TaglinePrefixQuery, $link);
 	$TaglinePrefixRes = mysql_fetch_object($TaglinePrefixResId);
+	
+	$strTagline = '';
+	if( $TaglinePrefixRes ) {
+		  /***
+		   *  Tagline scheme - prefix, suffix, rand keyword
+		   *
+		   *  table stores prefix and suffix, retrieve both, apply both.
+		   *  string may contain indicator for random number generation in
+		   *  the following pattern:
+		   *    $RANDx.y*z$
+		   *    $RAND  - start indicator
+		   *    a  - lowest allowable number (positive integer)
+		   *    .  - delimiter
+		   *    b  - highest allowable number (positive integer)
+		   *    *  - delimiter
+		   *    z  - multiplier.
+		   */
+		  $strTagline = stripslashes( $TaglinePrefixRes->vc_TaglinePrefix )
+		                   .
+		                 $strTagline.$TaglineRes->vc_Tagline
+		                   .
+		                 stripslashes( $TaglinePrefixRes->vc_TaglineSuffix ); 
+	}
+	
+	$rand_start = strpos(  $strTagline, "\$RAND" );
+	while( $rand_start ) {
+		$rand_end = strpos( $strTagline, "\$", $rand_start + 1 );
+		$dot_pos = strpos( $strTagline, ".", $rand_start + 1);
+		$ast_pos = strpos( $strTagline, "*", $dot_pos + 1 );
+		
+		$low_post = substr( $strTagline, $rand_start + 5, $dot_pos - ($rand_start + 5) );
+		$high_post = substr( $strTagline, $dot_pos + 1, $ast_pos - ($dot_pos + 1 ) );
+		$multiplier = substr( $strTagline, $ast_pos + 1, $rand_end - ($ast_pos + 1 ) );
+		
+		$number = ((rand()%($high_post - $low_post)) + $low_post) * $multiplier;
+		
+		$to_replace = "\$RAND$low_post.$high_post*$multiplier\$";
+		
+		$strTagline = str_replace( $to_replace, $number, $strTagline );
+		$rand_start = strpos(  $strTagline, "\$RAND" );
+ 	}
 
-  /***
-   *  Tagline scheme - prefix, suffix, rand keyword
-   *
-   *  table stores prefix and suffix, retrieve both, apply both.
-   *  string may contain indicator for random number generation in
-   *  the following pattern:
-   *    $RANDx.y*z$
-   *    $RAND  - start indicator
-   *    a  - lowest allowable number (positive integer)
-   *    .  - delimiter
-   *    b  - highest allowable number (positive integer)
-   *    *  - delimiter
-   *    z  - multiplier.
-   */
-  $strTagline = stripslashes( $TaglinePrefixRes->vc_TaglinePrefix )
-                   .
-                 $strTagline.$TaglineRes->vc_Tagline
-                   .
-                 stripslashes( $TaglinePrefixRes->vc_TaglineSuffix ); 
-  $rand_start = strpos(  $strTagline, "\$RAND" );
-  while( $rand_start )
-  {
-    $rand_end = strpos( $strTagline, "\$", $rand_start + 1 );
-    $dot_pos = strpos( $strTagline, ".", $rand_start + 1);
-    $ast_pos = strpos( $strTagline, "*", $dot_pos + 1 );
-    
-    $low_post = substr( $strTagline, $rand_start + 5, $dot_pos - ($rand_start + 5) );
-    $high_post = substr( $strTagline, $dot_pos + 1, $ast_pos - ($dot_pos + 1 ) );
-    $multiplier = substr( $strTagline, $ast_pos + 1, $rand_end - ($ast_pos + 1 ) );
-
-    $number = ((rand()%($high_post - $low_post)) + $low_post) * $multiplier;
-
-    $to_replace = "\$RAND$low_post.$high_post*$multiplier\$";
-
-    $strTagline = str_replace( $to_replace, $number, $strTagline );
-    $rand_start = strpos(  $strTagline, "\$RAND" );
-  }
-
-
-	$Header = str_replace("[\$TAGLINE\$]", 
-		$strTagline, 
-		$TemplateRes->t_TemplateHdr);
-	$Comment = str_replace("[\$TAGLINE\$]", 
-		$strTagline, 
-		$TemplateRes->t_TemplateCmt);
-	$Footer = str_replace("[\$TAGLINE\$]", 
-		$strTagline, 
-		$TemplateRes->t_TemplateFtr);
-
-	if( !Empty( $_REQUEST[ 'StyleSheet' ] ) ){
+	if( $TemplateRes ) {
+		$Header = str_replace("[\$TAGLINE\$]", 
+			$strTagline, 
+			$TemplateRes->t_TemplateHdr);
+		$Comment = str_replace("[\$TAGLINE\$]", 
+			$strTagline, 
+			$TemplateRes->t_TemplateCmt);
+		$Footer = str_replace("[\$TAGLINE\$]", 
+			$strTagline, 
+			$TemplateRes->t_TemplateFtr);
+	} else {
+		$Header = '[Header] No Templates exist.';
+		$Comment = '[Comment] No Templates exist.';
+		$Footer = '[Footer] No Templates exist.';
+	}
+	
+	$userStyle = array_key_exists( 'StyleSheet', $_REQUEST ) ? $_REQUEST[ 'StyleSheet' ] : null;
+	if( null !== $userStyle ){
 		$UserStyleQuery = "SELECT t_StyleSheet 
-											FROM DBStyleSheet 
-											WHERE DBStyleSheet.i_StyleSheetId = ".$_REQUEST[ 'StyleSheet' ];
+			 				 FROM DBStyleSheet 
+							WHERE DBStyleSheet.i_StyleSheetId = " . $userStyle;
 	} else {
 		// Add the stylesheet
 		$UserStyleQuery = "SELECT t_StyleSheet 
@@ -260,7 +269,9 @@
 
 	$ssheet = "<style>";
 	$ssheet .= "@import url(/essl.css);";
-	$ssheet .= "\n$StyleRes->t_StyleSheet\n";
+	if( $StyleRes ) {
+		$ssheet .= "\n$StyleRes->t_StyleSheet\n";
+	}
 	$ssheet .= "\n</style>";
 
 	$Header = str_replace("[\$STYLESHEET\$]", $ssheet, $Header);
@@ -336,14 +347,14 @@
 		$GMTOffset = $GMTOffsetResult->vc_GMTOffset;
 	}
 
-  if( date("H") + $GMTOffset < 0 )
-  {
-    $relative_day = date("d") -1;
-  } else {
-    $relative_day = date("d");
-  }
+	date_default_timezone_set('America/New_York');
+	if( date("H") + $GMTOffset < 0 ) {
+		$relative_day = date("d") -1;
+	} else {
+		$relative_day = date("d");
+	}
 
-	$relative_timestamp = mktime(date("H") + $GMTOffset, date("i"), date(s), date("m"),  date("d"),  date("Y"));
+	$relative_timestamp = mktime(date("H") + $GMTOffset, date("i"), date('s'), date("m"),  date("d"),  date("Y"));
 
 	// Date
 	$Date = date("m.d.y", $relative_timestamp);
@@ -358,7 +369,7 @@
 	$Footer = str_replace("[\$CURTIME\$]", $Time, $Footer);
 
 	// Bug Report Code
-	$BRScrStr = "function openpopup(){\nvar popurl=\"BugReport.php?Usr=$sessionUserId&CurRec=$hdnCurrentRecord&PgSz=$txtPageSize&VP=$ViewPost&bNP=$btnNextPage&bPP=$btnPrevPage&bULC=$btnUpdateMyLastComment\"\n winpops=window.open(popurl,\"BugReport\", \"width=400, height=338, scrollbars, resizable,\") \n}";
+	$BRScrStr = "function openpopup(){\nvar popurl=\"BugReport.php?Usr=$sessionUserId&CurRec=$hdnCurrentRecord&PgSz=$txtPageSize&VP=$hdnCurrentRecord&bNP=$btnNextPage&bPP=$btnPrevPage&bULC=$btnUpdateMyLastComment\"\n winpops=window.open(popurl,\"BugReport\", \"width=400, height=338, scrollbars, resizable,\") \n}";
 	$Header = str_replace("[\$BUGREPORTSCRIPT\$]", $BRScrStr, $Header);
 	$Comment = str_replace("[\$BUGREPORTSCRIPT\$]", $BRScrStr, $Comment);
 	$Footer = str_replace("[\$BUGREPORTSCRIPT\$]", $BRScrStr, $Footer);
@@ -418,7 +429,7 @@
 		$PostersSuffix = substr($SufStmp, 16, $SufSE-16);
 	}
 
-	if(ereg("[\$15POSTERS\$]", $Header) || ereg("[\$15POSTERS\$]", $Footer)){
+	if(preg_match("[\$15POSTERS\$]", $Header) || preg_match("[\$15POSTERS\$]", $Footer)){
 		$PosterQuery = "SELECT Users.vc_Username
 										FROM Users
 										WHERE ( NOW() - Users.dt_LastPosted ) < 900
@@ -452,7 +463,7 @@
 		$VisitorSuffix = substr($SufStmp, 17, $SufSE-17);
 	}
 
-	if(ereg("[\$15LURKERS\$]", $Header) || ereg("[\$15LURKERS\$]", $Footer)){
+	if(preg_match("[\$15LURKERS\$]", $Header) || preg_match("[\$15LURKERS\$]", $Footer)){
 		$PosterQuery = " SELECT  Users.vc_Username FROM Users WHERE DATE_ADD(dt_LastVisit, INTERVAL 15 MINUTE) > now() ORDER BY Users.dt_LastVisit DESC";
 		// Get the posters
 		$PosterResultId = mysql_query ($PosterQuery, $link);
