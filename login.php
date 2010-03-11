@@ -1,6 +1,7 @@
 <?php
 
-if( $_REQUEST[ 'btnExpireSession' ] == '1' ){
+if( array_key_exists( 'btnExpireSession', $_REQUEST )
+	&& $expireSession == '1' ){
 	// break cookies
 	setcookie( "cookieUsername", FALSE, mktime(0,0,0,12,1,2015));
 	setcookie( "cookiePassword", FALSE, mktime(0,0,0,12,1,1999));			

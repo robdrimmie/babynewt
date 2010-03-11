@@ -19,7 +19,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head>
-<title><?php echo $siteTitle</title>
+<title><?php echo $siteTitle ?></title>
 </head>
 <body style="text-align:justify;margin-left:20px;margin-top:20px;">
 <div style="width:300px;">

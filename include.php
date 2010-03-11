@@ -1,9 +1,9 @@
 <?Php
 // Database parameters
-$dbHost = "[database hostname]";
-$dbUser = "[database username]";
-$dbPassword = "[database password]";
-$dbName = "[database name]";
+$dbHost = "127.0.0.1";
+$dbUser = "root";
+$dbPassword = "";
+$dbName = "babynewt";
 
 // Tagline Parameters
 $taglinePrefix = "baby newt:";

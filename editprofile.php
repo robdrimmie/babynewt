@@ -6,20 +6,29 @@ include("include.php");
 $link = mysql_connect ($dbHost, $dbUser, $dbPassword);
 if (!mysql_select_db($dbName, $link)) echo mysql_errno().": ".mysql_error()."<BR>";
 
-$hdnUserId = $_REQUEST[ 'hdnUserId' ];
-$btnSubmit = $_REQUEST[ 'btnSubmit' ];
-$txtPassword = $_REQUEST[ 'txtPassword' ];
-$txtVerifyPassword = $_REQUEST[ 'txtVerifyPassword' ];
-$txtUsername = $_REQUEST[ 'txtUsername' ];
-$txtUserNumber = $_REQUEST[ 'txtUserNumber' ];
-$txtEmail = $_REQUEST[ 'txtEmail' ];
-$txtURL = $_REQUEST[ 'txtURL' ];
-$txtGMTOffset = $_REQUEST[ 'txtGMTOffset' ];
+$properties = array(
+	'hdnUserId'
+	, 'btnSubmit'
+	, 'txtPassword'
+	, 'txtVerifyPassword'
+	, 'txtUsername'
+	, 'txtUserNumber'
+	, 'txtEmail'
+	, 'txtURL'
+	, 'txtGMTOffset'
+	, 'txtDateJoined'
+	, 'txtDateLastVisit'
+	, 'chkPublicEmail'
+);
+
+foreach( $properties as $property ) {
+	$$property = array_key_exists( $property, $_REQUEST ) ? $_REQUEST[ $property ] : '';
+}
+
 $sessionUserId = $_SESSION[ 'sessionUserId' ];
 if( Empty( $sessionUserId )) $sessionUserId = -1;
 $hdnUserId = $sessionUserId;
 
-$chkPublicEmail = $_REQUEST[ 'chkPublicEmail' ];
 if( $chkPublicEmail == "on" ) {
 	$sPublicEmail = " checked ";
 	$iPublicEmail = 1;
@@ -60,10 +69,10 @@ if( Empty( $hdnUserId ) || ( $hdnUserId == -1  && Empty( $btnSubmit )) ) {
 		$UserNumberQueryId = mysql_query ($UserNumberQuery, $link);
 		$UserNumber = mysql_fetch_object($UserNumberQueryId);
 
-		if( $UserProfile->i_UID > 0 ) {
+		if( $UserProfile && $UserProfile->i_UID > 0 ) {
 			echo ("Sorry, that username already exists.  Please pick another.<BR>");
 		} else {
-			if( $UserNumber->i_UID > 0 ) {
+			if( $UserNumber && $UserNumber->i_UID > 0 ) {
 				echo ("Sorry, that usernumber already exists.  Please pick another.<BR>");
 			} else {
 				$ProfileQuery = "
