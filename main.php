@@ -52,7 +52,7 @@
 	if ( null !== $btnNextPage ) $hdnCurrentRecord += $txtPageSize;
 	if ( null !== $btnPrevPage ) $hdnCurrentRecord -= $txtPageSize;
 
-
+	/* Hiding archive behaviour for now.
 	if( $hdnCurrentRecord < 1450000 ) {
 		if( $hdnCurrentRecord < 50000 ) {
 			$CommentTable = "CommentArchive1";
@@ -114,6 +114,8 @@
 			$CommentTable = "CommentArchive29";
 		}
 	}
+	*/
+	
 	// Make the viewport local
 	if ($hdnCurrentRecord > $MaxCmtRes->MaxCmt) $hdnCurrentRecord = $MaxCmtRes->MaxCmt - 5;
 	if ($hdnCurrentRecord < 0) 	$hdnCurrentRecord = 0;
@@ -505,7 +507,7 @@
 			Users.vc_UserId, 
 			Category.vc_Name, 
 			Category.vc_CSSName 
-	FROM	$CommentTable USE INDEX(PRIMARY), 
+	FROM	$CommentTable, 
 			Users, 
 			Category 
 	WHERE	Users.i_UID = $CommentTable.i_UID 
