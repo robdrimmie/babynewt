@@ -1,7 +1,6 @@
 <?php
 
-class Comment extends Model
-{
+class Comment extends Model {
     protected $_mostRecent;
 
     public function mostRecent() {
