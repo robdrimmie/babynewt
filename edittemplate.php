@@ -199,7 +199,7 @@
                 $templateCmt = '';
                 $templateFtr = '';
             }
-            echo "<H3>$templateName</H3> Public Template";
+            echo "<h3>$templateName</h3> Public Template";
             // fill the textarea with selected style
             // load the db values
             echo "Name: <input type=\"input\" name=\"txtTemplateName\" value = \"$templateName\">";
