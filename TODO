@@ -1,4 +1,6 @@
-* better configuration system. Probably a singleton Site class or something.
+* Better configuration system. Probably a singleton Site class or something.
 
 Database.php:
-	* This file ultimately should be an abstract, with implementations for each supported db type. But since only mysql is currently supported, that is no biggie.
+    * This file ultimately should be an abstract, with implementations for
+      each supported db type. But since only mysql is currently supported,
+      that is no biggie.
