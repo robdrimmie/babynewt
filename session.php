@@ -3,7 +3,8 @@
 $cookie_path = "/";
 
 // timeout value for the cookie
-$cookie_timeout = 7200; //2 hours in seconds
+// (7200 == 2 hours in seconds)
+$cookie_timeout = 7200;
 
 // timeout value for the garbage collector
 //   we add 300 seconds, just in case the user's computer clock
