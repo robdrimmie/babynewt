@@ -82,7 +82,7 @@
     $TemplateRes = mysql_fetch_object($TemplateResId);
     $Comment = $TemplateRes->t_TemplateCmt;
 
-    while( $CategoryListResult = mysql_fetch_object($CategoryListResultId)) {
+    while ( $CategoryListResult = mysql_fetch_object($CategoryListResultId)) {
         $category_info = "Stylename:$CategoryListResult->vc_CSSName";
         $category_info .= "<br />Description: $CategoryListResult->t_Description";
 
