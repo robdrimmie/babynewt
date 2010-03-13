@@ -1,6 +1,6 @@
 <?php
-include( "session.php" );
-include( "include.php" );
+include("session.php");
+include("include.php");
 
 // if user is not logged in, show message and login inputs
 if ( $_SESSION[ "sessionUserId" ] == -1 ) {
