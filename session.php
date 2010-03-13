@@ -20,15 +20,15 @@ session_set_cookie_params($cookie_timeout, $cookie_path);
 ini_set('session.gc_maxlifetime', $garbage_timeout);
 
 
-	session_start();
+    session_start();
 /*
-	if( $_SESSION['sessionLastVisit'] < (time()- 8100000) ) // 810000 = 15 minutes
-	{
-//		session_destroy();
-	}else
-	{
-		$_SESSION['sessionLastVisit'] = time();
-	}
-//	if( !Empty( $btnExpireSession ) ) session_destroy();
+    if( $_SESSION['sessionLastVisit'] < (time()- 8100000) ) // 810000 = 15 minutes
+    {
+//      session_destroy();
+    }else
+    {
+        $_SESSION['sessionLastVisit'] = time();
+    }
+//  if( !Empty( $btnExpireSession ) ) session_destroy();
 */
 ?>
