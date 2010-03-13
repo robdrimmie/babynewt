@@ -111,7 +111,9 @@
             if (!Empty($UInfRes->COUNTER)) {
                 echo "<hr>$UInfRes->COUNTER Results in $strCommentRange <BR>"; $Total += $UInfRes->COUNTER;
             }
-            else echo "<hr />0 Results in $strCommentRange<br />";
+            else {
+                echo "<hr />0 Results in $strCommentRange<br />";
+            }
             $UInfId2 = mysql_query ($Q2, $link);
             while ($UInfRes = mysql_fetch_object($UInfId2)) {
                 echo "<a href=\"../main.php?ViewPost=$UInfRes->LABELLER\">p$UInfRes->LABELLER</A> | ";
@@ -170,7 +172,7 @@
     }
 ?>
 </span><br /><br />
-<?Php
+<?php
     echo "$Total Total Results Found";
 ?>
 <br />
