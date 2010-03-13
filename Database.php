@@ -1,7 +1,6 @@
 <?php
 
-class Database
-{
+class Database {
     protected $_name;
     protected $_user;
     protected $_password;
@@ -16,17 +15,17 @@ class Database
 
         $this->_conn = null;
 
-        if( $connect ) {
+        if ( $connect ) {
             $this->getConnection();
         }
     }
 
 
     protected function _connect() {
-        if( null === $this->_conn ) {
+        if ( null === $this->_conn ) {
             $this->_conn = mysql_connect( $this->_host, $this->_user, $this->_password );
 
-            if( !mysql_select_db( $this->_name, $this->_conn ) ) {
+            if ( !mysql_select_db( $this->_name, $this->_conn ) ) {
                 throw new Exception( 'Unable to select database: [' . mysql_errno() . ']' . mysql_error() );
             }
         }
@@ -45,18 +44,15 @@ class Database
      */
     public static function sql_quote( $value ) {
 
-      if( get_magic_quotes_gpc() )
-      {
+      if ( get_magic_quotes_gpc() ) {
         $value = stripslashes( $value );
       }
       //check if this function exists
-      if( function_exists( "mysql_real_escape_string" ) )
-      {
+      if ( function_exists( "mysql_real_escape_string" ) ) {
         $value = mysql_real_escape_string( $value );
       }
       //for PHP version < 4.3.0 use addslashes
-      else
-      {
+      else {
         $value = addslashes( $value );
       }
       return $value;

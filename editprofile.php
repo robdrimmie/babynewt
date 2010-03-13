@@ -4,7 +4,7 @@ include("include.php");
 
 // establish connection to MySQL database or output error message.
 $link = mysql_connect ($dbHost, $dbUser, $dbPassword);
-if (!mysql_select_db($dbName, $link)) echo mysql_errno().": ".mysql_error()."<BR>";
+if (!mysql_select_db($dbName, $link)) echo mysql_errno().": ".mysql_error()."<br>";
 
 $properties = array(
     'hdnUserId'
@@ -29,15 +29,16 @@ $sessionUserId = $_SESSION[ 'sessionUserId' ];
 if( Empty( $sessionUserId )) $sessionUserId = -1;
 $hdnUserId = $sessionUserId;
 
-if( $chkPublicEmail == "on" ) {
+if ( $chkPublicEmail == "on" ) {
     $sPublicEmail = " checked ";
     $iPublicEmail = 1;
-} else {
+}
+else {
     $sPublicEmail = "";
     $iPublicEmail = 0;
 }
 
-if( Empty( $hdnUserId ) || ( $hdnUserId == -1  && Empty( $btnSubmit )) ) {
+if ( Empty( $hdnUserId ) || ( $hdnUserId == -1  && Empty( $btnSubmit )) ) {
     // New User Entering Profile Data, load values with empty info.
     $hdnUserId = -1;
     $txtUsername = "";
@@ -50,11 +51,13 @@ if( Empty( $hdnUserId ) || ( $hdnUserId == -1  && Empty( $btnSubmit )) ) {
     $txtUserNumber = "";
     $txtGMTOffset = "0";
     $sPublicEmail = "";
-} else if ($hdnUserId == -1 && !Empty( $btnSubmit ) ) {
+}
+else if ($hdnUserId == -1 && !Empty( $btnSubmit ) ) {
     // New User Saving Profile Data.
-    if( $txtPassword != $txtVerifyPassword ) {
+    if ( $txtPassword != $txtVerifyPassword ) {
         echo "Passwords do not match, please try again.<br />";
-    } else {
+    }
+    else {
         // Check for an existing user with that username.
         $ProfileQuery = "SELECT i_UID FROM Users ";
         $ProfileQuery .= "WHERE vc_Username = \"$txtUsername\"";
@@ -71,10 +74,12 @@ if( Empty( $hdnUserId ) || ( $hdnUserId == -1  && Empty( $btnSubmit )) ) {
 
         if( $UserProfile && $UserProfile->i_UID > 0 ) {
             echo ("Sorry, that username already exists.  Please pick another.<BR>");
-        } else {
-            if( $UserNumber && $UserNumber->i_UID > 0 ) {
+        }
+        else {
+            if ( $UserNumber && $UserNumber->i_UID > 0 ) {
                 echo ("Sorry, that usernumber already exists.  Please pick another.<BR>");
-            } else {
+            }
+            else {
                 $ProfileQuery = "
                     INSERT INTO Users (
                           vc_UserName
@@ -99,31 +104,36 @@ if( Empty( $hdnUserId ) || ( $hdnUserId == -1  && Empty( $btnSubmit )) ) {
                     )";
                 $UpdateUserQueryId = mysql_query ($ProfileQuery, $link);
 
-                if( $UpdateUserQueryId ) {
+                if ( $UpdateUserQueryId ) {
                     echo "Saved!";
-                } else {
+                }
+                else {
                     echo "Error:<br>".$ProfileQuery;
                     echo "<br>".mysql_errno().": ".mysql_error()."<BR>";
                 }
 
                 $ProfileQuery = "SELECT MAX(i_UID) i_UID FROM Users";
                 $UpdateUserQueryId = mysql_query ($ProfileQuery, $link);
-                if( $UpdateUserQueryId ) {
+                if ( $UpdateUserQueryId ) {
                     $UserProfile = mysql_fetch_object($UpdateUserQueryId);
                     $hdnUserId = $UserProfile->i_UID;
-                } else {
+                }
+                else {
                     echo "User update/creation got fucked.  Bitch to Rob.";
                 }
             }
         }
     }
-} else if ($hdnUserId > -1 && !Empty( $btnSubmit ) ) {
+}
+else if ($hdnUserId > -1 && !Empty( $btnSubmit ) ) {
     // Old User Updating Profile Data
     if( $txtPassword != $txtVerifyPassword ) {
         echo "Passwords Do Not Match!<BR>";
-    } else if( '' === $txtPassword || '' === $txtVerifyPassword ) {
+    }
+    else if( '' === $txtPassword || '' === $txtVerifyPassword ) {
         echo 'You must enter your password to update your profile. Sorry.';
-    } else {
+    }
+    else {
         $ProfileQuery = "UPDATE Users
                         set vc_Email = \"$txtEmail\",
                         vc_Password =  md5(\"$txtPassword\"),
@@ -140,7 +150,8 @@ if( Empty( $hdnUserId ) || ( $hdnUserId == -1  && Empty( $btnSubmit )) ) {
         $PreferencesQuery .= " FROM Preferences ORDER BY i_PreferenceId ASC";
         $PreferencesResultsId = mysql_query ($PreferencesQuery, $link);
     }
-} else {
+}
+else {
     // returning user editing profile
     $ProfileQuery = "
         SELECT vc_UserName
@@ -171,32 +182,29 @@ if( Empty( $hdnUserId ) || ( $hdnUserId == -1  && Empty( $btnSubmit )) ) {
 }
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<HTML>
-<HEAD>
-<TITLE><?php echo $siteTitle ?> - Edit Your Profile</TITLE>
-</HEAD>
-<BODY>
+<html>
+<head>
+<title><?php echo $siteTitle ?> - Edit Your Profile</title>
+</head>
+<body>
 <a href="index.php">return to index</A>
-<FORM NAME="UserProfileForm" ACTION="editprofile.php" METHOD="post">
-<TABLE>
+<form name="UserProfileForm" action="editprofile.php" method="post">
+<table>
     <tr>
-        <TD>
+        <td>
             UserName
         </td>
         <td>
             <input type="hidden" name="hdnUserId" value="<?PHP echo $hdnUserId;?>">
             <?php
-
-                if( $hdnUserId == -1 )
-                {
+                if( $hdnUserId == -1 ) {
                     echo "<input type=\"text\" name=\"txtUsername\" value=\"";
                 }
                 echo $txtUsername;
-                if( $hdnUserId == -1 )
-                {
+                if( $hdnUserId == -1 ) {
                     echo "\" maxlength=\"100\">";
-                }else
-                {
+                }
+                else {
                     echo "<input type=\"hidden\" name=\"txtUsername\" value=\"$txtUsername\">";
                 }
             ?>
@@ -276,15 +284,15 @@ value="<?PHP echo $txtUserNumber;?>" maxlength="500">
             <?PHP echo $txtDateLastVisit;?>
         </td>
     </tr>
-</TABLE>
+</table>
 <input type="hidden" name="iRowCount" value="<?PHP echo $iRowCount ?>">
 <input type="submit" name="btnSubmit" value="Submit"
     ONCLICK="QuoteReplace(document.UserProfileForm.txtBiography);">
-</FORM>
+</form>
 <a href="index.php">return to index</A>
-</BODY>
+</body>
 <?php
     // close connection to MySQL Database
     mysql_close($link);
 ?>
-</HTML>
+</html>

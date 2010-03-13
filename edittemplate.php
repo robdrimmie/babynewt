@@ -7,12 +7,12 @@
 
     $sessionUserId = $_SESSION[ 'sessionUserId' ];
 
-    if( Empty( $sessionUserId )) $sessionUserId = -1;
+    if ( Empty( $sessionUserId )) $sessionUserId = -1;
     $hdnUserId = $sessionUserId;
 
 
     $selTemplate = array_key_exists( 'selTemplate', $_REQUEST ) ? $_REQUEST[ 'selTemplate' ] : null;
-    if( null === $selTemplate ) {
+    if ( null === $selTemplate ) {
         // get current template from db
         $CurTemplateSQL = "SELECT i_TemplateId
                              FROM UserTemplate
@@ -22,7 +22,7 @@
 
         $objCurTemplate = mysql_fetch_object( $CurTemplateSQLId );
 
-        if( $objCurTemplate ) {
+        if ( $objCurTemplate ) {
             $selTemplate = $objCurTemplate->i_TemplateId;
         }
     }
@@ -60,12 +60,13 @@
         $$property = array_key_exists( $property, $_REQUEST ) ? $_REQUEST[ $property ] : null;
     }
 
-    if( !Empty( $btnSaveTemplate ) ) {
+    if ( !Empty( $btnSaveTemplate ) ) {
         $iTemplatePublic = 0;
-        if ( $chkTemplatePublic == "on" )
+        if ( $chkTemplatePublic == "on" ) {
             $iTemplatePublic = 1;
+        }
 
-//      if( 0 === $hdnTemplateId ) {
+//      if ( 0 === $hdnTemplateId ) {
             $InsTemplateQuery = sprintf(
                 "INSERT INTO Template
                 VALUES (0 , '%s', '%s', '%s'
@@ -86,7 +87,7 @@
     }
 
     // Save the template preference change if required
-    if (!Empty($_REQUEST[ 'btnMakeMine' ] )){
+    if (!Empty($_REQUEST[ 'btnMakeMine' ] )) {
         $TempQuery = " DELETE FROM UserTemplate WHERE i_UID = $hdnUserId";
         $TempQueryId = mysql_query( $TempQuery );
 
@@ -105,19 +106,22 @@
     $TemplateQueryId = mysql_query ($TemplateQuery, $link);
 
     echo "<form name=\"frmSelection\" action=\"EditTemplate.php\" method=\"post\">\n";
-        echo "Your Templates: <select name=\"selTemplate\">\n";
-        if( Empty($selTemplate) && !Empty($hdnTemplateId)) $selTemplate = $hdnTemplateId;
-            while( $Templates = mysql_fetch_object($TemplateQueryId) )
-            {
-                echo "<option value=\"".$Templates->i_TemplateID."\"";
-                if( $Templates->i_TemplateID == $selTemplate ) echo " SELECTED";
-                echo ">";
-                echo "[$Templates->i_TemplateID] $Templates->vc_TemplateName</option>\n";
-            }
-        echo "</select>\n";
+    echo "Your Templates: <select name=\"selTemplate\">\n";
+    if ( Empty($selTemplate) && !Empty($hdnTemplateId)) {
+        $selTemplate = $hdnTemplateId;
+    }
+    while ( $Templates = mysql_fetch_object($TemplateQueryId) ) {
+        echo "<option value=\"".$Templates->i_TemplateID."\"";
+        if ( $Templates->i_TemplateID == $selTemplate ) {
+            echo " SELECTED";
+        }
+        echo ">";
+        echo "[$Templates->i_TemplateID] $Templates->vc_TemplateName</option>\n";
+    }
+    echo "</select>\n";
 
-        echo "<input type=\"submit\" name=\"btnPickUserTemplate\" value=\"View/Edit Your Template\">\n";
-        echo "<BR>\n";
+    echo "<input type=\"submit\" name=\"btnPickUserTemplate\" value=\"View/Edit Your Template\">\n";
+    echo "<br>\n";
 
     echo "</form>\n";
 
@@ -132,7 +136,7 @@
         echo "Public Templates: <select name=\"selTemplate\">\n";
             while( $Templates = mysql_fetch_object($TemplateQueryId) ) {
                 echo "<option value=\"$Templates->i_TemplateID\"";
-                if( $_REQUEST[ 'selTemplate' ] == $Templates->i_TemplateID ) {
+                if ( $_REQUEST[ 'selTemplate' ] == $Templates->i_TemplateID ) {
                     echo " SELECTED ";
                 }
                 echo ">[$Templates->i_TemplateID] $Templates->vc_TemplateName</option>\n";
@@ -153,15 +157,15 @@
             // When "save template" is hit, the selected template value
             // isn't loaded, but the hidden form value is.
             // therefore make the selected template value the hidden one.
-            if( ( Empty($selTemplate) || $selTemplate == -1 )
+            if ( ( Empty($selTemplate) || $selTemplate == -1 )
                     && $hdnTemplateId > 0
             ) {
-                    $selTemplate = $hdnTemplateId;
+                $selTemplate = $hdnTemplateId;
             }
 //      Create a text area
             echo "<form name=\"frmTemplate\" action=\"EditTemplate.php\" method=\"post\">";
             echo "<input type=\"hidden\" name=\"hdnTemplateId\" value=\"";
-            if( !Empty( $btnNewTemplate ) ) {
+            if ( !Empty( $btnNewTemplate ) ) {
                 // if the button for a new stylesheet has been selected
                 // set the hidden stylesheet id to -1 to indicate "new"
                 echo "-1\">";
@@ -171,18 +175,20 @@
                 echo "<br />Header Template<br><textarea name=\"txtHeader\" cols=\"100\" rows=\"17\"></textarea><br>";
                 echo "Comment Template<br><textarea name=\"txtComment\" cols=\"100\" rows=\"17\"></textarea><br>";
                 echo "Footer Template<br><textarea name=\"txtFooter\" cols=\"100\" rows=\"17\"></textarea><br>";
-            } else {
+            }
+            else {
                 echo "$selTemplate\">";
                 $TemplateQuery = "SELECT vc_TemplateName, t_TemplateHdr, t_TemplateCmt, t_TemplateFtr, b_Public FROM Template WHERE i_TemplateID = $selTemplate";
                 $TemplateQueryId = mysql_query ($TemplateQuery, $link);
-                if( $TemplateQueryId ) {
+                if ( $TemplateQueryId ) {
                     $Templates = mysql_fetch_object($TemplateQueryId);
                     $templateName = $Templates->vc_TemplateName;
                     $templatePublic = $Templates->b_Public;
                     $templateHdr = $Templates->t_TemplateHdr;
                     $templateCmt = $Templates->t_TemplateCmt;
                     $templateFtr = $Templates->t_TemplateFtr;
-                } else {
+                }
+                else {
                     $templateName = 'New Template';
                     $templatePublic = false;
                     $templateHdr = '';
@@ -194,7 +200,7 @@
                 // load the db values
                 echo "Name: <input type=\"input\" name=\"txtTemplateName\" value = \"$templateName\">";
                 echo "<br />Public: <input type=\"checkbox\" name=\"chkTemplatePublic\"";
-                if( $templatePublic == 1 ) echo " CHECKED";
+                if ( $templatePublic == 1 ) echo " CHECKED";
                 echo ">";
                 echo "<br /><input type=\"submit\" name=\"btnMakeMine\" value=\"Make This my Template\"><BR>";
                 echo "Header Template<br><textarea name=\"txtHeader\" cols=\"100\" rows=\"17\">$templateHdr</textarea><br>";
@@ -203,8 +209,8 @@
             }
             echo "<input type=\"submit\" name=\"btnSaveTemplate\" value=\"Save Template\">";
             echo "</form>";
-        } else if ( !Empty( $_REQUEST[ 'btnPickPublic' ] ) )
-        {
+        }
+        else if ( !Empty( $_REQUEST[ 'btnPickPublic' ] ) ) {
             //  - if no specific style is selected,
             echo "<form name=\"frmTemplate\" action=\"edittemplate.php\" method=\"post\">";
             echo "<input type=\"hidden\" name=\"hdnTemplateId\" value=\"$selTemplate\">";
@@ -212,12 +218,13 @@
             $TemplateQueryId = mysql_query ($TemplateQuery, $link);
             $Templates = mysql_fetch_object($TemplateQueryId);
 
-            if( $Templates ) {
+            if ( $Templates ) {
                 $templateName = $Templates->vc_TemplateName;
                 $templateHdr = $Templates->t_TemplateHdr;
                 $templateCmt = $Templates->t_TemplateCmt;
                 $templateFtr = $Templates->t_TemplateFtr;
-            } else {
+            }
+            else {
                 $templateName = 'New Template';
                 $templateHdr = '';
                 $templateCmt = '';
@@ -228,8 +235,8 @@
             echo "Header Template<br><textarea name=\"txtHeader\" cols=\"100\" rows=\"17\">$templateHdr</textarea><br>";
             echo "Comment Template<br><textarea name=\"txtComment\" cols=\"100\" rows=\"17\">$templateCmt</textarea><br>";
             echo "Footer Template<br><textarea name=\"txtFooter\" cols=\"100\" rows=\"17\">$TtemplateFtr</textarea><br>";
-        } else if( !Empty( $_REQUEST[ 'btnMakeMine' ] ) )
-        {
+        }
+        else if ( !Empty( $_REQUEST[ 'btnMakeMine' ] ) ) {
             echo "Your selected template has been updated.";
         }
 

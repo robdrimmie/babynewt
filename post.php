@@ -1,13 +1,13 @@
-<?PHP
+<?php
 include( "session.php" );
 include( "include.php" );
 
 // if user is not logged in, show message and login inputs
-if( $_SESSION[ "sessionUserId" ] == -1 ) {
+if ( $_SESSION[ "sessionUserId" ] == -1 ) {
     header ("Location: index.php");
 }
 
-if( null ===  $_SESSION[ "sessionUserId" ] ) {
+if ( null ===  $_SESSION[ "sessionUserId" ] ) {
     echo "<br >Unmatched ID";
     print_r( $_SESSION );
     echo "<br />SESSION:".$_SESSION[ "sessionUserId" ];
@@ -37,8 +37,9 @@ if (!Empty( $_REQUEST[ "btnSubmitPreviewedComment" ] )) {
         $txtComment = str_replace("[\$COMMENTTEXT\$]", "[ \$COMMENTTEXT \$ ]", $txtComment);
 
         // convert new lines to br tags
-        if( array_key_exists( "nobr", $_REQUEST ) && $_REQUEST[ "nobr" ] == "nobr" ) {
-        } else {
+        if ( array_key_exists( "nobr", $_REQUEST ) && $_REQUEST[ "nobr" ] == "nobr" ) {
+        }
+        else {
           $txtComment = nl2br($txtComment);
         }
 
@@ -59,10 +60,12 @@ if (!Empty( $_REQUEST[ "btnSubmitPreviewedComment" ] )) {
 
         header ("Location: main.php");
         exit;
-    } else {
+    }
+    else {
         echo "No empty comments, please.";
     }
-} else {
+}
+else {
     // Preview the comment instead of submitting it
     $txtComment = $_REQUEST[ "txtComment" ];
     $txtComment = stripslashes($txtComment);
@@ -80,9 +83,10 @@ if (!Empty( $_REQUEST[ "btnSubmitPreviewedComment" ] )) {
                         AND UserStyleSheet.i_UID = ".$_REQUEST[ "hdnUID" ];
 
     $StyleResId = mysql_query ($UserStyleQuery, $link);
-    if( $StyleRes = mysql_fetch_object($StyleResId) ) {
+    if ( $StyleRes = mysql_fetch_object($StyleResId) ) {
         // If a stylesheet for this user exists, do nothing here.
-    } else {
+    }
+    else {
         // This user does not have a stylesheet.  Fetch the default (id = 1)
         $UserStyleQuery = "SELECT t_StyleSheet
                                                 FROM DBStyleSheet
@@ -119,9 +123,9 @@ if (!Empty( $_REQUEST[ "btnSubmitPreviewedComment" ] )) {
     echo "<select name=\"selCategoryId\">";
     $selCategoryId = $_REQUEST[ "selCategoryId" ];
 
-    while( $CategoryListResult = mysql_fetch_object($CategoryListResultId)) {
+    while ( $CategoryListResult = mysql_fetch_object($CategoryListResultId)) {
         echo "<OPTION VALUE=\"$CategoryListResult->i_CategoryId\"";
-        if( $CategoryListResult->i_CategoryId == $selCategoryId ) {
+        if ( $CategoryListResult->i_CategoryId == $selCategoryId ) {
             $hdnCSSName = $CategoryListResult->vc_CSSName;
             echo " SELECTED";
         }
@@ -139,9 +143,10 @@ if (!Empty( $_REQUEST[ "btnSubmitPreviewedComment" ] )) {
     $TemplateResId = mysql_query ($UserTemplateQuery, $link);
     $TemplateRes = mysql_fetch_object($TemplateResId);
 
-    if(!Empty($TemplateRes->i_TemplateID)) {
+    if (!Empty($TemplateRes->i_TemplateID)) {
         $TemplateQuery = "SELECT t_TemplateHdr, t_TemplateCmt, t_TemplateFtr FROM Template WHERE i_TemplateID = $TemplateRes->i_TemplateID";
-    } else {
+    }
+    else {
         $TemplateQuery = "SELECT t_TemplateHdr, t_TemplateCmt, t_TemplateFtr FROM Template WHERE i_TemplateID = 1";
     }
 

@@ -4,14 +4,14 @@
 
     // establish connection to MySQL database or output error message.
     $link = mysql_connect ($dbHost, $dbUser, $dbPassword);
-    if (!mysql_select_db($dbName, $link)) echo mysql_errno().": ".mysql_error()."<BR>";
+    if (!mysql_select_db($dbName, $link)) echo mysql_errno().": ".mysql_error()."<br>";
 
     include( "login.php" );
 
-    if( !isset($_SESSION['sessionUserId']) )
-    {
+    if ( !isset($_SESSION['sessionUserId']) ) {
         $_SESSION['sessionUserId'] = -1;
-    } else {
+    }
+    else {
         $sessionUserId = $_SESSION['sessionUserId'];
     }
 
@@ -27,10 +27,10 @@
     echo $welcomeMsg;
 
     // if user is not logged in, show message and login inputs
-    if( $_SESSION['sessionUserId'] == -1 )
-    {
+    if ( $_SESSION['sessionUserId'] == -1 ) {
         OutputLoginForm( "index.php" );
-    } else {
+    }
+    else {
         echo "You are already logged in.  <a href=\"main.php\">Go to the main site</a>";
     }
     ?>

@@ -3,7 +3,9 @@
     include("include.php");
     // establish connection to MySQL database or output error message.
     $link = mysql_connect ($dbHost, $dbUser, $dbPassword);
-    if (!mysql_select_db($dbName, $link)) echo mysql_errno().": ".mysql_error()."<BR>";
+    if (!mysql_select_db($dbName, $link)) {
+        echo mysql_errno().": ".mysql_error()."<br>";
+    }
 
     $CategoryList = "SELECT i_CategoryId, vc_Name, vc_CSSName, t_Description";
     $CategoryList .= " FROM Category";
@@ -18,17 +20,18 @@
     $sessionUserId = $_SESSION[ "sessionUserId" ];
 
     echo "<style>";
-    echo "DIV.bnLogo{ position: absolute; top: 2px; left: 10px; font-size: 42px; font-weight: bold; color: #CCCCCC;}";
-    echo "DIV.bnTagline{ position: absolute; top: 21px; left: 70px; font-size: 16px; font-weight: bold; color: black;}";
-    echo "DIV.bnContent{ padding-top: 30px; }";
+    echo "div.bnLogo { position: absolute; top: 2px; left: 10px; font-size: 42px; font-weight: bold; color: #CCCCCC;}";
+    echo "div.bnTagline { position: absolute; top: 21px; left: 70px; font-size: 16px; font-weight: bold; color: black;}";
+    echo "div.bnContent { padding-top: 30px; }";
 
-    if( !Empty( $_REQUEST[ 'StyleSheet' ] ) ){
+    if ( !Empty( $_REQUEST[ 'StyleSheet' ] ) ) {
         // querystring param to force stylesheet
         $UserStyleQuery = "SELECT t_StyleSheet
                              FROM DBStyleSheet
                             WHERE DBStyleSheet.i_StyleSheetId = "
                             . $_REQUEST[ 'StyleSheet' ];
-    } else {
+    }
+    else {
         // the user's stylesheet
         $UserStyleQuery = "SELECT t_StyleSheet
                              FROM UserStyleSheet, DBStyleSheet
@@ -45,26 +48,29 @@
     $CategoryListResultId = mysql_query ($CategoryList, $link);
 
     $TemplateID = $_REQUEST[ 'TemplateID' ];
-    if(Empty($TemplateID)){
+    if (Empty($TemplateID)) {
         $UserTemplateQuery = "SELECT i_TemplateID
                                 FROM UserTemplate
                                WHERE UserTemplate.i_UID = $sessionUserId";
         $TemplateResId = mysql_query ($UserTemplateQuery, $link);
         $TemplateRes = mysql_fetch_object($TemplateResId);
 
-        if(!Empty($TemplateRes->i_TemplateID))
+        if (!Empty($TemplateRes->i_TemplateID)) {
             $TemplateQuery = "SELECT t_TemplateHdr
                                    , t_TemplateCmt
                                    , t_TemplateFtr
                                 FROM Template
                                WHERE i_TemplateID = $TemplateRes->i_TemplateID";
-        else
+        }
+        else {
             $TemplateQuery = "SELECT t_TemplateHdr
                                    , t_TemplateCmt
                                    , t_TemplateFtr
                                 FROM Template
                                WHERE i_TemplateID = 1";
-    } else {
+        }
+    }
+    else {
         $TemplateQuery = "SELECT t_TemplateHdr
                                , t_TemplateCmt
                                , t_TemplateFtr

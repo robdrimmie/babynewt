@@ -1,7 +1,6 @@
 <?php
 
-if( array_key_exists( 'btnExpireSession', $_REQUEST )
-    && $expireSession == '1' ){
+if ( array_key_exists( 'btnExpireSession', $_REQUEST ) && $expireSession == '1' ) {
     // break cookies
     setcookie( "cookieUsername", FALSE, mktime(0,0,0,12,1,2015));
     setcookie( "cookiePassword", FALSE, mktime(0,0,0,12,1,1999));
@@ -9,15 +8,13 @@ if( array_key_exists( 'btnExpireSession', $_REQUEST )
     header( "Location: main.php");
 }
 
-if( ( !Empty( $_POST['userLoginSubmit'] ) ) || ( !Empty($_COOKIE['cookieUsername']) && !Empty($_COOKIE['cookiePassword']) ) ) {
+if ( ( !Empty( $_POST['userLoginSubmit'] ) ) || ( !Empty($_COOKIE['cookieUsername']) && !Empty($_COOKIE['cookiePassword']) ) ) {
     $txtUsername = $_POST['txtUsername'];
     $txtPassword = $_POST['txtPassword'];
 
-    if( Empty( $_POST['btnExpireSession'] ) )
-    {
+    if ( Empty( $_POST['btnExpireSession'] ) ) {
         // don't fetch the cookie information if the user logs out.
-        if( !Empty($_COOKIE['cookieUsername']) && !Empty($_COOKIE['cookiePassword']))
-        {
+        if ( !Empty($_COOKIE['cookieUsername']) && !Empty($_COOKIE['cookiePassword'])) {
             $txtUsername = $_COOKIE['cookieUsername'];
             $txtPassword = $_COOKIE['cookiePassword'];
         }
@@ -30,13 +27,13 @@ if( ( !Empty( $_POST['userLoginSubmit'] ) ) || ( !Empty($_COOKIE['cookieUsername
     $UserLoginResultId = mysql_query ($UserLoginQuery, $link);
     $UserLoginResults = mysql_fetch_object($UserLoginResultId);
 
-    if( Empty( $UserLoginResults->i_UID ) )
-    {
+    if ( Empty( $UserLoginResults->i_UID ) ) {
         $_SESSION['sessionUserId'] = -1;
-        if( !Empty( $_POST['userLoginSubmit'] ) ) {
+        if ( !Empty( $_POST['userLoginSubmit'] ) ) {
             echo "That username password combination was not found.<br /><br />";
         }
-    } else {
+    }
+    else {
         $_SESSION['sessionUserId'] = $UserLoginResults->i_UID;
 
         $UpdateLastVisitQuery = "UPDATE Users SET dt_LastVisit = NOW(),";
@@ -45,8 +42,7 @@ if( ( !Empty( $_POST['userLoginSubmit'] ) ) || ( !Empty($_COOKIE['cookieUsername
         $UpdateLastVisitResultId = mysql_query ($UpdateLastVisitQuery, $link);
         $_SESSION['sessionLastVisit'] = time();
 
-        if( $_REQUEST[ 'chkRemember' ] == "on" )
-        {
+        if ( $_REQUEST[ 'chkRemember' ] == "on" ) {
             setcookie( "cookieUsername", $txtUsername, mktime(0,0,0,12,1,2015));
             setcookie( "cookiePassword", $txtPassword, mktime(0,0,0,12,1,2015));
         }
@@ -56,9 +52,8 @@ if( ( !Empty( $_POST['userLoginSubmit'] ) ) || ( !Empty($_COOKIE['cookieUsername
     }
 }
 
-function OutputLoginForm( $UserLoginFormAction )
-{
-    echo "<FORM NAME=\"UserLoginForm\" action=\"$UserLoginFormAction\" method=\"post\">";
+function OutputLoginForm( $UserLoginFormAction ) {
+    echo "<form name=\"UserLoginForm\" action=\"$UserLoginFormAction\" method=\"post\">";
 
 //  <a href="editprofile.php">Click here to register</a> <br /><br />
 ?>
@@ -96,7 +91,7 @@ function OutputLoginForm( $UserLoginFormAction )
             </td>
         </tr>
     </table>
-    </FORM>
+    </form>
 <?php
 }
 ?>
