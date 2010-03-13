@@ -14,7 +14,7 @@
 	$selTemplate = array_key_exists( 'selTemplate', $_REQUEST ) ? $_REQUEST[ 'selTemplate' ] : null;
 	if( null === $selTemplate ) {
 		// get current template from db
-		$CurTemplateSQL = "SELECT i_TemplateId 
+		$CurTemplateSQL = "SELECT i_TemplateId
 							 FROM UserTemplate
 							WHERE i_UID = $sessionUserId";
 
@@ -62,12 +62,12 @@
 
 	if( !Empty( $btnSaveTemplate ) ) {
 		$iTemplatePublic = 0;
-		if ( $chkTemplatePublic == "on" ) 
+		if ( $chkTemplatePublic == "on" )
 			$iTemplatePublic = 1;
 
 //	 	if( 0 === $hdnTemplateId ) {
 			$InsTemplateQuery = sprintf(
-				"INSERT INTO Template 
+				"INSERT INTO Template
 				VALUES (0 , '%s', '%s', '%s'
 					, $hdnUserId, $iTemplatePublic, '%s');"
 					, mysql_real_escape_string($txtHeader)
@@ -98,8 +98,8 @@
 
 	//	get a drop-down of all the users templates.
 	$TemplateQuery = "SELECT i_TemplateID
-						   , vc_TemplateName 
-						FROM Template 
+						   , vc_TemplateName
+						FROM Template
 					   WHERE i_UID = $hdnUserId
 					ORDER BY i_TemplateID";
 	$TemplateQueryId = mysql_query ($TemplateQuery, $link);
@@ -122,8 +122,8 @@
 	echo "</form>\n";
 
 	//	get a drop-down of all the public templates.
-	$TemplateQuery = "SELECT i_TemplateID, vc_TemplateName 
-										FROM Template 
+	$TemplateQuery = "SELECT i_TemplateID, vc_TemplateName
+										FROM Template
 										WHERE b_Public = 1
 										ORDER BY i_TemplateID";
 	$TemplateQueryId = mysql_query ($TemplateQuery, $link);
@@ -146,14 +146,14 @@
 
 
 		//	if an editable style is already selected (default to user's current style, or if the button for a new stylesheet is selected)
-		if (  Empty($btnMakeMine) 
-					&& (($selTemplate > -1) || !Empty( $btnNewTemplate )) 
-					&& Empty($btnPickPublic) || !Empty($btnSaveTemplate) 
+		if (  Empty($btnMakeMine)
+					&& (($selTemplate > -1) || !Empty( $btnNewTemplate ))
+					&& Empty($btnPickPublic) || !Empty($btnSaveTemplate)
 		) {
-			// When "save template" is hit, the selected template value 
+			// When "save template" is hit, the selected template value
 			// isn't loaded, but the hidden form value is.
 			// therefore make the selected template value the hidden one.
-			if( ( Empty($selTemplate) || $selTemplate == -1 ) 
+			if( ( Empty($selTemplate) || $selTemplate == -1 )
 					&& $hdnTemplateId > 0
 			) {
 					$selTemplate = $hdnTemplateId;
@@ -228,10 +228,10 @@
 			echo "Header Template<br><textarea name=\"txtHeader\" cols=\"100\" rows=\"17\">$templateHdr</textarea><br>";
 			echo "Comment Template<br><textarea name=\"txtComment\" cols=\"100\" rows=\"17\">$templateCmt</textarea><br>";
 			echo "Footer Template<br><textarea name=\"txtFooter\" cols=\"100\" rows=\"17\">$TtemplateFtr</textarea><br>";
-		} else if( !Empty( $_REQUEST[ 'btnMakeMine' ] ) ) 
+		} else if( !Empty( $_REQUEST[ 'btnMakeMine' ] ) )
 		{
 			echo "Your selected template has been updated.";
-		} 
+		}
 
 		echo "<form name=\"frmNewStylesheet\" action=\"EditTemplate.php\" method=\"post\">";
 		echo "<input type=\"submit\" name=\"btnNewTemplate\" value=\"New Template\">";

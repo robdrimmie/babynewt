@@ -24,15 +24,15 @@
 
 	if( !Empty( $_REQUEST[ 'StyleSheet' ] ) ){
 		// querystring param to force stylesheet
-		$UserStyleQuery = "SELECT t_StyleSheet 
-							 FROM DBStyleSheet 
+		$UserStyleQuery = "SELECT t_StyleSheet
+							 FROM DBStyleSheet
 							WHERE DBStyleSheet.i_StyleSheetId = "
 							. $_REQUEST[ 'StyleSheet' ];
 	} else {
 		// the user's stylesheet
-		$UserStyleQuery = "SELECT t_StyleSheet 
-							 FROM UserStyleSheet, DBStyleSheet 
-							WHERE DBStyleSheet.i_StyleSheetId = UserStyleSheet.i_StyleSheetId 
+		$UserStyleQuery = "SELECT t_StyleSheet
+							 FROM UserStyleSheet, DBStyleSheet
+							WHERE DBStyleSheet.i_StyleSheetId = UserStyleSheet.i_StyleSheetId
 							  AND UserStyleSheet.i_UID = $sessionUserId";
 	}
 
@@ -46,8 +46,8 @@
 
 	$TemplateID = $_REQUEST[ 'TemplateID' ];
 	if(Empty($TemplateID)){
-		$UserTemplateQuery = "SELECT i_TemplateID 
-								FROM UserTemplate 
+		$UserTemplateQuery = "SELECT i_TemplateID
+								FROM UserTemplate
 							   WHERE UserTemplate.i_UID = $sessionUserId";
 		$TemplateResId = mysql_query ($UserTemplateQuery, $link);
 		$TemplateRes = mysql_fetch_object($TemplateResId);
@@ -55,20 +55,20 @@
 		if(!Empty($TemplateRes->i_TemplateID))
 			$TemplateQuery = "SELECT t_TemplateHdr
 								   , t_TemplateCmt
-								   , t_TemplateFtr 
-								FROM Template 
+								   , t_TemplateFtr
+								FROM Template
 							   WHERE i_TemplateID = $TemplateRes->i_TemplateID";
 		else
 			$TemplateQuery = "SELECT t_TemplateHdr
 								   , t_TemplateCmt
-								   , t_TemplateFtr 
-								FROM Template 
+								   , t_TemplateFtr
+								FROM Template
 							   WHERE i_TemplateID = 1";
 	} else {
 		$TemplateQuery = "SELECT t_TemplateHdr
 							   , t_TemplateCmt
-							   , t_TemplateFtr 
-							FROM Template 
+							   , t_TemplateFtr
+							FROM Template
 						   WHERE i_TemplateID = $TemplateID";
 	}
 

@@ -16,7 +16,7 @@
 
 	// if user is not logged in, show message and login inputs
 	if( $_SESSION['sessionUserId'] == -1 ) {
-		header ("Location: index.php"); 
+		header ("Location: index.php");
 	}
 
 	$sessionUserId = $_SESSION['sessionUserId'];
@@ -120,7 +120,7 @@
 	if ($hdnCurrentRecord > $MaxCmtRes->MaxCmt) $hdnCurrentRecord = $MaxCmtRes->MaxCmt - 5;
 	if ($hdnCurrentRecord < 0) 	$hdnCurrentRecord = 0;
 
-	// If the user clicked a comment button update last viewed to the 
+	// If the user clicked a comment button update last viewed to the
 	// comment before it was pressed.
 	//	Previous comment because CommentsQuery starts at that id and mySQL apparently
 	//	starts array-type things at 1, rather than 0.
@@ -164,22 +164,22 @@
 	$TaglineId = (rand()%$TaglineRes->i_TaglineId) + 1;
 
 	// Add the taglines
-	$TaglineQuery = "SELECT vc_Tagline FROM Tagline 
+	$TaglineQuery = "SELECT vc_Tagline FROM Tagline
 					WHERE i_TaglineId = $TaglineId";
 	$TaglineResId = mysql_query ($TaglineQuery, $link);
 	$TaglineRes = mysql_fetch_object($TaglineResId);
 
 	// Get a tagline prefix
-	$TaglinePrefixQuery = "SELECT max(i_TaglinePrefixId) as 
+	$TaglinePrefixQuery = "SELECT max(i_TaglinePrefixId) as
 			i_TaglinePrefixId FROM TaglinePrefix";
 	$TaglinePrefixResId = mysql_query ($TaglinePrefixQuery, $link);
 	$TaglinePrefixRes = mysql_fetch_object($TaglinePrefixResId);
 	
 	if( null === $TaglinePrefixRes->i_TaglinePrefixId ) $TaglinePrefixRes->i_TaglinePrefixId = 1;
 	$TaglinePrefixId = (rand()%$TaglinePrefixRes->i_TaglinePrefixId) + 1;
-	$TaglinePrefixQuery = "SELECT vc_TaglinePrefix,  
+	$TaglinePrefixQuery = "SELECT vc_TaglinePrefix,
                                 vc_TaglineSuffix
-        FROM TaglinePrefix 
+        FROM TaglinePrefix
 				WHERE i_TaglinePrefixId = $TaglinePrefixId";
 	$TaglinePrefixResId = mysql_query ($TaglinePrefixQuery, $link);
 	$TaglinePrefixRes = mysql_fetch_object($TaglinePrefixResId);
@@ -204,7 +204,7 @@
 		                   .
 		                 $strTagline.$TaglineRes->vc_Tagline
 		                   .
-		                 stripslashes( $TaglinePrefixRes->vc_TaglineSuffix ); 
+		                 stripslashes( $TaglinePrefixRes->vc_TaglineSuffix );
 	}
 	
 	$rand_start = strpos(  $strTagline, "\$RAND" );
@@ -226,14 +226,14 @@
  	}
 
 	if( $TemplateRes ) {
-		$Header = str_replace("[\$TAGLINE\$]", 
-			$strTagline, 
+		$Header = str_replace("[\$TAGLINE\$]",
+			$strTagline,
 			$TemplateRes->t_TemplateHdr);
-		$Comment = str_replace("[\$TAGLINE\$]", 
-			$strTagline, 
+		$Comment = str_replace("[\$TAGLINE\$]",
+			$strTagline,
 			$TemplateRes->t_TemplateCmt);
-		$Footer = str_replace("[\$TAGLINE\$]", 
-			$strTagline, 
+		$Footer = str_replace("[\$TAGLINE\$]",
+			$strTagline,
 			$TemplateRes->t_TemplateFtr);
 	} else {
 		$Header = '[Header] No Templates exist.';
@@ -243,26 +243,26 @@
 	
 	$userStyle = array_key_exists( 'StyleSheet', $_REQUEST ) ? $_REQUEST[ 'StyleSheet' ] : null;
 	if( null !== $userStyle ){
-		$UserStyleQuery = "SELECT t_StyleSheet 
-			 				 FROM DBStyleSheet 
+		$UserStyleQuery = "SELECT t_StyleSheet
+			 				 FROM DBStyleSheet
 							WHERE DBStyleSheet.i_StyleSheetId = " . $userStyle;
 	} else {
 		// Add the stylesheet
-		$UserStyleQuery = "SELECT t_StyleSheet 
-											FROM UserStyleSheet, DBStyleSheet 
-											WHERE DBStyleSheet.i_StyleSheetId = UserStyleSheet.i_StyleSheetId 
+		$UserStyleQuery = "SELECT t_StyleSheet
+											FROM UserStyleSheet, DBStyleSheet
+											WHERE DBStyleSheet.i_StyleSheetId = UserStyleSheet.i_StyleSheetId
 											AND UserStyleSheet.i_UID = $sessionUserId";
 	}
 	
 	$StyleResId = mysql_query ($UserStyleQuery, $link);
 	if( $StyleRes = mysql_fetch_object($StyleResId) )
 	{
-		// if a stylesheet for this user exists, 
+		// if a stylesheet for this user exists,
 		// do nothing here.
 	} else {
 		// this user does not have a stylesheet.  Fetch the default (id = 1)
-		$UserStyleQuery = "SELECT t_StyleSheet 
-											FROM DBStyleSheet 
+		$UserStyleQuery = "SELECT t_StyleSheet
+											FROM DBStyleSheet
 											WHERE DBStyleSheet.i_StyleSheetId = 1";
 	
 		$StyleResId = mysql_query ($UserStyleQuery, $link);
@@ -278,8 +278,8 @@
 
 	$Header = str_replace("[\$STYLESHEET\$]", $ssheet, $Header);
 
-	$UserStyleQuery = "SELECT vc_UserName, vc_UserId 
-										FROM Users 
+	$UserStyleQuery = "SELECT vc_UserName, vc_UserId
+										FROM Users
 										WHERE Users.i_UID = $sessionUserId";
 
 	$StyleResId = mysql_query ($UserStyleQuery, $link);
@@ -340,8 +340,8 @@
 	// offset time.
 	$GMTOffset = "0";
 
-	$GMTOffsetQuery = 	"SELECT vc_GMTOffset 
-											FROM Users 
+	$GMTOffsetQuery = 	"SELECT vc_GMTOffset
+											FROM Users
 											WHERE i_UID = $sessionUserId";
 	$GMTOffsetResultId = mysql_query ( $GMTOffsetQuery, $link );
 	while( $GMTOffsetResult = mysql_fetch_object( $GMTOffsetResultId ) )
@@ -497,20 +497,20 @@
     }
   }
     	
-	// Get comments  
+	// Get comments
 
-	$CommentsQuery = "SELECT	$CommentTable.i_CommentId, 
-			$CommentTable.t_Comment, 
+	$CommentsQuery = "SELECT	$CommentTable.i_CommentId,
+			$CommentTable.t_Comment,
 			DATE_FORMAT(DATE_ADD($CommentTable.dt_DatePosted, INTERVAL $GMTOffset HOUR), $DateFormat) as dt_DatePosted,
-			Users.i_UID, 
-			Users.vc_Username, 
-			Users.vc_UserId, 
-			Category.vc_Name, 
-			Category.vc_CSSName 
-	FROM	$CommentTable, 
-			Users, 
-			Category 
-	WHERE	Users.i_UID = $CommentTable.i_UID 
+			Users.i_UID,
+			Users.vc_Username,
+			Users.vc_UserId,
+			Category.vc_Name,
+			Category.vc_CSSName
+	FROM	$CommentTable,
+			Users,
+			Category
+	WHERE	Users.i_UID = $CommentTable.i_UID
 			AND Category.i_CategoryId = $CommentTable.i_CategoryId ";
   if( $comments_from_user ) {
     $CommentsQuery.=" AND Users.i_UID = {$cfu_id}	

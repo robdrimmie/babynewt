@@ -17,8 +17,8 @@
 <?php
 	$CatOptions = "<option value=\"-1\">search all categories</option>";
 	$CategoryListQuery = "SELECT i_CategoryId
-  							   , vc_Name 
-  							FROM Category 
+  							   , vc_Name
+  							FROM Category
   						ORDER BY vc_Name";
   	$CategoryListResultId =  mysql_query ($CategoryListQuery, $link);
 
@@ -68,12 +68,12 @@
 		for( $intCurrentCA = $intMinCommentArchive; $intCurrentCA <= $intMaxCommentArchive; $intCurrentCA++ ) {
 			$strCurrentArchive = "CommentArchive$intCurrentCA";
 
-			$Query = "SELECT count(t_Comment) as counter 
+			$Query = "SELECT count(t_Comment) as counter
 					    FROM $strCurrentArchive ";
 			if( $ByUser != "" ) {
 				$Query.= "JOIN Users On Users.i_UID = $strCurrentArchive.i_UID
 				AND Users.vc_Username = \"$ByUser\" ";
-			} 
+			}
 
 			$Query.="	WHERE t_Comment LIKE '%$LookFor%'";
 
@@ -81,7 +81,7 @@
 			  $Query.= " AND i_CategoryId = $SelectedCategory";
 			}
 
-		$Q2 = " 	SELECT $strCurrentArchive.i_CommentId AS 
+		$Q2 = " 	SELECT $strCurrentArchive.i_CommentId AS
 			  LABELLER FROM $strCurrentArchive ";
 
  		if( $ByUser != "" ) {
@@ -96,7 +96,7 @@
 	  $Q2.= " AND i_CategoryId = $SelectedCategory";
 	}
 		$Q2.= "	ORDER BY $strCurrentArchive.i_CommentId ASC";
-	  
+	
 		$UInfId = mysql_query ($Query, $link);
 		$UInfRes = mysql_fetch_object($UInfId);
 
@@ -117,7 +117,7 @@
 		if( $ArchiveToSearch < 1 ) {	
 		$strCurrentArchive = "Comment";
 			
-		$Query = " 	SELECT COUNT(t_Comment) AS COUNTER 
+		$Query = " 	SELECT COUNT(t_Comment) AS COUNTER
 				FROM $strCurrentArchive ";
  		if( $ByUser != "" ) {
 			$Query.="JOIN Users on Users.i_UID = Comment.i_UID
@@ -130,7 +130,7 @@
 	}
 
 
-		$Q2 = " 	SELECT $strCurrentArchive.i_CommentId AS LABELLER 
+		$Q2 = " 	SELECT $strCurrentArchive.i_CommentId AS LABELLER
 				FROM $strCurrentArchive ";
 		if( $ByUser != "" ) {
 			$Q2.="JOIN Users on Users.i_UID = Comment.i_UID
@@ -174,7 +174,7 @@
 				Search Phrase:
 			</td>
 			<td>
-				<input name="LookFor" TYPE="Text" 
+				<input name="LookFor" TYPE="Text"
 value="<?php echo $LookFor; ?>">
 			</td>
 		</tr>
@@ -183,7 +183,7 @@ value="<?php echo $LookFor; ?>">
 		   			Search by user
 			</td>
 			<td>
-				<input type="text" name="ByUser" 
+				<input type="text" name="ByUser"
 value="<?php echo $ByUser ?>" />
 			</td>
 		</tr>
@@ -193,14 +193,14 @@ value="<?php echo $ByUser ?>" />
 			</td>
 			<td>
 				<select name="ArchiveToSearch">
-					<option value="-1" 
+					<option value="-1"
 <?php if( $ArchiveToSearch == -1 ) { echo "selected"; } ?>
 				>Search all archives</option>
 					<option value="0"
 <?php if( $ArchiveToSearch == 0 ) { echo "selected"; } ?>
 				>Search current comment table</option>
 <?php
-for( $intCurrentCA = 1; $intCurrentCA <= 
+for( $intCurrentCA = 1; $intCurrentCA <=
 $intTrueMaxCommentArchive; $intCurrentCA++ ) {
 	echo "<option value=\"$intCurrentCA\"";
 	if( $intCurrentCA == $ArchiveToSearch ) {

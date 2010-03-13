@@ -42,8 +42,8 @@
     if( is_numeric( $_REQUEST[ "add" ] ) )
     {
       $favorite_id = $_REQUEST[ "add" ];
-      $favorite_exists = "SELECT COUNT(*) as count_fav 
-                          FROM Favorites 
+      $favorite_exists = "SELECT COUNT(*) as count_fav
+                          FROM Favorites
                           WHERE i_UID = {$this_user}
                           AND i_CommentId = {$favorite_id}";
 
@@ -72,7 +72,7 @@
       mysql_query( $add_favorite_query );
       echo "Favorite Deleted";
     }
-  }  
+  }
 
   if( array_key_exists( "yourfavoritecount", $_REQUEST ) )
   {
@@ -89,7 +89,7 @@
         mysql_query( $update_favorite_query );
       }
     }
-  }    
+  }
 ?>
     <div name="userfavorites" id="userfavorites">
       <form name="viewfavorites" id="viewfavorites" action="favorites.php" method="post">
@@ -99,7 +99,7 @@
         ?>" />
         <input type="submit" name="chooseuser" id="chooseuser" value="go" />
       </form>
-      
+
       <?php
       if( array_key_exists( "chooseuser", $_REQUEST ) )
       {
@@ -114,7 +114,7 @@
         echo "</dl>";
       }
       ?>
-    </div>    
+    </div>
 
     <div name="yourfavorites" id="yourfavorites">
     <h3>Your favorites</h3>
@@ -137,12 +137,12 @@
       echo "<input type=\"submit\" name=\"submitannotation\" id=\"submitannotation\" value=\"save annotations\" />";
       echo "</form>";
     ?>
-    </div>    
+    </div>
 
     <div name="popoularity" id="popularity">
     <h3>Popularity</h3>
     <?php
-      $fav_query = "SELECT i_CommentId, COUNT( i_CommentId ) as efts 
+      $fav_query = "SELECT i_CommentId, COUNT( i_CommentId ) as efts
                     FROM Favorites
                     GROUP BY i_CommentId
                     ORDER BY efts DESC, i_CommentId ASC";

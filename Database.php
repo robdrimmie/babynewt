@@ -1,6 +1,6 @@
 <?php
 
-class Database 
+class Database
 {
 	protected $_name;
 	protected $_user;

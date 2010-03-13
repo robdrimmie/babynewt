@@ -124,8 +124,8 @@ if( Empty( $hdnUserId ) || ( $hdnUserId == -1  && Empty( $btnSubmit )) ) {
 	} else if( '' === $txtPassword || '' === $txtVerifyPassword ) {
 		echo 'You must enter your password to update your profile. Sorry.';
 	} else {
-		$ProfileQuery = "UPDATE Users  
-						set vc_Email = \"$txtEmail\", 
+		$ProfileQuery = "UPDATE Users
+						set vc_Email = \"$txtEmail\",
 						vc_Password =  md5(\"$txtPassword\"),
 						dt_LastVisit = NOW(),
 						vc_UserId = \"$txtUserNumber\",
@@ -152,7 +152,7 @@ if( Empty( $hdnUserId ) || ( $hdnUserId == -1  && Empty( $btnSubmit )) ) {
 			   , vc_UserId
 			   , i_ShareStyles
 			   , vc_GMTOffset
-		 FROM Users 
+		 FROM Users
 		WHERE i_UID = {$hdnUserId}";
 
 	$ProfileResultsIdId = mysql_query ($ProfileQuery, $link);
@@ -207,7 +207,7 @@ if( Empty( $hdnUserId ) || ( $hdnUserId == -1  && Empty( $btnSubmit )) ) {
 			UserNumber
 		</td>
 		<td>
-			<input type="text" name="txtUserNumber" 
+			<input type="text" name="txtUserNumber"
 value="<?PHP echo $txtUserNumber;?>" maxlength="500">
 		</td>
 	</tr>
@@ -278,7 +278,7 @@ value="<?PHP echo $txtUserNumber;?>" maxlength="500">
 	</tr>
 </TABLE>
 <input type="hidden" name="iRowCount" value="<?PHP echo $iRowCount ?>">
-<input type="submit" name="btnSubmit" value="Submit" 
+<input type="submit" name="btnSubmit" value="Submit"
 	ONCLICK="QuoteReplace(document.UserProfileForm.txtBiography);">
 </FORM>
 <a href="index.php">return to index</A>

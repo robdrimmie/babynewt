@@ -57,7 +57,7 @@ if (!Empty( $_REQUEST[ "btnSubmitPreviewedComment" ] )) {
 		$UpdateLastPostedQuery = "UPDATE Users SET dt_LastPosted = NOW() WHERE i_UID = $hdnUID";
 		$UpdateLastPostedQuery = mysql_query( $UpdateLastPostedQuery, $link );
 
-		header ("Location: main.php"); 
+		header ("Location: main.php");
 		exit;
 	} else {
 		echo "No empty comments, please.";
@@ -74,9 +74,9 @@ if (!Empty( $_REQUEST[ "btnSubmitPreviewedComment" ] )) {
 	echo "<html><head><title><?php $siteTitle; ?> - post preview</title>";		
 
 	// Add the stylesheet
-	$UserStyleQuery = "SELECT t_StyleSheet 
-						FROM UserStyleSheet, DBStyleSheet 
-						WHERE DBStyleSheet.i_StyleSheetId = UserStyleSheet.i_StyleSheetId 
+	$UserStyleQuery = "SELECT t_StyleSheet
+						FROM UserStyleSheet, DBStyleSheet
+						WHERE DBStyleSheet.i_StyleSheetId = UserStyleSheet.i_StyleSheetId
 						AND UserStyleSheet.i_UID = ".$_REQUEST[ "hdnUID" ];
 	
 	$StyleResId = mysql_query ($UserStyleQuery, $link);
@@ -84,14 +84,14 @@ if (!Empty( $_REQUEST[ "btnSubmitPreviewedComment" ] )) {
    		// If a stylesheet for this user exists, do nothing here.
    	} else {
     	// This user does not have a stylesheet.  Fetch the default (id = 1)
-    	$UserStyleQuery = "SELECT t_StyleSheet 
-    											FROM DBStyleSheet 
+    	$UserStyleQuery = "SELECT t_StyleSheet
+    											FROM DBStyleSheet
     											WHERE DBStyleSheet.i_StyleSheetId = 1";
     	
     	$StyleResId = mysql_query ($UserStyleQuery, $link);
     	$StyleRes = mysql_fetch_object($StyleResId);   	
     }
-    
+
 	$StyleResId = mysql_query ($UserStyleQuery, $link);
 	$StyleRes = mysql_fetch_object($StyleResId);
 
@@ -138,7 +138,7 @@ if (!Empty( $_REQUEST[ "btnSubmitPreviewedComment" ] )) {
   	$UserTemplateQuery = "SELECT i_TemplateID FROM UserTemplate WHERE UserTemplate.i_UID = ".$_REQUEST[ "hdnUID" ];
   	$TemplateResId = mysql_query ($UserTemplateQuery, $link);
   	$TemplateRes = mysql_fetch_object($TemplateResId);
-  
+
   	if(!Empty($TemplateRes->i_TemplateID)) {
 		$TemplateQuery = "SELECT t_TemplateHdr, t_TemplateCmt, t_TemplateFtr FROM Template WHERE i_TemplateID = $TemplateRes->i_TemplateID";
 	} else {
@@ -146,12 +146,12 @@ if (!Empty( $_REQUEST[ "btnSubmitPreviewedComment" ] )) {
     }
 
 	$TemplateResId = mysql_query ($TemplateQuery, $link);
-    
+
     $TemplateRes = mysql_fetch_object($TemplateResId);
 
   	$tComment = str_replace("[\$COMMENTBUTTON\$]","<input class=\"[\$CATCSSNAME\$]LASTCMTBTN\" type=\"submit\" name=\"btnUpdateMyLastComment\" value=\"[\$COMMENTNUMBER\$]\">", $TemplateRes->t_TemplateCmt);
  	$tComment = str_replace("[\$CATNAMELINK\$]", "[\$CATEGORYNAME\$]", $tComment);
-  
+
   	$tComment = str_replace("[\$COMMENTNUMBER\$]", "######", $tComment);
   	$tComment = str_replace("[\$CATCSSNAME\$]", $hdnCSSName, $tComment);
   	$tComment = str_replace("[\$USERNAME\$]", "Username", $tComment);
