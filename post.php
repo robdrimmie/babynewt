@@ -24,7 +24,7 @@ if ( null ===  $_SESSION[ "sessionUserId" ] ) {
 
 // establish connection to MySQL database or output error message.
 $link = mysql_connect ($dbHost, $dbUser, $dbPassword);
-if (!mysql_select_db($dbName, $link)) echo mysql_errno().": ".mysql_error()."<BR>";
+if (!mysql_select_db($dbName, $link)) echo mysql_errno().": ".mysql_error()."<br>";
 
 if (!Empty( $_REQUEST[ "btnSubmitPreviewedComment" ] )) {
     if ( !Empty( $_REQUEST[ "txtComment" ] ) ) {
@@ -135,7 +135,7 @@ else {
     }
 
     echo "</select>";
-    echo "<BR><a href=\"categories.php\">category explanations</a>";
+    echo "<br><a href=\"categories.php\">category explanations</a>";
     echo "</form>";
 
     // output comments
