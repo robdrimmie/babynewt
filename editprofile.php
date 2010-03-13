@@ -1,10 +1,12 @@
 <?php
-include( "session.php" );
+include("session.php");
 include("include.php");
 
 // establish connection to MySQL database or output error message.
 $link = mysql_connect ($dbHost, $dbUser, $dbPassword);
-if (!mysql_select_db($dbName, $link)) echo mysql_errno().": ".mysql_error()."<br>";
+if (!mysql_select_db($dbName, $link)) {
+    echo mysql_errno().": ".mysql_error()."<br>";
+}
 
 $properties = array(
     'hdnUserId'
@@ -21,12 +23,14 @@ $properties = array(
     , 'chkPublicEmail'
 );
 
-foreach( $properties as $property ) {
+foreach ( $properties as $property ) {
     $$property = array_key_exists( $property, $_REQUEST ) ? $_REQUEST[ $property ] : '';
 }
 
 $sessionUserId = $_SESSION[ 'sessionUserId' ];
-if( Empty( $sessionUserId )) $sessionUserId = -1;
+if ( Empty( $sessionUserId )) {
+    $sessionUserId = -1;
+}
 $hdnUserId = $sessionUserId;
 
 if ( $chkPublicEmail == "on" ) {
@@ -72,12 +76,12 @@ else if ($hdnUserId == -1 && !Empty( $btnSubmit ) ) {
         $UserNumberQueryId = mysql_query ($UserNumberQuery, $link);
         $UserNumber = mysql_fetch_object($UserNumberQueryId);
 
-        if( $UserProfile && $UserProfile->i_UID > 0 ) {
-            echo ("Sorry, that username already exists.  Please pick another.<BR>");
+        if ( $UserProfile && $UserProfile->i_UID > 0 ) {
+            echo ("Sorry, that username already exists.  Please pick another.<br>");
         }
         else {
             if ( $UserNumber && $UserNumber->i_UID > 0 ) {
-                echo ("Sorry, that usernumber already exists.  Please pick another.<BR>");
+                echo ("Sorry, that usernumber already exists.  Please pick another.<br>");
             }
             else {
                 $ProfileQuery = "
@@ -109,7 +113,7 @@ else if ($hdnUserId == -1 && !Empty( $btnSubmit ) ) {
                 }
                 else {
                     echo "Error:<br>".$ProfileQuery;
-                    echo "<br>".mysql_errno().": ".mysql_error()."<BR>";
+                    echo "<br>".mysql_errno().": ".mysql_error()."<br>";
                 }
 
                 $ProfileQuery = "SELECT MAX(i_UID) i_UID FROM Users";
@@ -127,10 +131,10 @@ else if ($hdnUserId == -1 && !Empty( $btnSubmit ) ) {
 }
 else if ($hdnUserId > -1 && !Empty( $btnSubmit ) ) {
     // Old User Updating Profile Data
-    if( $txtPassword != $txtVerifyPassword ) {
-        echo "Passwords Do Not Match!<BR>";
+    if ( $txtPassword != $txtVerifyPassword ) {
+        echo "Passwords Do Not Match!<br>";
     }
-    else if( '' === $txtPassword || '' === $txtVerifyPassword ) {
+    else if ( '' === $txtPassword || '' === $txtVerifyPassword ) {
         echo 'You must enter your password to update your profile. Sorry.';
     }
     else {
@@ -195,13 +199,13 @@ else {
             UserName
         </td>
         <td>
-            <input type="hidden" name="hdnUserId" value="<?PHP echo $hdnUserId;?>">
+            <input type="hidden" name="hdnUserId" value="<?php echo $hdnUserId;?>">
             <?php
-                if( $hdnUserId == -1 ) {
+                if ( $hdnUserId == -1 ) {
                     echo "<input type=\"text\" name=\"txtUsername\" value=\"";
                 }
                 echo $txtUsername;
-                if( $hdnUserId == -1 ) {
+                if ( $hdnUserId == -1 ) {
                     echo "\" maxlength=\"100\">";
                 }
                 else {
@@ -216,7 +220,7 @@ else {
         </td>
         <td>
             <input type="text" name="txtUserNumber"
-value="<?PHP echo $txtUserNumber;?>" maxlength="500">
+value="<?php echo $txtUserNumber;?>" maxlength="500">
         </td>
     </tr>
 
@@ -241,7 +245,7 @@ value="<?PHP echo $txtUserNumber;?>" maxlength="500">
             E-mail
         </td>
         <td>
-            <input type="text" name="txtEmail" value="<?PHP echo $txtEmail;?>" maxlength="255">
+            <input type="text" name="txtEmail" value="<?php echo $txtEmail;?>" maxlength="255">
         </td>
     </tr>
     <tr>
@@ -249,7 +253,7 @@ value="<?PHP echo $txtUserNumber;?>" maxlength="500">
             Show E-Mail on Public Profile Pages?
         </td>
         <td>
-            <input type="checkbox" name="chkPublicEmail" <?PHP echo $sPublicEmail;?>" maxlength="255">
+            <input type="checkbox" name="chkPublicEmail" <?php echo $sPublicEmail;?>" maxlength="255">
         </td>
     </tr>
     <tr>
@@ -257,7 +261,7 @@ value="<?PHP echo $txtUserNumber;?>" maxlength="500">
             URL
         </td>
         <td>
-            <input type="text" name="txtURL" value="<?PHP echo $txtURL;?>" maxlength="255">
+            <input type="text" name="txtURL" value="<?php echo $txtURL;?>" maxlength="255">
         </td>
     </tr>
     <tr>
@@ -265,7 +269,7 @@ value="<?PHP echo $txtUserNumber;?>" maxlength="500">
             GMT Offset
         </td>
         <td>
-            <input type="text" name="txtGMTOffset" value="<?PHP echo $txtGMTOffset;?>" maxlength="3">
+            <input type="text" name="txtGMTOffset" value="<?php echo $txtGMTOffset;?>" maxlength="3">
         </td>
     </tr>
     <tr>
@@ -273,7 +277,7 @@ value="<?PHP echo $txtUserNumber;?>" maxlength="500">
             Date Joined
         </td>
         <td>
-            <?PHP echo $txtDateJoined;?>
+            <?php echo $txtDateJoined;?>
         </td>
     </tr>
     <tr>
@@ -281,11 +285,11 @@ value="<?PHP echo $txtUserNumber;?>" maxlength="500">
             Date Last Visit
         </td>
         <td>
-            <?PHP echo $txtDateLastVisit;?>
+            <?php echo $txtDateLastVisit;?>
         </td>
     </tr>
 </table>
-<input type="hidden" name="iRowCount" value="<?PHP echo $iRowCount ?>">
+<input type="hidden" name="iRowCount" value="<?php echo $iRowCount ?>">
 <input type="submit" name="btnSubmit" value="Submit"
     ONCLICK="QuoteReplace(document.UserProfileForm.txtBiography);">
 </form>
