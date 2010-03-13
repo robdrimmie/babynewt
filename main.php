@@ -7,22 +7,26 @@
 
     // establish connection to MySQL database or output error message.
     $link = mysql_connect ($dbHost, $dbUser, $dbPassword);
-    if (!mysql_select_db($dbName, $link)) echo mysql_errno().": ".mysql_error()."<BR>";
+    if (!mysql_select_db($dbName, $link)) {
+        echo mysql_errno().": ".mysql_error()."<br>";
+    }
 
     // Default to my userID for the testing
-    if( !isset( $_SESSION['sessionUserId'] ) ) {
+    if ( !isset( $_SESSION['sessionUserId'] ) ) {
         $_SESSION['sessionUserId'] = -1;
     }
 
     // if user is not logged in, show message and login inputs
-    if( $_SESSION['sessionUserId'] == -1 ) {
+    if ( $_SESSION['sessionUserId'] == -1 ) {
         header ("Location: index.php");
     }
 
     $sessionUserId = $_SESSION['sessionUserId'];
 
     $txtPageSize = array_key_exists( 'txtPageSize', $_REQUEST) ? $_REQUEST[ 'txtPageSize' ] : 50;
-    if( $txtPageSize > 500 ) $txtPageSize = 500;
+    if ( $txtPageSize > 500 ) {
+        $txtPageSize = 500;
+    }
 
     $MyLastCommentQuery = "SELECT i_CommentId FROM Users WHERE Users.i_UID = $sessionUserId";
     $MyLastCommentResultId = mysql_query ($MyLastCommentQuery, $link);
@@ -33,7 +37,7 @@
     $MaxCmtRes = mysql_fetch_object($MaxCmtResId);
     // Start at the first comment if there's none already set in the database.
     $hdnCurrentRecord = array_key_exists( 'hdnCurrentRecord', $_REQUEST ) ? $_REQUEST[ 'hdnCurrentRecord' ] : '';
-    if( ('' === $hdnCurrentRecord ) && !Empty( $MyLastCommentResult->i_CommentId )) {
+    if ( ('' === $hdnCurrentRecord ) && !Empty( $MyLastCommentResult->i_CommentId )) {
         $hdnCurrentRecord = $MyLastCommentResult->i_CommentId;
     }
     else if ( Empty($hdnCurrentRecord) ) {
@@ -50,12 +54,16 @@
     // increment or decrement by page size.
     $btnNextPage = array_key_exists( 'btnNextPage', $_REQUEST ) ? $_REQUEST[ 'btnNextPage' ] : null;
     $btnPrevPage = array_key_exists( 'btnNextPage', $_REQUEST ) ? $_REQUEST[ 'btnPrevPage' ] : null;
-    if ( null !== $btnNextPage ) $hdnCurrentRecord += $txtPageSize;
-    if ( null !== $btnPrevPage ) $hdnCurrentRecord -= $txtPageSize;
+    if ( null !== $btnNextPage ) {
+        $hdnCurrentRecord += $txtPageSize;
+    }
+    if ( null !== $btnPrevPage ) {
+        $hdnCurrentRecord -= $txtPageSize;
+    }
 
     /* Hiding archive behaviour for now.
-    if( $hdnCurrentRecord < 1450000 ) {
-        if( $hdnCurrentRecord < 50000 ) {
+    if ( $hdnCurrentRecord < 1450000 ) {
+        if ( $hdnCurrentRecord < 50000 ) {
             $CommentTable = "CommentArchive1";
         }
         else if  ( $hdnCurrentRecord < 100000 ) {
@@ -146,8 +154,12 @@
     */
 
     // Make the viewport local
-    if ($hdnCurrentRecord > $MaxCmtRes->MaxCmt) $hdnCurrentRecord = $MaxCmtRes->MaxCmt - 5;
-    if ($hdnCurrentRecord < 0)  $hdnCurrentRecord = 0;
+    if ($hdnCurrentRecord > $MaxCmtRes->MaxCmt) {
+        $hdnCurrentRecord = $MaxCmtRes->MaxCmt - 5;
+    }
+    if ($hdnCurrentRecord < 0) {
+        $hdnCurrentRecord = 0;
+    }
 
     // If the user clicked a comment button update last viewed to the
     // comment before it was pressed.
@@ -155,7 +167,7 @@
     //  starts array-type things at 1, rather than 0.
     $btnUpdateMyLastComment = array_key_exists( 'btnUpdateMyLastComment', $_REQUEST ) ? $_REQUEST[ 'btnUpdateMyLastComment' ] : null;
     if ( null !== $btnUpdateMyLastComment ) {
-//      if( $btnUpdateMyLastComment > 1 ) $btnUpdateMyLastComment -= 1;
+//      if ( $btnUpdateMyLastComment > 1 ) $btnUpdateMyLastComment -= 1;
         $UpdateMyLastCommentQuery = "UPDATE Users SET i_CommentId = $btnUpdateMyLastComment WHERE Users.i_UID = $sessionUserId";
 
         $UpdateMyLastCommentResultId = mysql_query ($UpdateMyLastCommentQuery, $link);
@@ -165,7 +177,7 @@
     // Get the user select template
     // Added Outer If/Else structure for $TemplateID
     $TemplateID = array_key_exists( 'TemplateID', $_REQUEST ) ? $_REQUEST[ 'TemplateID' ] : null;
-    if( null === $TemplateID ) {
+    if ( null === $TemplateID ) {
         $UserTemplateQuery = "SELECT i_TemplateID FROM UserTemplate WHERE UserTemplate.i_UID = $sessionUserId";
         $TemplateResId = mysql_query ($UserTemplateQuery, $link);
         $TemplateRes = mysql_fetch_object($TemplateResId);
@@ -221,7 +233,7 @@
     $TaglinePrefixRes = mysql_fetch_object($TaglinePrefixResId);
 
     $strTagline = '';
-    if( $TaglinePrefixRes ) {
+    if ( $TaglinePrefixRes ) {
           /***
            *  Tagline scheme - prefix, suffix, rand keyword
            *
@@ -244,7 +256,7 @@
     }
 
     $rand_start = strpos(  $strTagline, "\$RAND" );
-    while( $rand_start ) {
+    while ( $rand_start ) {
         $rand_end = strpos( $strTagline, "\$", $rand_start + 1 );
         $dot_pos = strpos( $strTagline, ".", $rand_start + 1);
         $ast_pos = strpos( $strTagline, "*", $dot_pos + 1 );
@@ -261,7 +273,7 @@
         $rand_start = strpos(  $strTagline, "\$RAND" );
     }
 
-    if( $TemplateRes ) {
+    if ( $TemplateRes ) {
         $Header = str_replace("[\$TAGLINE\$]",
             $strTagline,
             $TemplateRes->t_TemplateHdr);
@@ -471,7 +483,7 @@
         $PostersSuffix = substr($SufStmp, 16, $SufSE-16);
     }
 
-    if(preg_match("[\$15POSTERS\$]", $Header) || preg_match("[\$15POSTERS\$]", $Footer)){
+    if (preg_match("[\$15POSTERS\$]", $Header) || preg_match("[\$15POSTERS\$]", $Footer)){
         $PosterQuery = "SELECT Users.vc_Username
                                         FROM Users
                                         WHERE ( NOW() - Users.dt_LastPosted ) < 900
@@ -505,7 +517,7 @@
         $VisitorSuffix = substr($SufStmp, 17, $SufSE-17);
     }
 
-    if(preg_match("[\$15LURKERS\$]", $Header) || preg_match("[\$15LURKERS\$]", $Footer)) {
+    if (preg_match("[\$15LURKERS\$]", $Header) || preg_match("[\$15LURKERS\$]", $Footer)) {
         $PosterQuery = " SELECT  Users.vc_Username FROM Users WHERE DATE_ADD(dt_LastVisit, INTERVAL 15 MINUTE) > now() ORDER BY Users.dt_LastVisit DESC";
         // Get the posters
         $PosterResultId = mysql_query ($PosterQuery, $link);
