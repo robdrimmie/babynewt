@@ -4,7 +4,7 @@
 
     // establish connection to MySQL database or output error message.
     $link = mysql_connect ($dbHost, $dbUser, $dbPassword);
-    if (!mysql_select_db($dbName, $link)) echo mysql_errno().": ".mysql_error()."<BR>";
+    if (!mysql_select_db($dbName, $link)) echo mysql_errno().": ".mysql_error()."<br>";
 
     $sessionUserId = $_SESSION[ 'sessionUserId' ];
 
@@ -71,7 +71,7 @@
 
     if ( array_key_exists( "yourfavoritecount", $_REQUEST ) ) {
         if ( is_numeric( $_REQUEST[ "yourfavoritecount" ] ) ) {
-            for( $favcount = 0; $favcount < $_REQUEST[ "yourfavoritecount" ]; $favcount++ ) {
+            for ( $favcount = 0; $favcount < $_REQUEST[ "yourfavoritecount" ]; $favcount++ ) {
                 $annotation = sql_quote( $_REQUEST[ "annotation_{$favcount}" ] );
                 $commentid = $_REQUEST[ "commentid_{$favcount}" ];
                 $update_favorite_query = "UPDATE Favorites
@@ -147,7 +147,7 @@
                                  WHERE Favorites.i_CommentId = {$favorite->i_CommentId}";
             $annotation_result = mysql_query( $annotation_query );
             echo mysql_error();
-            while( $annotation = mysql_fetch_object( $annotation_result ) ) {
+            while ( $annotation = mysql_fetch_object( $annotation_result ) ) {
                 if ( strlen( $annotation->vc_Annotation ) > 0 ) {
                     echo "<dd>{$annotation->vc_Username}: ";
                     echo stripslashes($annotation->vc_Annotation);
