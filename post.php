@@ -165,7 +165,7 @@ else {
     $tComment = str_replace("[\$CATEGORYNAME\$]", "Category Name", $tComment);
     $tComment = str_replace("[\$COMMENTDATETIME\$]", "Date/time", $tComment);
     echo $tComment."\n";
-    echo"</BODY></HTML>";
+    echo "</body></html>";
 }
 
 ?>
