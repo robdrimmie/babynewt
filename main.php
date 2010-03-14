@@ -6,10 +6,8 @@
 	include("include.php");
 
 	// establish connection to MySQL database or output error message.
-	$link = mysql_connect ($dbHost, $dbUser, $dbPassword);
-	if (!mysql_select_db($dbName, $link)) echo mysql_errno().": ".mysql_error()."<BR>";
+	$db = new Database();
 
-	// Default to my userID for the testing
 	if( !isset( $_SESSION['sessionUserId'] ) ){
 		$_SESSION['sessionUserId'] = -1;
 	}
@@ -24,13 +22,11 @@
 	$txtPageSize = array_key_exists( 'txtPageSize', $_REQUEST) ? $_REQUEST[ 'txtPageSize' ] : 50;
 	if( $txtPageSize > 500 ) $txtPageSize = 500;
 
+	$comment = new Comment( $db );
 	$MyLastCommentQuery = "SELECT i_CommentId FROM Users WHERE Users.i_UID = $sessionUserId";
 	$MyLastCommentResultId = mysql_query ($MyLastCommentQuery, $link);
 	$MyLastCommentResult = mysql_fetch_object($MyLastCommentResultId);
 
-	$MaxCmtQuery = "SELECT MAX(Comment.i_CommentID) AS MaxCmt FROM Comment";
-	$MaxCmtResId = mysql_query ($MaxCmtQuery, $link);
-	$MaxCmtRes = mysql_fetch_object($MaxCmtResId);
 	// Start at the first comment if there's none already set in the database.
 	$hdnCurrentRecord = array_key_exists( 'hdnCurrentRecord', $_REQUEST ) ? $_REQUEST[ 'hdnCurrentRecord' ] : '';
 	if( ('' === $hdnCurrentRecord ) && !Empty( $MyLastCommentResult->i_CommentId )){
@@ -117,7 +113,7 @@
 	*/
 	
 	// Make the viewport local
-	if ($hdnCurrentRecord > $MaxCmtRes->MaxCmt) $hdnCurrentRecord = $MaxCmtRes->MaxCmt - 5;
+	if ($hdnCurrentRecord > $comment->mostRecent() ) $hdnCurrentRecord = $comment->mostRecent() - 5;
 	if ($hdnCurrentRecord < 0) 	$hdnCurrentRecord = 0;
 
 	// If the user clicked a comment button update last viewed to the 
@@ -382,7 +378,7 @@
 	$Footer = str_replace("[\$BUGREPORTLINK\$]", $BugReport, $Footer);
 
 	// Link to the present
-	$PresentPost = $MaxCmtRes->MaxCmt - 10;
+	$PresentPost = $comment->mostRecent() - 10;
 	$PresStr = "Present";
 	// Allows formatting of the comment date into any allowed by mySQL
 	$PresStmp = strstr($Header, "[\$PRESENTLINKSTR=");
@@ -397,9 +393,9 @@
 	$Header = str_replace("[\$PRESENT\$]", $PresStr, $Header);
 
 	// Total Comments
-	$Comment = str_replace("[\$MAXCOMMENT\$]", $MaxCmtRes->MaxCmt, $Comment);
-	$Footer = str_replace("[\$MAXCOMMENT\$]", $MaxCmtRes->MaxCmt, $Footer);
-	$Header = str_replace("[\$MAXCOMMENT\$]", $MaxCmtRes->MaxCmt, $Header);
+	$Comment = str_replace("[\$MAXCOMMENT\$]", $comment->mostRecent(), $Comment);
+	$Footer = str_replace("[\$MAXCOMMENT\$]", $comment->mostRecent(), $Footer);
+	$Header = str_replace("[\$MAXCOMMENT\$]", $comment->mostRecent(), $Header);
 
 	// Logout Link
 
