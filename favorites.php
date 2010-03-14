@@ -128,7 +128,7 @@
     ?>
     </div>
 
-    <div name="popoularity" id="popularity">
+    <div name="popularity" id="popularity">
     <h3>Popularity</h3>
     <?php
         $fav_query = "SELECT i_CommentId, COUNT( i_CommentId ) as efts
