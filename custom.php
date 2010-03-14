@@ -28,7 +28,7 @@
         $CatOptions .= "<option value=\"$CategoryListResult->i_CategoryId\"";
 
         if ( $SelectedCategory == $CategoryListResult->i_CategoryId ) {
-            $CatOptions .= " selected=\"selected\"";
+            $CatOptions .= " selected";
         }
 
         $CatOptions .= ">$CategoryListResult->vc_Name</option>";
@@ -109,10 +109,10 @@
             $strCommentRange = "$intFirstCommentId - $intLastCommentId";
 
             if (!Empty($UInfRes->COUNTER)) {
-                echo "<hr>$UInfRes->COUNTER Results in $strCommentRange <br>"; $Total += $UInfRes->COUNTER;
+                echo "<hr>$UInfRes->COUNTER Results in $strCommentRange<br>"; $Total += $UInfRes->COUNTER;
             }
             else {
-                echo "<hr />0 Results in $strCommentRange<br />";
+                echo "<hr>0 Results in $strCommentRange<br>";
             }
             $UInfId2 = mysql_query ($Q2, $link);
             while ($UInfRes = mysql_fetch_object($UInfId2)) {
@@ -159,7 +159,7 @@
             $strCommentRange = "Current Comment Table";
 
             if (!Empty($UInfRes->COUNTER)) {
-                echo "<hr>$UInfRes->COUNTER Results in $strCommentRange <br>"; $Total += $UInfRes->COUNTER;
+                echo "<hr>$UInfRes->COUNTER Results in $strCommentRange<br>"; $Total += $UInfRes->COUNTER;
             }
             else {
                 echo "<hr>0 Results in $strCommentRange<br>";
@@ -171,12 +171,12 @@
         }
     }
 ?>
-</span><br /><br />
+</span><br><br>
 <?php
     echo "$Total Total Results Found";
 ?>
-<br />
-<br />
+<br>
+<br>
     <form action="custom.php" method="post">
     <table>
         <tr>
@@ -194,7 +194,7 @@ value="<?php echo $LookFor; ?>">
             </td>
             <td>
                 <input type="text" name="ByUser"
-value="<?php echo $ByUser ?>" />
+value="<?php echo $ByUser ?>">
             </td>
         </tr>
         <tr>

@@ -84,7 +84,7 @@
 
     while ( $CategoryListResult = mysql_fetch_object($CategoryListResultId)) {
         $category_info = "Stylename:$CategoryListResult->vc_CSSName";
-        $category_info .= "<br />Description: $CategoryListResult->t_Description";
+        $category_info .= "<br>Description: $CategoryListResult->t_Description";
 
         $tComment = str_replace("[\$COMMENTBUTTON\$]","<input class=\"[\$CATCSSNAME\$]LASTCMTBTN\" type=\"submit\" name=\"btnUpdateMyLastComment\" value=\"[\$COMMENTNUMBER\$]\">", $Comment);
 
@@ -94,7 +94,7 @@
         $tComment = str_replace("[\$CATNAMELINK\$]", $CategoryListResult->vc_Name, $tComment);
         echo $tComment."\n";
     }
-    echo "<br />";
+    echo "<br>";
     echo "<a href=\"index.php\" title=\"return to front page\">";
     echo "return to front page";
     echo "</a>";

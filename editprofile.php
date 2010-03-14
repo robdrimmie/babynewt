@@ -59,7 +59,7 @@ if ( Empty( $hdnUserId ) || ( $hdnUserId == -1  && Empty( $btnSubmit )) ) {
 else if ($hdnUserId == -1 && !Empty( $btnSubmit ) ) {
     // New User Saving Profile Data.
     if ( $txtPassword != $txtVerifyPassword ) {
-        echo "Passwords do not match, please try again.<br />";
+        echo "Passwords do not match, please try again.<br>";
     }
     else {
         // Check for an existing user with that username.

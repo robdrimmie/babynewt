@@ -8,15 +8,15 @@ if ( $_SESSION[ "sessionUserId" ] == -1 ) {
 }
 
 if ( null ===  $_SESSION[ "sessionUserId" ] ) {
-    echo "<br >Unmatched ID";
+    echo "<br>Unmatched ID";
     print_r( $_SESSION );
-    echo "<br />SESSION:".$_SESSION[ "sessionUserId" ];
-    echo "<br />REQUEST:".$_REQUEST[ "hdnUID" ];
-    echo "<br />An error occured, generally of the sort that occurs when
+    echo "<br>SESSION:".$_SESSION[ "sessionUserId" ];
+    echo "<br>REQUEST:".$_REQUEST[ "hdnUID" ];
+    echo "<br>An error occured, generally of the sort that occurs when
                 sessions timeout.  Please copy your comment and try hitting
                 back and posting again.";
 
-    echo "<br />";
+    echo "<br>";
     echo "your post was roughly:";
     echo "<textarea>".stripslashes( $_REQUEST[ "txtComment" ] )."</textarea>";
     exit;

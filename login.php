@@ -30,7 +30,7 @@ if ( ( !Empty( $_POST['userLoginSubmit'] ) ) || ( !Empty($_COOKIE['cookieUsernam
     if ( Empty( $UserLoginResults->i_UID ) ) {
         $_SESSION['sessionUserId'] = -1;
         if ( !Empty( $_POST['userLoginSubmit'] ) ) {
-            echo "That username password combination was not found.<br /><br />";
+            echo "That username password combination was not found.<br><br>";
         }
     }
     else {
@@ -55,7 +55,7 @@ if ( ( !Empty( $_POST['userLoginSubmit'] ) ) || ( !Empty($_COOKIE['cookieUsernam
 function OutputLoginForm( $UserLoginFormAction ) {
     echo "<form name=\"UserLoginForm\" action=\"$UserLoginFormAction\" method=\"post\">";
 
-//  <a href="editprofile.php">Click here to register</a> <br /><br />
+//  <a href="editprofile.php">Click here to register</a><br><br>
 ?>
     <table>
         <tr>

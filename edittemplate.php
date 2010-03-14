@@ -175,8 +175,8 @@
             echo "-1\">";
             // fill the textarea with as many stylesheet classes as possible
             echo "Name: <input type=\"text\" name=\"txtTemplateName\" value=\"I aint got no name.\">";
-            echo "<br />Public: <input type=\"checkbox\" name=\"chkTemplatePublic\">";
-            echo "<br />Header Template<br><textarea name=\"txtHeader\" cols=\"100\" rows=\"17\"></textarea><br>";
+            echo "<br>Public: <input type=\"checkbox\" name=\"chkTemplatePublic\">";
+            echo "<br>Header Template<br><textarea name=\"txtHeader\" cols=\"100\" rows=\"17\"></textarea><br>";
             echo "Comment Template<br><textarea name=\"txtComment\" cols=\"100\" rows=\"17\"></textarea><br>";
             echo "Footer Template<br><textarea name=\"txtFooter\" cols=\"100\" rows=\"17\"></textarea><br>";
         }
@@ -203,10 +203,10 @@
             // fill the textarea with selected style
             // load the db values
             echo "Name: <input type=\"text\" name=\"txtTemplateName\" value=\"$templateName\">";
-            echo "<br />Public: <input type=\"checkbox\" name=\"chkTemplatePublic\"";
+            echo "<br>Public: <input type=\"checkbox\" name=\"chkTemplatePublic\"";
             if ( $templatePublic == 1 ) echo " checked";
             echo ">";
-            echo "<br /><input type=\"submit\" name=\"btnMakeMine\" value=\"Make This my Template\"><br>";
+            echo "<br><input type=\"submit\" name=\"btnMakeMine\" value=\"Make This my Template\"><br>";
             echo "Header Template<br><textarea name=\"txtHeader\" cols=\"100\" rows=\"17\">$templateHdr</textarea><br>";
             echo "Comment Template<br><textarea name=\"txtComment\" cols=\"100\" rows=\"17\">$templateCmt</textarea><br>";
             echo "Footer Template<br><textarea name=\"txtFooter\" cols=\"100\" rows=\"17\">$templateFtr</textarea><br>";
