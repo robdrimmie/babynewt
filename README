@@ -1,9 +1,13 @@
 babynewt is forum software.
 
-The basic functionality is that of a single thread with categorized posts. Users can make their own templates (including stylesheets) and share them with other users.
+The basic functionality is that of a single thread with categorized posts.
+Users can make their own templates (including stylesheets) and share them with
+other users.
 
-Initial development was by Rob Drimmie. Significant contributions (especially for templating and searching) were made by Clayton Hannah.
+Initial development was by Rob Drimmie. Significant contributions (especially
+for templating and searching) were made by Clayton Hannah.
 
-Most of the code was written in 2001 and is terrible. Adding it to github is the first step in a concerted effort to clean the code up and make it useful.
+Most of the code was written in 2001 and is terrible. Adding it to github is
+the first step in a concerted effort to clean the code up and make it useful.
 
 Licensed under the MIT License.
