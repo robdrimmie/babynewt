@@ -55,9 +55,8 @@ class Database
         // check if this function exists
         if ( function_exists( "mysql_real_escape_string" ) ) {
             $value = mysql_real_escape_string( $value );
-        }
-        // for PHP version < 4.3.0 use addslashes
-        else {
+        } else {
+            // for PHP version < 4.3.0 use addslashes
             $value = addslashes( $value );
         }
         return $value;

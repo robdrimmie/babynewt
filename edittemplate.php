@@ -83,8 +83,7 @@
             var_dump( $InsTemplateQuery );
             $InsTemplateQueryId = mysql_query( $InsTemplateQuery );
             var_dump( mysql_error() );
-//      }
-//      else{
+//      } else {
 //          $UpdTemplateQuery = "UPDATE Template SET  i_UID=$hdnUserId, b_Public=$iTemplatePublic, vc_TemplateName = \"$txtTemplateName\", t_TemplateHdr=\"$txtHeader\", t_TemplateCmt=\"$txtComment\", t_TemplateFtr=\"$txtFooter \" WHERE i_TemplateID=$hdnTemplateId";
 //          $UpdTemplateQueryId = mysql_query( $UpdTemplateQuery );
 //      }
@@ -179,8 +178,7 @@
             echo "<br>Header Template<br><textarea name=\"txtHeader\" cols=\"100\" rows=\"17\"></textarea><br>";
             echo "Comment Template<br><textarea name=\"txtComment\" cols=\"100\" rows=\"17\"></textarea><br>";
             echo "Footer Template<br><textarea name=\"txtFooter\" cols=\"100\" rows=\"17\"></textarea><br>";
-        }
-        else {
+        } else {
             echo "$selTemplate\">";
             $TemplateQuery = "SELECT vc_TemplateName, t_TemplateHdr, t_TemplateCmt, t_TemplateFtr, b_Public FROM Template WHERE i_TemplateID = $selTemplate";
             $TemplateQueryId = mysql_query ($TemplateQuery, $link);
@@ -191,8 +189,7 @@
                 $templateHdr = $Templates->t_TemplateHdr;
                 $templateCmt = $Templates->t_TemplateCmt;
                 $templateFtr = $Templates->t_TemplateFtr;
-            }
-            else {
+            } else {
                 $templateName = 'New Template';
                 $templatePublic = false;
                 $templateHdr = '';
@@ -215,8 +212,7 @@
         }
         echo "<input type=\"submit\" name=\"btnSaveTemplate\" value=\"Save Template\">";
         echo "</form>";
-    }
-    else if ( !Empty( $_REQUEST[ 'btnPickPublic' ] ) ) {
+    } else if ( !Empty( $_REQUEST[ 'btnPickPublic' ] ) ) {
         //  - if no specific style is selected,
         echo "<form name=\"frmTemplate\" action=\"edittemplate.php\" method=\"post\">";
         echo "<input type=\"hidden\" name=\"hdnTemplateId\" value=\"$selTemplate\">";
@@ -229,8 +225,7 @@
             $templateHdr = $Templates->t_TemplateHdr;
             $templateCmt = $Templates->t_TemplateCmt;
             $templateFtr = $Templates->t_TemplateFtr;
-        }
-        else {
+        } else {
             $templateName = 'New Template';
             $templateHdr = '';
             $templateCmt = '';
@@ -241,8 +236,7 @@
         echo "Header Template<br><textarea name=\"txtHeader\" cols=\"100\" rows=\"17\">$templateHdr</textarea><br>";
         echo "Comment Template<br><textarea name=\"txtComment\" cols=\"100\" rows=\"17\">$templateCmt</textarea><br>";
         echo "Footer Template<br><textarea name=\"txtFooter\" cols=\"100\" rows=\"17\">$TtemplateFtr</textarea><br>";
-    }
-    else if ( !Empty( $_REQUEST[ 'btnMakeMine' ] ) ) {
+    } else if ( !Empty( $_REQUEST[ 'btnMakeMine' ] ) ) {
         echo "Your selected template has been updated.";
     }
 

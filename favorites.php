@@ -14,8 +14,7 @@
     if ( $_SESSION['sessionUserId'] == -1 ) {
         echo "An error related to session occured.  Please make sure you're loading favorites.php.";
         exit;
-    }
-    else {
+    } else {
         $this_user = $_SESSION['sessionUserId'];
     }
 

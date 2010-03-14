@@ -12,8 +12,7 @@
 
     if ( !isset($_SESSION['sessionUserId']) ) {
         $_SESSION['sessionUserId'] = -1;
-    }
-    else {
+    } else {
         $sessionUserId = $_SESSION['sessionUserId'];
     }
 
@@ -31,8 +30,7 @@
     // if user is not logged in, show message and login inputs
     if ( $_SESSION['sessionUserId'] == -1 ) {
         OutputLoginForm( "index.php" );
-    }
-    else {
+    } else {
         echo "You are already logged in.  <a href=\"main.php\">Go to the main site</a>";
     }
     ?>

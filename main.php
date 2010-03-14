@@ -39,8 +39,7 @@
     $hdnCurrentRecord = array_key_exists( 'hdnCurrentRecord', $_REQUEST ) ? $_REQUEST[ 'hdnCurrentRecord' ] : '';
     if ( ('' === $hdnCurrentRecord ) && !Empty( $MyLastCommentResult->i_CommentId )) {
         $hdnCurrentRecord = $MyLastCommentResult->i_CommentId;
-    }
-    else if ( Empty($hdnCurrentRecord) ) {
+    } else if ( Empty($hdnCurrentRecord) ) {
         $hdnCurrentRecord = 0;
     }
 
@@ -65,89 +64,61 @@
     if ( $hdnCurrentRecord < 1450000 ) {
         if ( $hdnCurrentRecord < 50000 ) {
             $CommentTable = "CommentArchive1";
-        }
-        else if  ( $hdnCurrentRecord < 100000 ) {
+        } else if  ( $hdnCurrentRecord < 100000 ) {
             $CommentTable = "CommentArchive2";
-        }
-        else if  ( $hdnCurrentRecord < 150000 ) {
+        } else if  ( $hdnCurrentRecord < 150000 ) {
             $CommentTable = "CommentArchive3";
-        }
-        else if  ( $hdnCurrentRecord < 200000 ) {
+        } else if  ( $hdnCurrentRecord < 200000 ) {
             $CommentTable = "CommentArchive4";
-        }
-        else if  ( $hdnCurrentRecord < 250000 ) {
+        } else if  ( $hdnCurrentRecord < 250000 ) {
             $CommentTable = "CommentArchive5";
-        }
-        else if ( $hdnCurrentRecord < 300000 ) {
+        } else if ( $hdnCurrentRecord < 300000 ) {
             $CommentTable = "CommentArchive6";
-        }
-        else if ( $hdnCurrentRecord < 350000 ) {
+        } else if ( $hdnCurrentRecord < 350000 ) {
             $CommentTable = "CommentArchive7";
-        }
-        else if ( $hdnCurrentRecord < 400000) {
+        } else if ( $hdnCurrentRecord < 400000) {
             $CommentTable = "CommentArchive8";
-        }
-        else if ( $hdnCurrentRecord < 450000) {
+        } else if ( $hdnCurrentRecord < 450000) {
             $CommentTable = "CommentArchive9";
-        }
-        else if ( $hdnCurrentRecord < 500000 ) {
+        } else if ( $hdnCurrentRecord < 500000 ) {
             $CommentTable = "CommentArchive10";
-        }
-        else if ( $hdnCurrentRecord < 550000 ) {
+        } else if ( $hdnCurrentRecord < 550000 ) {
             $CommentTable = "CommentArchive11";
-        }
-        else if ( $hdnCurrentRecord < 600000 ) {
+        } else if ( $hdnCurrentRecord < 600000 ) {
             $CommentTable = "CommentArchive12";
-        }
-        else if ( $hdnCurrentRecord < 650000 ) {
+        } else if ( $hdnCurrentRecord < 650000 ) {
             $CommentTable = "CommentArchive13";
-        }
-        else if ( $hdnCurrentRecord < 700000 ) {
+        } else if ( $hdnCurrentRecord < 700000 ) {
             $CommentTable = "CommentArchive14";
-        }
-        else if ( $hdnCurrentRecord < 750000 ) {
+        } else if ( $hdnCurrentRecord < 750000 ) {
             $CommentTable = "CommentArchive15";
-        }
-        else if ( $hdnCurrentRecord < 800000 ) {
+        } else if ( $hdnCurrentRecord < 800000 ) {
             $CommentTable = "CommentArchive16";
-        }
-        else if ( $hdnCurrentRecord < 850000 ) {
+        } else if ( $hdnCurrentRecord < 850000 ) {
             $CommentTable = "CommentArchive17";
-        }
-        else if ( $hdnCurrentRecord < 900000 ) {
+        } else if ( $hdnCurrentRecord < 900000 ) {
             $CommentTable = "CommentArchive18";
-        }
-        else if ( $hdnCurrentRecord < 950000 ) {
+        } else if ( $hdnCurrentRecord < 950000 ) {
             $CommentTable = "CommentArchive19";
-        }
-        else if ( $hdnCurrentRecord < 1000000 ) {
+        } else if ( $hdnCurrentRecord < 1000000 ) {
             $CommentTable = "CommentArchive20";
-        }
-        else if ( $hdnCurrentRecord < 1050000 ) {
+        } else if ( $hdnCurrentRecord < 1050000 ) {
             $CommentTable = "CommentArchive21";
-        }
-        else if ( $hdnCurrentRecord < 1100000 ) {
+        } else if ( $hdnCurrentRecord < 1100000 ) {
             $CommentTable = "CommentArchive22";
-        }
-        else if ( $hdnCurrentRecord < 1150000 ) {
+        } else if ( $hdnCurrentRecord < 1150000 ) {
             $CommentTable = "CommentArchive23";
-        }
-        else if ( $hdnCurrentRecord < 1200000 ) {
+        } else if ( $hdnCurrentRecord < 1200000 ) {
             $CommentTable = "CommentArchive24";
-        }
-        else if ( $hdnCurrentRecord < 1250000 ) {
+        } else if ( $hdnCurrentRecord < 1250000 ) {
             $CommentTable = "CommentArchive25";
-        }
-        else if ( $hdnCurrentRecord < 1300000 ) {
+        } else if ( $hdnCurrentRecord < 1300000 ) {
             $CommentTable = "CommentArchive26";
-        }
-        else if ( $hdnCurrentRecord < 1350000 ) {
+        } else if ( $hdnCurrentRecord < 1350000 ) {
             $CommentTable = "CommentArchive27";
-        }
-        else if ( $hdnCurrentRecord < 1400000 ) {
+        } else if ( $hdnCurrentRecord < 1400000 ) {
             $CommentTable = "CommentArchive28";
-        }
-        else if ( $hdnCurrentRecord < 1450000 ) {
+        } else if ( $hdnCurrentRecord < 1450000 ) {
             $CommentTable = "CommentArchive29";
         }
     }
@@ -186,12 +157,10 @@
 
         if (!Empty($TemplateRes->i_TemplateID)) {
             $TemplateQuery = "SELECT t_TemplateHdr, t_TemplateCmt, t_TemplateFtr FROM Template WHERE i_TemplateID = $TemplateRes->i_TemplateID";
-        }
-        else {
+        } else {
             $TemplateQuery = "SELECT t_TemplateHdr, t_TemplateCmt, t_TemplateFtr FROM Template WHERE i_TemplateID = 1";
         }
-    }
-    else {
+    } else {
         $TemplateQuery = "SELECT t_TemplateHdr, t_TemplateCmt, t_TemplateFtr FROM Template WHERE i_TemplateID = $TemplateID";
     }
     //---------------------------------------End Mods Dec 5, 2001------------------------------------
@@ -285,8 +254,7 @@
         $Footer = str_replace("[\$TAGLINE\$]",
             $strTagline,
             $TemplateRes->t_TemplateFtr);
-    }
-    else {
+    } else {
         $Header = '[Header] No Templates exist.';
         $Comment = '[Comment] No Templates exist.';
         $Footer = '[Footer] No Templates exist.';
@@ -297,8 +265,7 @@
         $UserStyleQuery = "SELECT t_StyleSheet
                              FROM DBStyleSheet
                             WHERE DBStyleSheet.i_StyleSheetId = " . $userStyle;
-    }
-    else {
+    } else {
         // Add the stylesheet
         $UserStyleQuery = "SELECT t_StyleSheet
                                             FROM UserStyleSheet, DBStyleSheet
@@ -310,8 +277,7 @@
     if ( $StyleRes = mysql_fetch_object($StyleResId) ) {
         // if a stylesheet for this user exists,
         // do nothing here.
-    }
-    else {
+    } else {
         // this user does not have a stylesheet.  Fetch the default (id = 1)
         $UserStyleQuery = "SELECT t_StyleSheet
                                             FROM DBStyleSheet
@@ -405,8 +371,7 @@
     date_default_timezone_set('America/New_York');
     if ( date("H") + $GMTOffset < 0 ) {
         $relative_day = date("d") -1;
-    }
-    else {
+    } else {
         $relative_day = date("d");
     }
 
@@ -569,8 +534,7 @@
     if ( $comments_from_user ) {
         $CommentsQuery.=" AND Users.i_UID = {$cfu_id}
             ORDER BY i_CommentId DESC LIMIT {$txtPageSize} ";
-    }
-    else {
+    } else {
         $CommentsQuery.=" AND $CommentTable.i_CommentId >=  $hdnCurrentRecord
             AND $CommentTable.i_CommentId <= ".($hdnCurrentRecord + $txtPageSize)."
             ORDER BY i_CommentId";
@@ -588,8 +552,7 @@
         $tComment = str_replace("[\$COMMENTBUTTON\$]","<input class=\"[\$CATCSSNAME\$]LASTCMTBTN\" type=\"submit\" name=\"btnUpdateMyLastComment\" value=\"[\$COMMENTNUMBER\$]\">", $Comment);
         if ($CommentsResult->i_UID == $sessionUserId) {
             $tComment = str_replace("[\$CATNAMELINK\$]", "<a href=\"changecategory.php?id=[\$COMMENTNUMBER\$]\" class=\"[\$CATCSSNAME\$]CHANGECATEGORYLINK\"> [\$CATEGORYNAME\$]</a>", $tComment);
-        }
-        else {
+        } else {
             $tComment = str_replace("[\$CATNAMELINK\$]", "[\$CATEGORYNAME\$]", $tComment);
         }
 

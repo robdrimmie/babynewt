@@ -25,8 +25,7 @@ session_start();
 /*
     if ( $_SESSION['sessionLastVisit'] < (time()- 8100000) ) // 810000 = 15 minutes {
 //      session_destroy();
-    }
-    else {
+    } else {
         $_SESSION['sessionLastVisit'] = time();
     }
 //  if ( !Empty( $btnExpireSession ) ) {

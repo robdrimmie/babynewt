@@ -30,8 +30,7 @@
                              FROM DBStyleSheet
                             WHERE DBStyleSheet.i_StyleSheetId = "
                             . $_REQUEST[ 'StyleSheet' ];
-    }
-    else {
+    } else {
         // the user's stylesheet
         $UserStyleQuery = "SELECT t_StyleSheet
                              FROM UserStyleSheet, DBStyleSheet
@@ -61,16 +60,14 @@
                                    , t_TemplateFtr
                                 FROM Template
                                WHERE i_TemplateID = $TemplateRes->i_TemplateID";
-        }
-        else {
+        } else {
             $TemplateQuery = "SELECT t_TemplateHdr
                                    , t_TemplateCmt
                                    , t_TemplateFtr
                                 FROM Template
                                WHERE i_TemplateID = 1";
         }
-    }
-    else {
+    } else {
         $TemplateQuery = "SELECT t_TemplateHdr
                                , t_TemplateCmt
                                , t_TemplateFtr

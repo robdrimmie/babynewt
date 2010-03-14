@@ -32,8 +32,7 @@ if ( ( !Empty( $_POST['userLoginSubmit'] ) ) || ( !Empty($_COOKIE['cookieUsernam
         if ( !Empty( $_POST['userLoginSubmit'] ) ) {
             echo "That username password combination was not found.<br><br>";
         }
-    }
-    else {
+    } else {
         $_SESSION['sessionUserId'] = $UserLoginResults->i_UID;
 
         $UpdateLastVisitQuery = "UPDATE Users SET dt_LastVisit = NOW(),";

@@ -40,8 +40,7 @@ if (!Empty( $_REQUEST[ "btnSubmitPreviewedComment" ] )) {
 
         // convert new lines to br tags
         if ( array_key_exists( "nobr", $_REQUEST ) && $_REQUEST[ "nobr" ] == "nobr" ) {
-        }
-        else {
+        } else {
           $txtComment = nl2br($txtComment);
         }
 
@@ -62,12 +61,10 @@ if (!Empty( $_REQUEST[ "btnSubmitPreviewedComment" ] )) {
 
         header ("Location: main.php");
         exit;
-    }
-    else {
+    } else {
         echo "No empty comments, please.";
     }
-}
-else {
+} else {
     // Preview the comment instead of submitting it
     $txtComment = $_REQUEST[ "txtComment" ];
     $txtComment = stripslashes($txtComment);
@@ -87,8 +84,7 @@ else {
     $StyleResId = mysql_query ($UserStyleQuery, $link);
     if ( $StyleRes = mysql_fetch_object($StyleResId) ) {
         // If a stylesheet for this user exists, do nothing here.
-    }
-    else {
+    } else {
         // This user does not have a stylesheet.  Fetch the default (id = 1)
         $UserStyleQuery = "SELECT t_StyleSheet
                                                 FROM DBStyleSheet
@@ -147,8 +143,7 @@ else {
 
     if (!Empty($TemplateRes->i_TemplateID)) {
         $TemplateQuery = "SELECT t_TemplateHdr, t_TemplateCmt, t_TemplateFtr FROM Template WHERE i_TemplateID = $TemplateRes->i_TemplateID";
-    }
-    else {
+    } else {
         $TemplateQuery = "SELECT t_TemplateHdr, t_TemplateCmt, t_TemplateFtr FROM Template WHERE i_TemplateID = 1";
     }
 

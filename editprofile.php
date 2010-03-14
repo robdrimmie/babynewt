@@ -36,8 +36,7 @@ $hdnUserId = $sessionUserId;
 if ( $chkPublicEmail == "on" ) {
     $sPublicEmail = " checked";
     $iPublicEmail = 1;
-}
-else {
+} else {
     $sPublicEmail = "";
     $iPublicEmail = 0;
 }
@@ -55,13 +54,11 @@ if ( Empty( $hdnUserId ) || ( $hdnUserId == -1  && Empty( $btnSubmit )) ) {
     $txtUserNumber = "";
     $txtGMTOffset = "0";
     $sPublicEmail = "";
-}
-else if ($hdnUserId == -1 && !Empty( $btnSubmit ) ) {
+} else if ($hdnUserId == -1 && !Empty( $btnSubmit ) ) {
     // New User Saving Profile Data.
     if ( $txtPassword != $txtVerifyPassword ) {
         echo "Passwords do not match, please try again.<br>";
-    }
-    else {
+    } else {
         // Check for an existing user with that username.
         $ProfileQuery = "SELECT i_UID FROM Users ";
         $ProfileQuery .= "WHERE vc_Username = \"$txtUsername\"";
@@ -78,12 +75,10 @@ else if ($hdnUserId == -1 && !Empty( $btnSubmit ) ) {
 
         if ( $UserProfile && $UserProfile->i_UID > 0 ) {
             echo ("Sorry, that username already exists.  Please pick another.<br>");
-        }
-        else {
+        } else {
             if ( $UserNumber && $UserNumber->i_UID > 0 ) {
                 echo ("Sorry, that usernumber already exists.  Please pick another.<br>");
-            }
-            else {
+            } else {
                 $ProfileQuery = "
                     INSERT INTO Users (
                           vc_UserName
@@ -110,8 +105,7 @@ else if ($hdnUserId == -1 && !Empty( $btnSubmit ) ) {
 
                 if ( $UpdateUserQueryId ) {
                     echo "Saved!";
-                }
-                else {
+                } else {
                     echo "Error:<br>".$ProfileQuery;
                     echo "<br>".mysql_errno().": ".mysql_error()."<br>";
                 }
@@ -121,23 +115,19 @@ else if ($hdnUserId == -1 && !Empty( $btnSubmit ) ) {
                 if ( $UpdateUserQueryId ) {
                     $UserProfile = mysql_fetch_object($UpdateUserQueryId);
                     $hdnUserId = $UserProfile->i_UID;
-                }
-                else {
+                } else {
                     echo "User update/creation got fucked.  Bitch to Rob.";
                 }
             }
         }
     }
-}
-else if ($hdnUserId > -1 && !Empty( $btnSubmit ) ) {
+} else if ($hdnUserId > -1 && !Empty( $btnSubmit ) ) {
     // Old User Updating Profile Data
     if ( $txtPassword != $txtVerifyPassword ) {
         echo "Passwords Do Not Match!<br>";
-    }
-    else if ( '' === $txtPassword || '' === $txtVerifyPassword ) {
+    } else if ( '' === $txtPassword || '' === $txtVerifyPassword ) {
         echo 'You must enter your password to update your profile. Sorry.';
-    }
-    else {
+    } else {
         $ProfileQuery = "UPDATE Users
                         set vc_Email = \"$txtEmail\",
                         vc_Password =  md5(\"$txtPassword\"),
@@ -154,8 +144,7 @@ else if ($hdnUserId > -1 && !Empty( $btnSubmit ) ) {
         $PreferencesQuery .= " FROM Preferences ORDER BY i_PreferenceId ASC";
         $PreferencesResultsId = mysql_query ($PreferencesQuery, $link);
     }
-}
-else {
+} else {
     // returning user editing profile
     $ProfileQuery = "
         SELECT vc_UserName
@@ -207,8 +196,7 @@ else {
                 echo $txtUsername;
                 if ( $hdnUserId == -1 ) {
                     echo "\" maxlength=\"100\">";
-                }
-                else {
+                } else {
                     echo "<input type=\"hidden\" name=\"txtUsername\" value=\"$txtUsername\">";
                 }
             ?>

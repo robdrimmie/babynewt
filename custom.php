@@ -60,8 +60,7 @@
             echo " in CommentArchive$ArchiveToSearch ";
             $intMinCommentArchive = $ArchiveToSearch;
             $intMaxCommentArchive = $ArchiveToSearch;
-        }
-        else if ( $ArchiveToSearch == 0 ) {
+        } else if ( $ArchiveToSearch == 0 ) {
             $intMinCommentArchive = 1001;
             $intMaxCommentArchive = 0;
         }
@@ -110,8 +109,7 @@
 
             if (!Empty($UInfRes->COUNTER)) {
                 echo "<hr>$UInfRes->COUNTER Results in $strCommentRange<br>"; $Total += $UInfRes->COUNTER;
-            }
-            else {
+            } else {
                 echo "<hr>0 Results in $strCommentRange<br>";
             }
             $UInfId2 = mysql_query ($Q2, $link);
@@ -160,8 +158,7 @@
 
             if (!Empty($UInfRes->COUNTER)) {
                 echo "<hr>$UInfRes->COUNTER Results in $strCommentRange<br>"; $Total += $UInfRes->COUNTER;
-            }
-            else {
+            } else {
                 echo "<hr>0 Results in $strCommentRange<br>";
             }
             $UInfId2 = mysql_query ($Q2, $link);
