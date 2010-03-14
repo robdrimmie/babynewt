@@ -217,7 +217,6 @@ for( $intCurrentCA = 1; $intCurrentCA <= $intTrueMaxCommentArchive; $intCurrentC
     }
     echo ">Comment Archive $intCurrentCA</option>";
 }
-
 ?>
                 </select>
             </td>

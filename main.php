@@ -167,7 +167,9 @@
     //  starts array-type things at 1, rather than 0.
     $btnUpdateMyLastComment = array_key_exists( 'btnUpdateMyLastComment', $_REQUEST ) ? $_REQUEST[ 'btnUpdateMyLastComment' ] : null;
     if ( null !== $btnUpdateMyLastComment ) {
-//      if ( $btnUpdateMyLastComment > 1 ) $btnUpdateMyLastComment -= 1;
+//        if ( $btnUpdateMyLastComment > 1 ) {
+//            $btnUpdateMyLastComment -= 1;
+//        }
         $UpdateMyLastCommentQuery = "UPDATE Users SET i_CommentId = $btnUpdateMyLastComment WHERE Users.i_UID = $sessionUserId";
 
         $UpdateMyLastCommentResultId = mysql_query ($UpdateMyLastCommentQuery, $link);
@@ -483,7 +485,7 @@
         $PostersSuffix = substr($SufStmp, 16, $SufSE-16);
     }
 
-    if (preg_match("[\$15POSTERS\$]", $Header) || preg_match("[\$15POSTERS\$]", $Footer)){
+    if (preg_match("[\$15POSTERS\$]", $Header) || preg_match("[\$15POSTERS\$]", $Footer)) {
         $PosterQuery = "SELECT Users.vc_Username
                                         FROM Users
                                         WHERE ( NOW() - Users.dt_LastPosted ) < 900

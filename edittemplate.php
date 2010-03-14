@@ -204,7 +204,9 @@
             // load the db values
             echo "Name: <input type=\"text\" name=\"txtTemplateName\" value=\"$templateName\">";
             echo "<br>Public: <input type=\"checkbox\" name=\"chkTemplatePublic\"";
-            if ( $templatePublic == 1 ) echo " checked";
+            if ( $templatePublic == 1 ) {
+                echo " checked";
+            }
             echo ">";
             echo "<br><input type=\"submit\" name=\"btnMakeMine\" value=\"Make This my Template\"><br>";
             echo "Header Template<br><textarea name=\"txtHeader\" cols=\"100\" rows=\"17\">$templateHdr</textarea><br>";

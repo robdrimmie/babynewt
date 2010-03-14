@@ -24,7 +24,9 @@ if ( null ===  $_SESSION[ "sessionUserId" ] ) {
 
 // establish connection to MySQL database or output error message.
 $link = mysql_connect ($dbHost, $dbUser, $dbPassword);
-if (!mysql_select_db($dbName, $link)) echo mysql_errno().": ".mysql_error()."<br>";
+if (!mysql_select_db($dbName, $link)) {
+    echo mysql_errno().": ".mysql_error()."<br>";
+}
 
 if (!Empty( $_REQUEST[ "btnSubmitPreviewedComment" ] )) {
     if ( !Empty( $_REQUEST[ "txtComment" ] ) ) {
