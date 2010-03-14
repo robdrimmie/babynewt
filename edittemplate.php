@@ -234,7 +234,7 @@
             $templateCmt = '';
             $templateFtr = '';
         }
-        echo "<font size=\"xx-large\"><b>$templateName</b></font> <input type=\"submit\" name=\"btnMakeMine\" value=\"Make This my Template\"><br><br>";
+        echo "<large><em>$templateName</em></large> <input type=\"submit\" name=\"btnMakeMine\" value=\"Make This my Template\"><br><br>";
         // fill the textarea with selected style
         echo "Header Template<br><textarea name=\"txtHeader\" cols=\"100\" rows=\"17\">$templateHdr</textarea><br>";
         echo "Comment Template<br><textarea name=\"txtComment\" cols=\"100\" rows=\"17\">$templateCmt</textarea><br>";

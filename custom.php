@@ -50,10 +50,10 @@
     $Total = 0;
     echo "<h1>".$Title."</h1>";
     if ( !Empty( $LookFor ) ) {
-        echo "Results for <b>$LookFor</b>";
+        echo "Results for <em>$LookFor</em>";
 
         if ( $ByUser != "" ) {
-            echo " posted by user <b>$ByUser</b>";
+            echo " posted by user <em>$ByUser</em>";
         }
 
         if ( $ArchiveToSearch > 0 ) {
@@ -66,7 +66,7 @@
             $intMaxCommentArchive = 0;
         }
 
-        echo "<span style=\"font-size: 10px;\"> ";
+        echo "<small>";
 
         for ( $intCurrentCA = $intMinCommentArchive; $intCurrentCA <= $intMaxCommentArchive; $intCurrentCA++ ) {
             $strCurrentArchive = "CommentArchive$intCurrentCA";
@@ -171,7 +171,7 @@
         }
     }
 ?>
-</span><br><br>
+</small><br><br>
 <?php
     echo "$Total Total Results Found";
 ?>
@@ -238,11 +238,9 @@ for( $intCurrentCA = 1; $intCurrentCA <= $intTrueMaxCommentArchive; $intCurrentC
             <td>&nbsp;</td>
             <td><input type="submit"></td>
         </tr>
-    </form>
     </table>
-</center><br><br><br>
-<font size=1><center><a href="/">Main</a> | <a href="Statistics.php">Re-Select</a> | <a href="UserInfo.php">Users</a> | <a href="oddball.php">Random Statistics</a></center></font>
-</font>
+    </form>
+<a href="/">Main</a> | <a href="Statistics.php">Re-Select</a> | <a href="UserInfo.php">Users</a> | <a href="oddball.php">Random Statistics</a>
 </body>
 </html>
 <?php
