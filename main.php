@@ -613,4 +613,3 @@
 
     echo "<!-- Page Processing time: $TimeCheck2 Seconds -->";
     echo "<!-- Tagline Id : $TaglineId -->";
-?>
