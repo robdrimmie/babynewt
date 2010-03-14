@@ -10,4 +10,9 @@ for templating and searching) were made by Clayton Hannah.
 Most of the code was written in 2001 and is terrible. Adding it to github is
 the first step in a concerted effort to clean the code up and make it useful.
 
+We use the Zend and PEAR coding standards as guidelines for PHP style:
+
+ * http://framework.zend.com/manual/en/coding-standard.coding-style.html
+ * http://pear.php.net/manual/en/standards.php
+
 Licensed under the MIT License.
