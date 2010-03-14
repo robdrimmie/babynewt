@@ -109,14 +109,14 @@
             $strCommentRange = "$intFirstCommentId - $intLastCommentId";
 
             if (!Empty($UInfRes->COUNTER)) {
-                echo "<hr>$UInfRes->COUNTER Results in $strCommentRange <BR>"; $Total += $UInfRes->COUNTER;
+                echo "<hr>$UInfRes->COUNTER Results in $strCommentRange <br>"; $Total += $UInfRes->COUNTER;
             }
             else {
                 echo "<hr />0 Results in $strCommentRange<br />";
             }
             $UInfId2 = mysql_query ($Q2, $link);
             while ($UInfRes = mysql_fetch_object($UInfId2)) {
-                echo "<a href=\"../main.php?ViewPost=$UInfRes->LABELLER\">p$UInfRes->LABELLER</A> | ";
+                echo "<a href=\"../main.php?ViewPost=$UInfRes->LABELLER\">p$UInfRes->LABELLER</a> | ";
             }
         }
 
@@ -184,7 +184,7 @@
                 Search Phrase:
             </td>
             <td>
-                <input name="LookFor" TYPE="Text"
+                <input type="text" name="LookFor"
 value="<?php echo $LookFor; ?>">
             </td>
         </tr>
@@ -213,7 +213,7 @@ value="<?php echo $ByUser ?>" />
 for( $intCurrentCA = 1; $intCurrentCA <= $intTrueMaxCommentArchive; $intCurrentCA++ ) {
     echo "<option value=\"$intCurrentCA\"";
     if ( $intCurrentCA == $ArchiveToSearch ) {
-        echo " selected ";
+        echo " selected";
     }
     echo ">Comment Archive $intCurrentCA</option>";
 }
@@ -236,7 +236,7 @@ for( $intCurrentCA = 1; $intCurrentCA <= $intTrueMaxCommentArchive; $intCurrentC
     </tr>
         <tr>
             <td>&nbsp;</td>
-            <td><input type="Submit"></td>
+            <td><input type="submit"></td>
         </tr>
     </form>
     </table>

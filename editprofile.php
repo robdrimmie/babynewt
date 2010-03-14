@@ -34,7 +34,7 @@ if ( Empty( $sessionUserId )) {
 $hdnUserId = $sessionUserId;
 
 if ( $chkPublicEmail == "on" ) {
-    $sPublicEmail = " checked ";
+    $sPublicEmail = " checked";
     $iPublicEmail = 1;
 }
 else {
@@ -191,7 +191,7 @@ else {
 <title><?php echo $siteTitle ?> - Edit Your Profile</title>
 </head>
 <body>
-<a href="index.php">return to index</A>
+<a href="index.php">return to index</a>
 <form name="UserProfileForm" action="editprofile.php" method="post">
 <table>
     <tr>
@@ -253,7 +253,7 @@ value="<?php echo $txtUserNumber;?>" maxlength="500">
             Show E-Mail on Public Profile Pages?
         </td>
         <td>
-            <input type="checkbox" name="chkPublicEmail" <?php echo $sPublicEmail;?>" maxlength="255">
+            <input type="checkbox" name="chkPublicEmail"<?php echo $sPublicEmail;?>>
         </td>
     </tr>
     <tr>
@@ -290,10 +290,10 @@ value="<?php echo $txtUserNumber;?>" maxlength="500">
     </tr>
 </table>
 <input type="hidden" name="iRowCount" value="<?php echo $iRowCount ?>">
-<input type="submit" name="btnSubmit" value="Submit"
-    ONCLICK="QuoteReplace(document.UserProfileForm.txtBiography);">
+<input type="submit" name="btnSubmit" value="submit"
+    onclick="QuoteReplace(document.UserProfileForm.txtBiography);">
 </form>
-<a href="index.php">return to index</A>
+<a href="index.php">return to index</a>
 </body>
 <?php
     // close connection to MySQL Database

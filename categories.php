@@ -95,7 +95,7 @@
         echo $tComment."\n";
     }
     echo "<br />";
-    echo "<a href=\"index.php\" alt=\"return to front page\" title=\"return to front page\">";
+    echo "<a href=\"index.php\" title=\"return to front page\">";
     echo "return to front page";
     echo "</a>";
 ?>

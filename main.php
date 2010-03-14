@@ -355,11 +355,11 @@
     $CategoryListResultId =  mysql_query ($CategoryListQuery, $link);
 
     while ( $CategoryListResult = mysql_fetch_object($CategoryListResultId)) {
-        $CatOptions .= "<OPTION VALUE=\"$CategoryListResult->i_CategoryId\"";
+        $CatOptions .= "<option value=\"$CategoryListResult->i_CategoryId\"";
         if ( $CategoryListResult->i_CategoryId == 1 ) {
-            $CatOptions .=  " SELECTED";
+            $CatOptions .=  " selected";
         }
-        $CatOptions .= ">$CategoryListResult->vc_Name</OPTION>";
+        $CatOptions .= ">$CategoryListResult->vc_Name</option>";
     }
 
     $Header = str_replace("[\$OPTIONCATLIST\$]", $CatOptions, $Header);

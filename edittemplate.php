@@ -117,7 +117,7 @@
     while ( $Templates = mysql_fetch_object($TemplateQueryId) ) {
         echo "<option value=\"".$Templates->i_TemplateID."\"";
         if ( $Templates->i_TemplateID == $selTemplate ) {
-            echo " SELECTED";
+            echo " selected";
         }
         echo ">";
         echo "[$Templates->i_TemplateID] $Templates->vc_TemplateName</option>\n";
@@ -141,7 +141,7 @@
     while ( $Templates = mysql_fetch_object($TemplateQueryId) ) {
         echo "<option value=\"$Templates->i_TemplateID\"";
         if ( $_REQUEST[ 'selTemplate' ] == $Templates->i_TemplateID ) {
-            echo " SELECTED ";
+            echo " selected";
         }
         echo ">[$Templates->i_TemplateID] $Templates->vc_TemplateName</option>\n";
     }
@@ -174,7 +174,7 @@
             // set the hidden stylesheet id to -1 to indicate "new"
             echo "-1\">";
             // fill the textarea with as many stylesheet classes as possible
-            echo "Name: <input type=\"input\" name=\"txtTemplateName\" value = \"I aint got no name.\">";
+            echo "Name: <input type=\"text\" name=\"txtTemplateName\" value=\"I aint got no name.\">";
             echo "<br />Public: <input type=\"checkbox\" name=\"chkTemplatePublic\">";
             echo "<br />Header Template<br><textarea name=\"txtHeader\" cols=\"100\" rows=\"17\"></textarea><br>";
             echo "Comment Template<br><textarea name=\"txtComment\" cols=\"100\" rows=\"17\"></textarea><br>";
@@ -202,9 +202,9 @@
             echo "<h3>$templateName</h3> Public Template";
             // fill the textarea with selected style
             // load the db values
-            echo "Name: <input type=\"input\" name=\"txtTemplateName\" value = \"$templateName\">";
+            echo "Name: <input type=\"text\" name=\"txtTemplateName\" value=\"$templateName\">";
             echo "<br />Public: <input type=\"checkbox\" name=\"chkTemplatePublic\"";
-            if ( $templatePublic == 1 ) echo " CHECKED";
+            if ( $templatePublic == 1 ) echo " checked";
             echo ">";
             echo "<br /><input type=\"submit\" name=\"btnMakeMine\" value=\"Make This my Template\"><br>";
             echo "Header Template<br><textarea name=\"txtHeader\" cols=\"100\" rows=\"17\">$templateHdr</textarea><br>";
@@ -234,7 +234,7 @@
             $templateCmt = '';
             $templateFtr = '';
         }
-        echo "<FONT SIZE=\"xx-large\"><B>$templateName</B></FONT> <input type=\"submit\" name=\"btnMakeMine\" value=\"Make This my Template\"><br><br>";
+        echo "<font size=\"xx-large\"><b>$templateName</b></font> <input type=\"submit\" name=\"btnMakeMine\" value=\"Make This my Template\"><br><br>";
         // fill the textarea with selected style
         echo "Header Template<br><textarea name=\"txtHeader\" cols=\"100\" rows=\"17\">$templateHdr</textarea><br>";
         echo "Comment Template<br><textarea name=\"txtComment\" cols=\"100\" rows=\"17\">$templateCmt</textarea><br>";

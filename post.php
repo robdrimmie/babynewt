@@ -117,21 +117,21 @@ else {
     echo "<input type=\"hidden\" name=\"hdnUID\" value=\"";
     echo $_REQUEST[ "hdnUID" ];
     echo "\">";
-    echo "<input type=\"submit\" name=\"btnSubmitComment\" value=\"Preview\" ONCLICK=\"QuoteReplace(document.frmPreview);\">";
-    echo "<input type=\"submit\" name=\"btnSubmitPreviewedComment\" value=\"Post\" ONCLICK=\"QuoteReplace(document.frmPreview);\">";
+    echo "<input type=\"submit\" name=\"btnSubmitComment\" value=\"Preview\" onclick=\"QuoteReplace(document.frmPreview);\">";
+    echo "<input type=\"submit\" name=\"btnSubmitPreviewedComment\" value=\"Post\" onclick=\"QuoteReplace(document.frmPreview);\">";
     echo " to category: ";
     echo "<select name=\"selCategoryId\">";
     $selCategoryId = $_REQUEST[ "selCategoryId" ];
 
     while ( $CategoryListResult = mysql_fetch_object($CategoryListResultId)) {
-        echo "<OPTION VALUE=\"$CategoryListResult->i_CategoryId\"";
+        echo "<option value=\"$CategoryListResult->i_CategoryId\"";
         if ( $CategoryListResult->i_CategoryId == $selCategoryId ) {
             $hdnCSSName = $CategoryListResult->vc_CSSName;
-            echo " SELECTED";
+            echo " selected";
         }
         echo ">";
         echo $CategoryListResult->vc_Name;
-        echo "</OPTION>";
+        echo "</option>";
     }
 
     echo "</select>";
