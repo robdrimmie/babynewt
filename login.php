@@ -52,7 +52,8 @@ if ( ( !Empty( $_POST['userLoginSubmit'] ) ) || ( !Empty($_COOKIE['cookieUsernam
     }
 }
 
-function OutputLoginForm( $UserLoginFormAction ) {
+function OutputLoginForm( $UserLoginFormAction )
+{
     echo "<form name=\"UserLoginForm\" action=\"$UserLoginFormAction\" method=\"post\">";
 
 //  <a href="editprofile.php">Click here to register</a><br><br>

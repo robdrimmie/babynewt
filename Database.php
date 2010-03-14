@@ -8,7 +8,8 @@ class Database
     protected $_host;
     protected $_conn;
 
-    public function __construct( $connect = true ) {
+    public function __construct( $connect = true )
+    {
         $this->_name = 'babynewt';
         $this->_user = 'root';
         $this->_password = '';
@@ -22,7 +23,8 @@ class Database
     }
 
 
-    protected function _connect() {
+    protected function _connect()
+    {
         if ( null === $this->_conn ) {
             $this->_conn = mysql_connect( $this->_host, $this->_user, $this->_password );
 
@@ -35,7 +37,8 @@ class Database
     }
 
 
-    public function getConnection() {
+    public function getConnection()
+    {
         return $this->_connect();
     }
 
@@ -43,7 +46,8 @@ class Database
     /**
      * @see http://www.askbee.net/articles/php/SQL_Injection/sql_injection.html
      */
-    public static function sql_quote( $value ) {
+    public static function sql_quote( $value )
+    {
 
         if ( get_magic_quotes_gpc() ) {
             $value = stripslashes( $value );

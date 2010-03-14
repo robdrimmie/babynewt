@@ -4,7 +4,8 @@ class Comment extends Model
 {
     protected $_mostRecent;
 
-    public function mostRecent() {
+    public function mostRecent()
+    {
         if ( null === $this->_mostRecent ) {
             $query = "SELECT MAX( Comment.i_CommentID ) AS maxCmt FROM Comment";
 
