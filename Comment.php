@@ -18,3 +18,4 @@ class Comment extends Model
         return $this->_mostRecent;
     }
 }
+/* end of Comment.php */

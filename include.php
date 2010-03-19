@@ -11,3 +11,4 @@ $sitePath = "http://localhost";
 $redirectSite = "http://www.google.com";
 
 $welcomeMsg = "Hello, and welcome to $siteTitle.";
+/* end of include.php */
