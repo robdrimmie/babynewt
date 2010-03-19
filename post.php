@@ -44,7 +44,6 @@ if (!Empty( $_REQUEST[ "btnSubmitPreviewedComment" ] )) {
           $txtComment = nl2br($txtComment);
         }
 
-
         // get the rest of the form variables:
         $hdnUID = $_SESSION['sessionUserId'];
         $selCategoryId = $_REQUEST[ "selCategoryId" ];

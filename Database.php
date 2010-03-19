@@ -22,7 +22,6 @@ class Database
         }
     }
 
-
     protected function _connect()
     {
         if ( null === $this->_conn ) {
@@ -36,12 +35,10 @@ class Database
         return $this->_conn;
     }
 
-
     public function getConnection()
     {
         return $this->_connect();
     }
-
 
     /**
      * @see http://www.askbee.net/articles/php/SQL_Injection/sql_injection.html

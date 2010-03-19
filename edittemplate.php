@@ -149,7 +149,6 @@ echo "<br>\n";
 
 echo "</form>\n";
 
-
 //  if an editable style is already selected (default to user's current style, or if the button for a new stylesheet is selected)
 if (  Empty($btnMakeMine)
             && (($selTemplate > -1) || !Empty( $btnNewTemplate ))
