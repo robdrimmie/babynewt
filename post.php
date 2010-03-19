@@ -164,5 +164,3 @@ if (!Empty( $_REQUEST[ "btnSubmitPreviewedComment" ] )) {
     echo $tComment."\n";
     echo "</body></html>";
 }
-
-?>
