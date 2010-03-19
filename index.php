@@ -1,21 +1,20 @@
 <?php
-    include("session.php");
-    include("include.php");
+include("session.php");
+include("include.php");
 
-    // establish connection to MySQL database or output error message.
-    $link = mysql_connect ($dbHost, $dbUser, $dbPassword);
-    if (!mysql_select_db($dbName, $link)) {
-        echo mysql_errno().": ".mysql_error()."<br>";
-    }
+// establish connection to MySQL database or output error message.
+$link = mysql_connect ($dbHost, $dbUser, $dbPassword);
+if (!mysql_select_db($dbName, $link)) {
+    echo mysql_errno().": ".mysql_error()."<br>";
+}
 
-    include( "login.php" );
+include( "login.php" );
 
-    if ( !isset($_SESSION['sessionUserId']) ) {
-        $_SESSION['sessionUserId'] = -1;
-    } else {
-        $sessionUserId = $_SESSION['sessionUserId'];
-    }
-
+if ( !isset($_SESSION['sessionUserId']) ) {
+    $_SESSION['sessionUserId'] = -1;
+} else {
+    $sessionUserId = $_SESSION['sessionUserId'];
+}
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
@@ -38,6 +37,6 @@
 </body>
 </html>
 <?php
-    // close connection to MySQL Database
-    mysql_close($link);
+// close connection to MySQL Database
+mysql_close($link);
 ?>

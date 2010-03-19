@@ -1,35 +1,35 @@
 <?php
-    include("session.php");
-    include("include.php");
-    // establish connection to MySQL database or output error message.
-    $link = mysql_connect ($dbHost, $dbUser, $dbPassword);
-    if (!mysql_select_db($dbName, $link)) {
-        echo mysql_errno().": ".mysql_error()."<br>";
+include("session.php");
+include("include.php");
+// establish connection to MySQL database or output error message.
+$link = mysql_connect ($dbHost, $dbUser, $dbPassword);
+if (!mysql_select_db($dbName, $link)) {
+    echo mysql_errno().": ".mysql_error()."<br>";
+}
+
+$sessionUserId = $_SESSION[ 'sessionUserId' ];
+
+if ( Empty( $sessionUserId )) {
+    $sessionUserId = -1;
+}
+$hdnUserId = $sessionUserId;
+
+
+$selTemplate = array_key_exists( 'selTemplate', $_REQUEST ) ? $_REQUEST[ 'selTemplate' ] : null;
+if ( null === $selTemplate ) {
+    // get current template from db
+    $CurTemplateSQL = "SELECT i_TemplateId
+                         FROM UserTemplate
+                        WHERE i_UID = $sessionUserId";
+
+    $CurTemplateSQLId = mysql_query( $CurTemplateSQL );
+
+    $objCurTemplate = mysql_fetch_object( $CurTemplateSQLId );
+
+    if ( $objCurTemplate ) {
+        $selTemplate = $objCurTemplate->i_TemplateId;
     }
-
-    $sessionUserId = $_SESSION[ 'sessionUserId' ];
-
-    if ( Empty( $sessionUserId )) {
-        $sessionUserId = -1;
-    }
-    $hdnUserId = $sessionUserId;
-
-
-    $selTemplate = array_key_exists( 'selTemplate', $_REQUEST ) ? $_REQUEST[ 'selTemplate' ] : null;
-    if ( null === $selTemplate ) {
-        // get current template from db
-        $CurTemplateSQL = "SELECT i_TemplateId
-                             FROM UserTemplate
-                            WHERE i_UID = $sessionUserId";
-
-        $CurTemplateSQLId = mysql_query( $CurTemplateSQL );
-
-        $objCurTemplate = mysql_fetch_object( $CurTemplateSQLId );
-
-        if ( $objCurTemplate ) {
-            $selTemplate = $objCurTemplate->i_TemplateId;
-        }
-    }
+}
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>

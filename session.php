@@ -20,7 +20,6 @@ session_set_cookie_params($cookie_timeout, $cookie_path);
 //   to our custom timeout
 ini_set('session.gc_maxlifetime', $garbage_timeout);
 
-
 session_start();
 /*
     if ( $_SESSION['sessionLastVisit'] < (time()- 8100000) ) // 810000 = 15 minutes {

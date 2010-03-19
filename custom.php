@@ -1,13 +1,13 @@
 <?php
-    $SelectedCategory = $_REQUEST[ "Category" ];
-    include("../include.php");
-    // establish connection to MySQL database or output error message.
-    $link = mysql_connect ($dbHost, $dbUser, $dbPassword);
-    if (!mysql_select_db($dbName, $link)) {
-        echo mysql_errno().": ".mysql_error()."<br>";
-    }
+$SelectedCategory = $_REQUEST[ "Category" ];
+include("../include.php");
+// establish connection to MySQL database or output error message.
+$link = mysql_connect ($dbHost, $dbUser, $dbPassword);
+if (!mysql_select_db($dbName, $link)) {
+    echo mysql_errno().": ".mysql_error()."<br>";
+}
 
-    $Title = "Search";
+$Title = "Search";
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
@@ -240,6 +240,6 @@ for( $intCurrentCA = 1; $intCurrentCA <= $intTrueMaxCommentArchive; $intCurrentC
 </body>
 </html>
 <?php
-    // close connection to MySQL Database
-    mysql_close($link);
+// close connection to MySQL Database
+mysql_close($link);
 ?>

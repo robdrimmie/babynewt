@@ -284,7 +284,7 @@ value="<?php echo $txtUserNumber;?>" maxlength="500">
 <a href="index.php">return to index</a>
 </body>
 <?php
-    // close connection to MySQL Database
-    mysql_close($link);
+// close connection to MySQL Database
+mysql_close($link);
 ?>
 </html>

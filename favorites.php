@@ -1,23 +1,22 @@
 <?php
-    session_start();
-    include("include.php");
+session_start();
+include("include.php");
 
-    // establish connection to MySQL database or output error message.
-    $link = mysql_connect ($dbHost, $dbUser, $dbPassword);
-    if (!mysql_select_db($dbName, $link)) {
-        echo mysql_errno().": ".mysql_error()."<br>";
-    }
+// establish connection to MySQL database or output error message.
+$link = mysql_connect ($dbHost, $dbUser, $dbPassword);
+if (!mysql_select_db($dbName, $link)) {
+    echo mysql_errno().": ".mysql_error()."<br>";
+}
 
-    $sessionUserId = $_SESSION[ 'sessionUserId' ];
+$sessionUserId = $_SESSION[ 'sessionUserId' ];
 
-    // if user is not logged in, show message and login inputs
-    if ( $_SESSION['sessionUserId'] == -1 ) {
-        echo "An error related to session occured.  Please make sure you're loading favorites.php.";
-        exit;
-    } else {
-        $this_user = $_SESSION['sessionUserId'];
-    }
-
+// if user is not logged in, show message and login inputs
+if ( $_SESSION['sessionUserId'] == -1 ) {
+    echo "An error related to session occured.  Please make sure you're loading favorites.php.";
+    exit;
+} else {
+    $this_user = $_SESSION['sessionUserId'];
+}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
          "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
