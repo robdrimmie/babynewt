@@ -9,4 +9,5 @@ class Model
         $this->_db = $db;
     }
 }
+
 /* end of Model.php */
