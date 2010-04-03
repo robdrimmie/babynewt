@@ -1,6 +1,6 @@
 <?php
-    include("session.php");
-    include("include.php");
+include("session.php");
+include("include.php");
 
 // establish connection to MySQL database or output error message.
 $link = mysql_connect ($dbHost, $dbUser, $dbPassword);
