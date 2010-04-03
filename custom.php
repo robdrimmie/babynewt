@@ -1,6 +1,8 @@
 <?php
+
 $SelectedCategory = $_REQUEST[ "Category" ];
 include("../include.php");
+
 // establish connection to MySQL database or output error message.
 $link = mysql_connect ($dbHost, $dbUser, $dbPassword);
 if (!mysql_select_db($dbName, $link)) {
