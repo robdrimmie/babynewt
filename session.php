@@ -1,4 +1,5 @@
 <?php
+
 // path for cookies
 $cookie_path = "/";
 
@@ -32,4 +33,5 @@ session_start();
 //      session_destroy();
 //  }
 */
+
 /* end of session.php */
