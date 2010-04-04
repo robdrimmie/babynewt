@@ -1,7 +1,7 @@
 <?php
 
-require_once("session.php");
-require_once("include.php");
+require_once 'session.php';
+require_once 'include.php';
 
 // if user is not logged in, show message and login inputs
 if ( $_SESSION[ "sessionUserId" ] == -1 ) {

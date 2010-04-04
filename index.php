@@ -1,7 +1,7 @@
 <?php
 
-require_once("session.php");
-require_once("include.php");
+require_once 'session.php';
+require_once 'include.php';
 
 // establish connection to MySQL database or output error message.
 $link = mysql_connect ($dbHost, $dbUser, $dbPassword);
@@ -9,7 +9,7 @@ if (!mysql_select_db($dbName, $link)) {
     echo mysql_errno().": ".mysql_error()."<br>";
 }
 
-require_once( "login.php" );
+require_once 'login.php';
 
 if ( !isset($_SESSION['sessionUserId']) ) {
     $_SESSION['sessionUserId'] = -1;

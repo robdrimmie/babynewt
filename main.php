@@ -1,10 +1,10 @@
 <?php
 
-require_once("session.php");
+require_once 'session.php';
 ob_start("ob_gzhandler");
 $timecheck1 = time();
 srand(time());
-require_once("include.php");
+require_once 'include.php';
 
 // establish connection to MySQL database or output error message.
 $link = mysql_connect ($dbHost, $dbUser, $dbPassword);

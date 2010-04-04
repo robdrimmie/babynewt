@@ -1,6 +1,6 @@
 <?php
 
-require_once( 'Database.php' );
+require_once 'Database.php';
 
 // Tagline Parameters
 $taglinePrefix = "baby newt:";
