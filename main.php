@@ -287,7 +287,7 @@ if ( $StyleRes = mysql_fetch_object($StyleResId) ) {
     $StyleRes = mysql_fetch_object($StyleResId);
 }
 
-$ssheet = "<style>";
+$ssheet = "<style type=\"text/css\">";
 $ssheet .= "@import url(/essl.css);";
 if ( $StyleRes ) {
     $ssheet .= "\n$StyleRes->t_StyleSheet\n";

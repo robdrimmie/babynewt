@@ -19,7 +19,7 @@ $CategoryList .= " FROM Category";
 <?php
 $sessionUserId = $_SESSION[ "sessionUserId" ];
 
-echo "<style>";
+echo "<style type=\"text/css\">";
 echo "div.bnLogo { position: absolute; top: 2px; left: 10px; font-size: 42px; font-weight: bold; color: #CCCCCC;}";
 echo "div.bnTagline { position: absolute; top: 21px; left: 70px; font-size: 16px; font-weight: bold; color: black;}";
 echo "div.bnContent { padding-top: 30px; }";

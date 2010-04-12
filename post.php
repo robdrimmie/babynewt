@@ -96,7 +96,7 @@ if (!Empty( $_REQUEST[ "btnSubmitPreviewedComment" ] )) {
     $StyleResId = mysql_query ($UserStyleQuery, $link);
     $StyleRes = mysql_fetch_object($StyleResId);
 
-    echo "\n<style>";
+    echo "\n<style type=\"text/css\">";
     echo "\n@import url(/essl.css);";
     echo "\n";
     echo $StyleRes->t_StyleSheet;
