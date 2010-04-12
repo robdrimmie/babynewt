@@ -14,6 +14,7 @@ $CategoryList .= " FROM Category";
 <html>
 <head>
 <title><?php echo $siteTitle ?></title>
+</head>
 <body>
 <?php
 $sessionUserId = $_SESSION[ "sessionUserId" ];
