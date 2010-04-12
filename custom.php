@@ -201,10 +201,10 @@ value="<?php echo $ByUser ?>">
             <td>
                 <select name="ArchiveToSearch">
                     <option value="-1"
-<?php if ( $ArchiveToSearch == -1 ) { echo "selected"; } ?>
+<?php if ( $ArchiveToSearch == -1 ) { echo " selected"; } ?>
                 >Search all archives</option>
                     <option value="0"
-<?php if ( $ArchiveToSearch == 0 ) { echo "selected"; } ?>
+<?php if ( $ArchiveToSearch == 0 ) { echo " selected"; } ?>
                 >Search current comment table</option>
 <?php
 for( $intCurrentCA = 1; $intCurrentCA <= $intTrueMaxCommentArchive; $intCurrentCA++ ) {
