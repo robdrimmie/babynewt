@@ -11,8 +11,8 @@ class Database
     public function __construct( $connect = true )
     {
         $this->_name = 'babynewt';
-        $this->_user = 'root';
-        $this->_password = '';
+        $this->_user = 'babynewt';
+        $this->_password = 'password';
         $this->_host = '127.0.0.1';
 
         $this->_conn = null;
