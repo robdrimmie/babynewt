@@ -5,12 +5,6 @@
     srand(time());
     include("include.php");
 
-    // establish connection to MySQL database or output error message.
-    $link = mysql_connect ($dbHost, $dbUser, $dbPassword);
-    if (!mysql_select_db($dbName, $link)) {
-        echo mysql_errno().": ".mysql_error()."<br>";
-    }
-
     // Default to my userID for the testing
     if ( !isset( $_SESSION['sessionUserId'] ) ) {
         $_SESSION['sessionUserId'] = -1;
