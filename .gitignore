@@ -2,3 +2,5 @@
 *.swp
 .DS_Store
 *.esproj
+Database.php
+include.php
