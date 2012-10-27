@@ -104,7 +104,7 @@
                     ORDER BY i_TemplateID";
     $TemplateQueryId = mysql_query ($TemplateQuery, $link);
 
-    echo "<form name=\"frmSelection\" action=\"EditTemplate.php\" method=\"post\">\n";
+    echo "<form name=\"frmSelection\" action=\"edittemplate.php\" method=\"post\">\n";
     echo "Your Templates: <select name=\"selTemplate\">\n";
     if ( Empty($selTemplate) && !Empty($hdnTemplateId)) {
         $selTemplate = $hdnTemplateId;
@@ -131,7 +131,7 @@
                                         ORDER BY i_TemplateID";
     $TemplateQueryId = mysql_query ($TemplateQuery, $link);
 
-    echo "<form name=\"frmSelection\" action=\"EditTemplate.php\" method=\"post\">\n";
+    echo "<form name=\"frmSelection\" action=\"edittemplate.php\" method=\"post\">\n";
     echo "Public Templates: <select name=\"selTemplate\">\n";
     while ( $Templates = mysql_fetch_object($TemplateQueryId) ) {
         echo "<option value=\"$Templates->i_TemplateID\"";
@@ -162,7 +162,7 @@
             $selTemplate = $hdnTemplateId;
         }
         // Create a text area
-        echo "<form name=\"frmTemplate\" action=\"EditTemplate.php\" method=\"post\">";
+        echo "<form name=\"frmTemplate\" action=\"edittemplate.php\" method=\"post\">";
         echo "<input type=\"hidden\" name=\"hdnTemplateId\" value=\"";
         if ( !Empty( $btnNewTemplate ) ) {
             // if the button for a new stylesheet has been selected
@@ -239,7 +239,7 @@
         echo "Your selected template has been updated.";
     }
 
-    echo "<form name=\"frmNewStylesheet\" action=\"EditTemplate.php\" method=\"post\">";
+    echo "<form name=\"frmNewStylesheet\" action=\"edittemplate.php\" method=\"post\">";
     echo "<input type=\"submit\" name=\"btnNewTemplate\" value=\"New Template\">";
     echo "</form>";
 
