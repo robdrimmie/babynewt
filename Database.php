@@ -11,17 +11,17 @@ class Database {
     public function __construct( $dbProperties = array(), $old = false, $new = true ) {
         $defaults = array(
             'name' => 'babynewt',
-            'user' = 'babynewt',
-            'password' = 'babynewt',
-            'host' = 'localhost',
+            'user' => 'babynewt',
+            'password' => 'babynewt',
+            'host' =>'localhost',
         );
 
         $merged = array_merge( $defaults, $dbProperties );
 
-        $this->_name = merged['name'];
-        $this->_user = merged['user'];
-        $this->_password = merged['password'];
-        $this->_host = merged['host'];
+        $this->_name = $merged['name'];
+        $this->_user = $merged['user'];
+        $this->_password = $merged['password'];
+        $this->_host = $merged['host'];
 
         $this->_oldConnection = null;
         $this->_connection = null;
@@ -52,7 +52,7 @@ class Database {
             }
         }
 
-        return $this->_conn;
+        return $this->_oldConnection;
     }
 
     protected function _connect() {
@@ -61,18 +61,18 @@ class Database {
                 $this->_host, 
                 $this->_user, 
                 $this->_password,
-                $this->_name,
+                $this->_name
             );
 
-            if ( mysqli->connect_errno ) {
+            if ( $this->_connection->connect_errno ) {
                 throw new Exception( 
-                    'Unable to select  database: [' . mysqli->connect_errno . 
-                    ']' . mysqli->connect_error
+                    'Unable to select  database: [' . $this->_connection->connect_errno . 
+                    ']' . $this->_connection->connect_error
                 );
             }
         }
 
-        return $this->_conn;
+        return $this->_connection;
     }
 
     public function getOldConnection() {
