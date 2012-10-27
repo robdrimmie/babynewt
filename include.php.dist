@@ -12,6 +12,14 @@ $redirectSite = "http://www.google.com";
 
 $welcomeMsg = "Hello, and welcome to $siteTitle.";
 
-$db = new Database();
-$link = $db->getConnection();
+$dbProperties = array(
+    'name' => 'babynewt',
+    'user' = 'babynewt',
+    'password' = 'babynewt',
+    'host' = 'localhost',
+);
+
+// At this point, establish old-style db connection for almost all purposes.
+$db = new Database( $dbProperties, true, false );
+$link = $db->getOldConnection();
 ?>
