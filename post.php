@@ -46,10 +46,13 @@ if (!Empty( $_REQUEST[ "btnSubmitPreviewedComment" ] )) {
 
         $AddCommentQuery = " INSERT INTO Comment";
         $AddCommentQuery .= " (t_Comment, i_UID, dt_DatePosted, i_CategoryId)";
-        $AddCommentQuery .= " VALUES";
-        $AddCommentQuery .= " ('$txtComment', $hdnUID, NOW(), $selCategoryId)";
+        $AddCommentQuery .= " VALUES ( ?, ?, NOW(), ?)";
 
-        $AddCommentResultId = mysql_query ($AddCommentQuery, $link);
+        $addCommentStatment->prepare( $link, $AddCommentQuery );
+        $addCommentStatment->bind( 'sii', $txtComment, $hdnUID, $selCategoryId );
+        $addCommentStatment->exec();
+
+        //$AddCommentResultId = mysql_query ($AddCommentQuery, $link);
 
         $UpdateLastPostedQuery = "UPDATE Users SET dt_LastPosted = NOW() WHERE i_UID = $hdnUID";
         $UpdateLastPostedQuery = mysql_query( $UpdateLastPostedQuery, $link );
