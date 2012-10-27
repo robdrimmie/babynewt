@@ -510,12 +510,12 @@
         $SufSE = strpos($SufStmp, "\"\$]");
         $VisitorSuffix = substr($SufStmp, 17, $SufSE-17);
     }
-
-    if (preg_match("[\$15LURKERS\$]", $Header) || preg_match("[\$15LURKERS\$]", $Footer)) {
+    if (preg_match("/[\$15LURKERS\$]/", $Header) || preg_match("[\$15LURKERS\$]", $Footer)) {
         $PosterQuery = " SELECT  Users.vc_Username FROM Users WHERE DATE_ADD(dt_LastVisit, INTERVAL 15 MINUTE) > now() ORDER BY Users.dt_LastVisit DESC";
         // Get the posters
         $PosterResultId = mysql_query ($PosterQuery, $link);
          // output comments
+	$LurkerStr = '';
         while (  $PosterResult = mysql_fetch_object($PosterResultId) ) {
             $LurkerStr .=  "$VisitorPrefix$PosterResult->vc_Username$VisitorSuffix";
         }
