@@ -477,7 +477,7 @@
         $PostersSuffix = substr($SufStmp, 16, $SufSE-16);
     }
 
-    if (preg_match("[\$15POSTERS\$]", $Header) || preg_match("[\$15POSTERS\$]", $Footer)){
+    if (preg_match("/[\$15POSTERS\$]/", $Header) || preg_match("/[\$15POSTERS\$]/", $Footer)){
         $PosterQuery = "SELECT Users.vc_Username
                                         FROM Users
                                         WHERE ( NOW() - Users.dt_LastPosted ) < 900
@@ -510,7 +510,7 @@
         $SufSE = strpos($SufStmp, "\"\$]");
         $VisitorSuffix = substr($SufStmp, 17, $SufSE-17);
     }
-    if (preg_match("/[\$15LURKERS\$]/", $Header) || preg_match("[\$15LURKERS\$]", $Footer)) {
+    if (preg_match("/[\$15LURKERS\$/]/", $Header) || preg_match("/[\$15LURKERS\$]/", $Footer)) {
         $PosterQuery = " SELECT  Users.vc_Username FROM Users WHERE DATE_ADD(dt_LastVisit, INTERVAL 15 MINUTE) > now() ORDER BY Users.dt_LastVisit DESC";
         // Get the posters
         $PosterResultId = mysql_query ($PosterQuery, $link);
