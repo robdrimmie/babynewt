@@ -49,7 +49,10 @@ Page flow:
 <a href="categories.php">Category list</A>: Preview your selected stylesheet and get category stylesheet names<br>
 <?php
 	//	if an editable style hasn't been selected 
-	$selUserStyle = $_REQUEST[ 'selUserStyle' ];
+	$selUserStyle = null;
+	if( array_key_exists( 'selUserStyle', $_REQUEST ) ) {
+		$selUserStyle = $_REQUEST[ 'selUserStyle' ];
+	}
 	if( Empty($selUserStyle) )
 	{
 		// initialize editable select area to default value of -1
@@ -59,8 +62,9 @@ Page flow:
 		$CurStyleSQLId = mysql_query( $CurStyleSQL );
 
 		$objUserStyle = mysql_fetch_object( $CurStyleSQLId );
-
-		$selUserStyle = $objUserStyle->i_StyleSheetId;
+	 	if( $objUserStyle ) {	
+			$selUserStyle = $objUserStyle->i_StyleSheetId;
+		}
 	}
 	//	if a viewable style hasn't been selected 
 	if( Empty( $_REQUEST[ 'selPublicStyle' ] ) )
@@ -72,21 +76,28 @@ Page flow:
 	}
 
 	$iStylePublic = 0;
-	$chkStylePublic = $_REQUEST[ 'chkStylePublic' ];
+
+	$chkStylePublic = false;
+ 	if( array_key_exists( 'chkStylePublic', $_REQUEST ) ) {
+		$chkStylePublic = $_REQUEST[ 'chkStylePublic' ];
+	}
 	if ($chkStylePublic == "on") {
 		$iStylePublic = 1;
 	}
 
 	// if the stylesheet is saved
-	$btnSaveStyle = $_REQUEST[ 'btnSaveStyle' ];
-	$btnMakeStyle = $_REQUEST[ 'btnMakeStyle' ];
-	$hdnStyleId = $_REQUEST[ 'hdnStyleId' ];
-	$btnMakePublicStyle  = $_REQUEST[ 'btnMakePublicStyle' ];
+	if( array_key_exists( 'btnSaveStyle', $_REQUEST ) ) {
+		$btnSaveStyle = $_REQUEST[ 'btnSaveStyle' ];
 	
-	$txtStyleName = $_REQUEST[ 'txtStyleName' ];
-	$selUserStyle = $_REQUEST[ 'selUserStyle' ];
-	$txtStyleSheet = $_REQUEST[ 'txtStyleSheet' ];
-	$hdnPublicStyleId = $_REQUEST[ 'hdnPublicStyleId' ];
+		$btnMakeStyle = $_REQUEST[ 'btnMakeStyle' ];
+		$hdnStyleId = $_REQUEST[ 'hdnStyleId' ];
+		$btnMakePublicStyle  = $_REQUEST[ 'btnMakePublicStyle' ];
+	
+		$txtStyleName = $_REQUEST[ 'txtStyleName' ];
+		$selUserStyle = $_REQUEST[ 'selUserStyle' ];
+		$txtStyleSheet = $_REQUEST[ 'txtStyleSheet' ];
+		$hdnPublicStyleId = $_REQUEST[ 'hdnPublicStyleId' ];
+	}
 	if( !Empty($btnSaveStyle) || !Empty($btnMakeStyle))
 	{
 		if( $hdnStyleId == -1 )
@@ -199,7 +210,11 @@ Page flow:
 	echo "<input type=\"submit\" name=\"btnPickPublicStyle\" value=\"View A Public Stylesheet\">";
 	echo "</form>";
 
-	$btnNewStyle = $_REQUEST[ 'btnNewStyle' ];
+	$btnNewStyle = null;
+	if( array_key_exists( 'btnNewStyle', $_REQUEST ) ) {
+		$btnNewStyle = $_REQUEST[ 'btnNewStyle' ];
+	}
+
 	// if an editable style is already selected (default to user's current style, or if the button for a new stylesheet is selected)
 	if ( (($selUserStyle > -1) || !Empty( $btnNewStyle )) && (Empty( $btnPickPublicStyle ) ) ) {
 		// Create a text area
