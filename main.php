@@ -47,7 +47,8 @@
 
     // increment or decrement by page size.
     $btnNextPage = array_key_exists( 'btnNextPage', $_REQUEST ) ? $_REQUEST[ 'btnNextPage' ] : null;
-    $btnPrevPage = array_key_exists( 'btnNextPage', $_REQUEST ) ? $_REQUEST[ 'btnPrevPage' ] : null;
+    $btnPrevPage = array_key_exists( 'btnPrevPage', $_REQUEST ) ? $_REQUEST[ 'btnPrevPage' ] : null;
+
     if ( null !== $btnNextPage ) {
         $hdnCurrentRecord += $txtPageSize;
     }
