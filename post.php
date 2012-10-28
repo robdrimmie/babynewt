@@ -1,6 +1,7 @@
 <?php
-include("session.php");
-include("include.php");
+require_once( "session.php" );
+require_once( "include.php" );
+require_once( "Comment.php" );
 
 // if user is not logged in, show message and login inputs
 if ( $_SESSION[ "sessionUserId" ] == -1 ) {
@@ -44,15 +45,8 @@ if (!Empty( $_REQUEST[ "btnSubmitPreviewedComment" ] )) {
         $hdnUID = $_SESSION['sessionUserId'];
         $selCategoryId = $_REQUEST[ "selCategoryId" ];
 
-        $AddCommentQuery = " INSERT INTO Comment";
-        $AddCommentQuery .= " (t_Comment, i_UID, dt_DatePosted, i_CategoryId)";
-        $AddCommentQuery .= " VALUES ( ?, ?, NOW(), ?)";
-
-        $addCommentStatment->prepare( $link, $AddCommentQuery );
-        $addCommentStatment->bind( 'sii', $txtComment, $hdnUID, $selCategoryId );
-        $addCommentStatment->exec();
-
-        //$AddCommentResultId = mysql_query ($AddCommentQuery, $link);
+        $comment = new Comment( $db );
+        $comment->create( $txtComment, $hdnUID, $selCategoryId );
 
         $UpdateLastPostedQuery = "UPDATE Users SET dt_LastPosted = NOW() WHERE i_UID = $hdnUID";
         $UpdateLastPostedQuery = mysql_query( $UpdateLastPostedQuery, $link );
