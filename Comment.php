@@ -10,9 +10,13 @@ class Comment extends Model {
         $AddCommentQuery .= " (t_Comment, i_UID, dt_DatePosted, i_CategoryId)";
         $AddCommentQuery .= " VALUES ( ?, ?, NOW(), ?)";
 
-        $addCommentStatment->prepare( $this->_db->getConnection(), $AddCommentQuery );
-        $addCommentStatment->bind( 'sii', $comment, $uid, $category );
-        $addCommentStatment->exec();
+	$conn = $this->_db->getConnection();
+	$addCommentStatement = $conn->stmt_init();
+        $addCommentStatement->prepare( 
+		$AddCommentQuery 
+	);
+        $addCommentStatement->bind_param( 'sii', $comment, $uid, $category );
+        $addCommentStatement->execute();
 
         //$AddCommentResultId = mysql_query ($AddCommentQuery, $link);        
     }
