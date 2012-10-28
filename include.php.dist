@@ -14,9 +14,9 @@ $welcomeMsg = "Hello, and welcome to $siteTitle.";
 
 $dbProperties = array(
     'name' => 'babynewt',
-    'user' = 'babynewt',
-    'password' = 'babynewt',
-    'host' = 'localhost',
+    'user' => 'babynewt',
+    'password' => 'babynewt',
+    'host' => 'localhost',
 );
 
 // At this point, establish old-style db connection for almost all purposes.
