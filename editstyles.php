@@ -1,37 +1,39 @@
 <?php
 	include( "session.php" );
 	include("include.php");
-
+	
 	$sessionUserId = $_SESSION[ 'sessionUserId' ];
-	if( Empty( $sessionUserId )) $sessionUserId = -1;
+	if( Empty( $sessionUserId )) {
+		die( "you must be logged in" );
+	}
+	
 	$hdnUserId = $sessionUserId;
 
 /*
-	Page flow:
-		- get a drop-down of all the user's styles and a drop-down of other peoples' styles.
-		- if a style is already selected (default to user's current style)
-			- fill the text area with selected style
-			- "make this my stylesheet" button.
-			!!FUNCTIONALIZE THIS!!
-			- stylesheet name textbox
-			- public style checkbox
-			- "save stylesheet" button
-			- "restart stylesheet" button -> reload the page with !Empty(btnNewStylesheet) == true.
-			- more fields?
-			- preview area, with lorum ipsum for all the categories.
+Page flow:
+- get a drop-down of all the user's styles and a drop-down of other peoples' styles.
+- if a style is already selected (default to user's current style)
+ - fill the text area with selected style
+ - "make this my stylesheet" button.
+ !!FUNCTIONALIZE THIS!!
+ - stylesheet name textbox
+ - public style checkbox
+ - "save stylesheet" button
+ - "restart stylesheet" button -> reload the page with !Empty(btnNewStylesheet) == true.
+ - more fields?
+ - preview area, with lorum ipsum for all the categories.
 
-		- else if creating a new style is selected
-			- load textarea with as many classnames as possible.
-			- stylesheet name textbox
-			- public style checkbox
-			- "save stylesheet" button
-			- "restart stylesheet" button -> reload the page with !Empty(btnNewStylesheet) == true.
-			- more fields?
-			- preview area, with lorum ipsum for all the categories.
-		- else no specific style is selected, 
-			- present user with button "Create a new stylesheet"
-		- end if
-
+- else if creating a new style is selected
+ - load textarea with as many classnames as possible.
+ - stylesheet name textbox
+ - public style checkbox
+ - "save stylesheet" button
+ - "restart stylesheet" button -> reload the page with !Empty(btnNewStylesheet) == true.
+ - more fields?
+ - preview area, with lorum ipsum for all the categories.
+- else no specific style is selected, 
+ - present user with button "Create a new stylesheet"
+- end if
 */
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
