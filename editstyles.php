@@ -2,10 +2,6 @@
 	include( "session.php" );
 	include("include.php");
 
-		// establish connection to MySQL database or output error message.
-	$link = mysql_connect ($dbHost, $dbUser, $dbPassword);
-	if (!mysql_select_db($dbName, $link)) echo mysql_errno().": ".mysql_error()."<BR>";
-
 	$sessionUserId = $_SESSION[ 'sessionUserId' ];
 	if( Empty( $sessionUserId )) $sessionUserId = -1;
 	$hdnUserId = $sessionUserId;
