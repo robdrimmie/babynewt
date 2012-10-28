@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> 1142 Template Help </TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Author" CONTENT="">
+<META NAME="Keywords" CONTENT="">
+<META NAME="Description" CONTENT="">
+<STYLE>
+Body{
+font-family: tahoma;
+}
+TR.new{
+background-color: silver;
+}
+</STYLE>
+</HEAD>
+<BODY>
+<A HREF="index.php">Return to 1142</A> | <A HREF="EditTemplate.php">Edit your Template</A>
+<BR><BR>
+<CENTER>
+<TABLE WIDTH=80% BORDER=1>
+<TR><TD ALIGN=CENTER WIDTH=30%><B>1142 Template Tag</B></TD><TD ALIGN=CENTER WIDTH=70%><B>1142 Template Tag Action</B></TD></TR>
+<TR><TD ALIGN=CENTER VALIGN=TOP>[$NAME$]</TD><TD>This is your username that you are logged in with.</TD></TR>
+<TR CLASS=new><TD ALIGN=CENTER VALIGN=TOP>[$UNUMBER$]</TD><TD>This is your usernumber</TD></TR>
+<TR><TD ALIGN=CENTER VALIGN=TOP>[$TAGLINE$]</TD><TD>This 1142 templating tag will be replaced in the output with a randomly select tagline from the database. Only one unique random tagline will be displayed per page, no matter how many templating tags of this type are present.</TD></TR>
+<TR><TD ALIGN=CENTER VALIGN=TOP>[$STYLESHEET$]</TD><TD>This tag will output the user defined stylesheet as stored in the database and selected by the user using this template. There is no need to wrap this tag within &lt;STYLE&gt;&lt;/STYLE&gt; HTML tags.</TD></TR>
+<TR><TD ALIGN=CENTER VALIGN=TOP>[$OPTIONCATLIST$]</TD><TD>This will output the list of available categories wrapped in &lt;OPTION&gt;&lt;/OPTION&gt; HTML tags. This templating tag should be surrounded by &lt;SELECT&gt;&lt;/SELECT&gt; HTML tags to allow custom form generation.</TD></TR>
+<TR><TD ALIGN=CENTER VALIGN=TOP>[$POSTBOX$]</TD><TD>This will add the comment Posting box to the page, it should be wrapped with &lt;form name="frmComment" action="post.php" method="post"&gt; &lt;/FORM&gt; for the time being and include the submit button.</TD></TR>
+<TR><TD ALIGN=CENTER VALIGN=TOP>[$COMMENTBUTTON$]</TD><TD>This will output a submit button with the comment number as the label, and the class as CategoryCMTBTN. The remainder of the form is still required to be entered manually.</TD></TR>
+<TR><TD ALIGN=CENTER VALIGN=TOP>[$CMTBTNFORM$]</TD><TD>This will output a complete form with submit button with the comment number as the label, and the class as CategoryCMTBTN.</TD></TR>
+<TR><TD ALIGN=CENTER VALIGN=TOP>[$CATNAMELINK$]</TD><TD>This templating tag is only valid within the Comment section. It will output the category name with or without a link to changecategory.php depending on the page viewer.</TD></TR>
+<TR><TD ALIGN=CENTER VALIGN=TOP>[$CATCSSNAME$]</TD><TD>Each category of 1142 has a corresponding CSS name that is prepended to the different scetions of a comment for super control over display styles.</TD></TR>
+<TR><TD ALIGN=CENTER VALIGN=TOP>[$USERNAME$]</TD><TD>This templating tag is on valid within the Comment section, and will output the username of the EFT that posted the comment.</TD></TR>
+<TR><TD ALIGN=CENTER VALIGN=TOP>[$USERNUMBER$]</TD><TD>This templating tag is on valid within the Comment section, and will output the usernumer of the EFT that posted the comment.</TD></TR>
+<TR><TD ALIGN=CENTER VALIGN=TOP>[$COMMENTTEXT$]</TD><TD>Only valid within the Comment section, this is the meat of 1142. (Or corresponding vegetarian staple).</TD></TR>
+<TR><TD ALIGN=CENTER VALIGN=TOP>[$CATEGORYNAME$]</TD><TD>The visual name of the category, this changes week to week to confuse new EFTs. Use it in the Comment section of your template to display the category the of the post.</TD></TR>
+<TR><TD ALIGN=CENTER VALIGN=TOP>[$COMMENTDATETIME$]</TD><TD>What else do you want? Its the date and time of the comment. Only in the comment section please.</TD></TR>
+<TR><TD ALIGN=CENTER VALIGN=TOP>[$CURDATE$]</TD><TD>Current 1142 date in MM.DD.YY format. Sorry timezone is still EftST.</TD></TR>
+<TR><TD ALIGN=CENTER VALIGN=TOP>[$CURTIME$]</TD><TD>Current 1142 time in HH.MM.SS format</TD></TR>
+<TR><TD ALIGN=CENTER VALIGN=TOP>[$BOOKMARK$]</TD><TD>If you add in a form with prev and next buttons, you'll need a bookmark also.</TD></TR>
+<TR><TD ALIGN=CENTER VALIGN=TOP>[$PRESENT$]</TD><TD>Adds a link to the most recent post.</TD></TR>
+<TR class=new><TD ALIGN=CENTER VALIGN=TOP>[$15POSTPREFIX=""$]</TD><TD>This text will be output immediately before each username in the 15POSTERS list.  Must be assigned in the Template Header section.</TD></TR>
+<TR class=new><TD ALIGN=CENTER VALIGN=TOP>[$15POSTSUFFIX=""$]</TD><TD>This text will be output immediately after each username in the 15POSTERS list.  Must be assigned in the Template Header section.</TD></TR>
+<TR class=new><TD ALIGN=CENTER VALIGN=TOP>[$15VISITPREFIX=""$]</TD><TD>This text will be output immediately before each username in the 15LURKERS list.  Must be assigned in the Template Header section.</TD></TR>
+<TR class=new><TD ALIGN=CENTER VALIGN=TOP>[$15VISITSUFFIX=""$]</TD><TD>This text will be output immediately after each username in the 15LURKERS list.  Must be assigned in the Template Header section.</TD></TR>
+<TR><TD ALIGN=CENTER VALIGN=TOP>[$15POSTERS$]</TD><TD>Shows a list of users who have posted in the last 15 minutes.</TD></TR>
+<TR><TD ALIGN=CENTER VALIGN=TOP>[$15LURKERS$]</TD><TD>Shows a list of users who have visited in the last 15 minutes.</TD></TR>
+<TR><TD ALIGN=CENTER VALIGN=TOP>&nbsp;</TD><TD>&nbsp;</TD></TR>
+<TR class=new><TD ALIGN=CENTER VALIGN=TOP>[$DATEFORMAT=""$]</TD><TD>This will allow you to format the date/time output of the comment. Youu still use the [$COMMENTDATETIME$] tag, but add this tag to your header section. The date format <I><B>must</B></I> be enclosed in quotes and it must be in the header section of the template. If it isn't you will see an error (and no posts) on your page, as will everyone else using your template. The date/time format codes are listed below. For example <PRE>[$DATEFORMAT="%D %y %a %d %m %b %j"$]</PRE> will output the date like this: <PRE>4th 97 Sat 04 10 Oct 277</PRE>
+</TD></TR>
+<TR class=new><TD ALIGN=CENTER VALIGN=TOP>[$GMTOFFSET=<i>x</i></i>$]</TD><TD>This will allow you to alter the hour value of the comment timestamp by <i>x</i>.  For example, -4 is Eastern during Daylight Savings Times, -5 is during normal times.
+</TD></TR>
+<TR class=new><TD ALIGN=CENTER VALIGN=TOP>[$PRESENTLINKSTR="Present"$]</TD><TD>Formats the present link text, must be in header, enclose text in qoutes</TD></TR>
+<TR class=new><TD ALIGN=CENTER VALIGN=TOP>[$LOGOUTLINKSTR="Logout"$]</TD><TD>Formats the logout link text, must be in header, enclose text in quotes</TD></TR>
+</TABLE>
+This is straight out of the <A HREF="http://www.mysql.com/doc/D/a/Date_and_time_functions.html">mySQL documentation</A><BR>
+<TABLE BORDER WIDTH="100%"> <TR><TD><CODE>%M</CODE> </TD><TD> Month name (<CODE>January</CODE>..<CODE>December</CODE>) </TD></TR> <TR><TD><CODE>%W</CODE> </TD><TD> Weekday name (<CODE>Sunday</CODE>..<CODE>Saturday</CODE>) </TD></TR> <TR><TD><CODE>%D</CODE> </TD><TD> Day of the month with English suffix (<CODE>1st</CODE>, <CODE>2nd</CODE>, <CODE>3rd</CODE>, etc.) </TD></TR> <TR><TD><CODE>%Y</CODE> </TD><TD> Year, numeric, 4 digits </TD></TR> <TR><TD><CODE>%y</CODE> </TD><TD> Year, numeric, 2 digits </TD></TR> <TR><TD><CODE>%X</CODE> </TD><TD> Year for the week where Sunday is the first day of the week, numeric, 4 digits, used with '%V' </TD></TR> <TR><TD><CODE>%x</CODE> </TD><TD> Year for the week, where Monday is the first day of the week, numeric, 4 digits, used with '%v' </TD></TR> <TR><TD><CODE>%a</CODE> </TD><TD> Abbreviated weekday name (<CODE>Sun</CODE>..<CODE>Sat</CODE>) </TD></TR> <TR><TD><CODE>%d</CODE> </TD><TD> Day of the month, numeric (<CODE>00</CODE>..<CODE>31</CODE>) </TD></TR> <TR><TD><CODE>%e</CODE> </TD><TD> Day of the month, numeric (<CODE>0</CODE>..<CODE>31</CODE>) </TD></TR> <TR><TD><CODE>%m</CODE> </TD><TD> Month, numeric (<CODE>01</CODE>..<CODE>12</CODE>) </TD></TR> <TR><TD><CODE>%c</CODE> </TD><TD> Month, numeric (<CODE>1</CODE>..<CODE>12</CODE>) </TD></TR> <TR><TD><CODE>%b</CODE> </TD><TD> Abbreviated month name (<CODE>Jan</CODE>..<CODE>Dec</CODE>) </TD></TR> <TR><TD><CODE>%j</CODE> </TD><TD> Day of year (<CODE>001</CODE>..<CODE>366</CODE>) </TD></TR> <TR><TD><CODE>%H</CODE> </TD><TD> Hour (<CODE>00</CODE>..<CODE>23</CODE>) </TD></TR> <TR><TD><CODE>%k</CODE> </TD><TD> Hour (<CODE>0</CODE>..<CODE>23</CODE>) </TD></TR> <TR><TD><CODE>%h</CODE> </TD><TD> Hour (<CODE>01</CODE>..<CODE>12</CODE>) </TD></TR> <TR><TD><CODE>%I</CODE> </TD><TD> Hour (<CODE>01</CODE>..<CODE>12</CODE>) </TD></TR> <TR><TD><CODE>%l</CODE> </TD><TD> Hour (<CODE>1</CODE>..<CODE>12</CODE>) </TD></TR> <TR><TD><CODE>%i</CODE> </TD><TD> Minutes, numeric (<CODE>00</CODE>..<CODE>59</CODE>) </TD></TR> <TR><TD><CODE>%r</CODE> </TD><TD> Time, 12-hour (<CODE>hh:mm:ss [AP]M</CODE>) </TD></TR> <TR><TD><CODE>%T</CODE> </TD><TD> Time, 24-hour (<CODE>hh:mm:ss</CODE>) </TD></TR> <TR><TD><CODE>%S</CODE> </TD><TD> Seconds (<CODE>00</CODE>..<CODE>59</CODE>) </TD></TR> <TR><TD><CODE>%s</CODE> </TD><TD> Seconds (<CODE>00</CODE>..<CODE>59</CODE>) </TD></TR> <TR><TD><CODE>%p</CODE> </TD><TD> <CODE>AM</CODE> or <CODE>PM</CODE> </TD></TR> <TR><TD><CODE>%w</CODE> </TD><TD> Day of the week (<CODE>0</CODE>=Sunday..<CODE>6</CODE>=Saturday) </TD></TR> <TR><TD><CODE>%U</CODE> </TD><TD> Week (<CODE>0</CODE>..<CODE>53</CODE>), where Sunday is the first day of the week </TD></TR> <TR><TD><CODE>%u</CODE> </TD><TD> Week (<CODE>0</CODE>..<CODE>53</CODE>), where Monday is the first day of the week </TD></TR> <TR><TD><CODE>%V</CODE> </TD><TD> Week (<CODE>1</CODE>..<CODE>53</CODE>), where Sunday is the first day of the week. Used with '%X' </TD></TR> <TR><TD><CODE>%v</CODE> </TD><TD> Week (<CODE>1</CODE>..<CODE>53</CODE>), where Monday is the first day of the week. Used with '%x' </TD></TR> <TR><TD><CODE>%%</CODE> </TD><TD> A literal <SAMP>`%'</SAMP>. </TD></TR> </TABLE>  All other characters are just copied to the result without interpretation
+</CENTER>
+Notes:
+<UL>
+	<LI> To add in a category filter you need a form with an element named 'iFilterCategory' that will supply the category ([$OPTIONCATLIST$] works good because you supply the surrounding &lt;SELECT&gt; tags). If the filter is to be added to the same form as one containing the navigation buttons, you will also need an element named 'fltAp'. A checkbox works good for this.
+	Example:
+	<PRE>
+	&lt;form name="frmFilter" action="main.php" method="post"&gt;
+        [$BOOKMARK$]
+	Jump to post: &lt;input type="text" name="ViewPost" class="PageSize" value="" size="5"&gt;&lt;BR&gt;
+	&lt;input type="submit" name="btnPrevPage" class="PrevPage" value="Previous Page"&gt; 
+	&lt;input type="text" name="txtPageSize" class="PageSize" value="50" size="2"&gt;
+	&lt;input type="submit" name="btnNextPage" class="NextPage" value="Next Page"&gt;
+ 	&lt;LABEL ACCESSKEY=G&gt;&lt;input type="submit" name="btnSubmitFilter" value="Go"&gt;&lt;/LABEL&gt;&lt;BR&gt;
+        Filter: &lt;select name="iFilterCategory" class="selectCategory"&gt;
+          [$OPTIONCATLIST$]
+        &lt;/select&gt;&lt;BR&gt;
+        &lt;INPUT TYPE="checkbox" NAME="fltAp"&gt; Apply Filter
+      &lt;/form&gt;
+	</PRE> This form has: page forward &mark page back buttons, a check box to enable filtering, a category list for filtering, a spot to specify the number of posts to display when using the form, and a go button (applies filter without change location)
+</UL>
+<BR><BR>
+<FONT SIZE=1 COLOR=SILVER>
+TODO:
+<LI>Comment Form Begin ([$CMTFORMBEGIN$])
+<LI>Comment Form End ([$CMTFORMEND$])
+</FONT>
+
+</BODY>
+</HTML>

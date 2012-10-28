@@ -1,0 +1,115 @@
+body{background-color:#dadace;font-size:medium;font-family:Verdana,Arial,Helvetica,sans-serif;color:#000;}
+
+textarea{font-size:0.9em;font-family:"Lucida Sans Unicode","Lucida Sans Unicode","Lucida Grande",Verdana,Arial,Helvetica,sans-serif;}
+input,select{font-size:0.8em;font-family:Verdana,Arial,Helvetica,sans-serif;}
+
+input{border:1px solid #000000;background-color:#dcdcdf;}
+input:hover{background-color:#ffffe6;}
+
+/* links flikr-esque */
+a:link{color:#0063DC;text-decoration:underline;}
+a:visited{color:#0259C4;text-decoration:underline;}
+a:focus{background-color:#0063DC;color:#FFFFFF;text-decoration:none;}
+a:hover{background-color:#0063DC;color:#FFFFFF;text-decoration:none;}
+a:active{background-color:#0259C4;color:#FFFFFF;text-decoration:none;}
+
+/* wtf */
+/* .rbid-raquo{color:#FF0084;} */
+
+/* template specific */
+#rbid-main{background-color:#f9f9f9;}
+#rbid-title{font-size:0.9em;font-weight:bold;}
+#rbid-tagline{font-size:0.8em;}
+#rbid-bar{background-color:#bebecc;font-size:0.6em;color:#000;}
+#users1,#users2{font-size:0.6em;}
+.rbid-sidebox1,.rbid-sidebox2{font-size:0.6em;}
+
+/* comment section */
+.rbid-comment1{font-size:0.6em;}
+.rbid-comment2{font-size:0.8em}
+.rbid-comment3{border:2px solid #eee;background-color:#fff;}
+.rbid-comment4{font-size:0.6em}
+.rbid-comment5 {font-size:0.9em;line-height:1.5;font-family:"Lucida Sans Unicode","Lucida Sans Unicode","Lucida Grande",Verdana,Arial,Helvetica,sans-serif;}
+.rbid-comment5 b,.rbid-comment5 i,.rbid-comment5 strong,.rbid-comment5 em {font-family:"Lucida Sans","Lucida Sans Unicode","Lucida Grande",Verdana,Arial,Helvetica,sans-serif;}
+
+div.rbid-avatar:hover{background-color:#dadae2;}
+div.rbid-avatar:hover div.rbid-comment3{background-color:#eef;}
+
+/* spoilers */
+span.spoiler:hover,div.spoiler:hover{background-color:#003;color:#fff;}
+
+/* categories1 */
+div.delusionsCOMMENT{border-color:#999;background-color:#f2f2f2;}
+div.dramaClubCOMMENT{border-color:#fec;}
+div.gloatCOMMENT{border-color:#fec;}
+div.hulkCOMMENT{border-color:#9c6;}
+div.schadenfreudeCOMMENT{border-color:#fec;}
+div.spillItCOMMENT{border-color:#cdf;}
+div.whingingCOMMENT{border-color:#dcf;}
+div.XOXOXCOMMENT{border-color:#fee;}
+
+/* categories2 */
+div.audioclubCOMMENT{border-color:#bbc;}
+div.bookclubCOMMENT{border-color:#cbb;}
+div.comicClubCOMMENT{border-color:#dd9;}
+div.geekCOMMENT{border-color:#dd9;}
+div.movieclubCOMMENT{border-color:#dd9;}
+div.tripleWordScoreCOMMENT{border-color:#dd9;}
+
+/* categories3 */
+div.fashionVictimCOMMENT{border-color:#696;}
+div.gardeningCOMMENT{border-color:#696;}
+div.homeImprovementCOMMENT{border-color:#696;}
+div.krittersCOMMENT{border-color:#696;}
+div.locomotionCOMMENT{border-color:#696;}
+div.munchCOMMENT{border-color:#696;}
+div.phlegmCOMMENT{border-color:#696;}
+div.roamCOMMENT{border-color:#696;}
+
+/* categories4 */
+div.educationCOMMENT{border-color:#bca;}
+div.governmentCOMMENT{border-color:#bca;}
+div.moneyCOMMENT{border-color:#bca;}
+div.myStupidJobCOMMENT{border-color:#bca;}
+
+/* categories5 */
+div.adviceCOMMENT{border-color:#ddd;}
+div.EFTogetherCOMMENT{border-color:#ddd;}
+div.memberProjectsCOMMENT{border-color:#ddd;}
+div.recruitingCOMMENT{border-color:#ddd;}
+div.wishlistCOMMENT{border-color:#ddd;}
+
+/* categories6 */
+div.pedantryCOMMENT{border-color:#ddd;}
+div.riddlesCOMMENT{border-color:#fdb;}
+div.rimshotCOMMENT{border-color:#fc9;}
+div.spamCOMMENT{border-color:#ddd;}
+div.SummaryCOMMENT{border-color:#ddd;}
+div.WordPlayCOMMENT{border-color:#ddd;}
+
+/* categories7 */
+div.eleven42COMMENT{background-color:#f2f2f2;}
+div.ooopsCOMMENT{border-color:#eee;background-color:#f9f9f9;color:#eee;}
+div.testingCOMMENT{border-style:dashed;border-color:#aaa;}
+
+/* bradsylvania */
+div.BradsylvaniaCOMMENT{background-color:#000;color:#0f0;}
+div.rbid-avatar:hover div.BradsylvaniaCOMMENT{background-color:#000;}
+
+.BradsylvaniaCOMMENTBODY a:link,.BradsylvaniaCOMMENTFOOTER a:link{background-color:#0f0;color:#000;}
+.BradsylvaniaCOMMENTBODY a:visited,.BradsylvaniaCOMMENTFOOTER a:visited{background-color:#0f0;color:#000;}
+.BradsylvaniaCOMMENTBODY a:hover,.BradsylvaniaCOMMENTFOOTER a:hover{background-color:#000;color:#fff;}
+.BradsylvaniaCOMMENTBODY a:active,.BradsylvaniaCOMMENTFOOTER a:active{background-color:#000;color:#eee;}
+
+/* metafilter */
+div.mothershipCOMMENT{background-color:#069;color:#fff;}
+div.rbid-avatar:hover div.mothershipCOMMENT{background-color:#069;}
+
+.mothershipCOMMENTBODY a:link,.mothershipCOMMENTFOOTER a:link{color:#cc0;}
+.mothershipCOMMENTBODY a:visited,.mothershipCOMMENTFOOTER a:visited{color:#cc9;}
+.mothershipCOMMENTBODY a:hover,.mothershipCOMMENTFOOTER a:hover{color:#fff;}
+.mothershipCOMMENTBODY a:active,.mothershipCOMMENTFOOTER a:active{color:#ffc;}
+
+/* a.wholelotta copying */
+div.storyTimeCOMMENTBODY:first-letter{margin:0 5px 0 0;font-size:2.9em;line-height:0.7;font-family:"Edwardian Script ITC","Edwardian Script ITC Semi-Expanded","Zapfino","Viner Hand ITC";}
+div.storyTimeCOMMENTBODY:first-line{font-family:"Palatino Linotype","Book Antiqua",serif;letter-spacing:1px;font-variant:small-caps;text-transform:lowercase;}

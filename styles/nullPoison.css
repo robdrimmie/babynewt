@@ -1,0 +1,410 @@
+body {
+ background-color: #B2B28C; /*#F9F9F9;*/ /*#EDEDCA;*/
+ }
+
+#prevnext, #users, #notes {
+ border: 1px dashed #000000;
+ background-color: #E2E2C5;
+
+ font-size: 10px;
+ font-family: verdana, sans-serif;
+ line-height: 16px;
+ }
+
+a {
+ text-decoration: none;
+ }
+
+.BLEENbody a {
+ border: 1px dashed #999999;
+ }
+.BLEENbody a:hover {
+ background-color: #eeeeee;
+ }
+
+.BLEENfooter {
+ margin: 0;
+ padding: 3px;
+ padding-top: 1px;
+ font: 9px silkscreen, verdana, sans-serif;
+ text-align: right;
+ }
+#notes {
+ overflow: auto;
+ height: 200px;
+ }
+
+.POISONnavigation {
+ margin: 0;
+ margin-top: 1px;
+ margin-bottom: 1px;
+ padding: 2px;
+/* width: 646px;*/
+ text-align: right;
+
+ font-size: 9px;
+ font-family: silkscreen, verdana, sans-serif;
+ line-height: 9px;
+ }
+.POISONbar {
+ margin: 0;
+ margin-top: 1px;
+ margin-bottom: 2px;
+ padding: 2px;
+/* width: 646px; 585px;*/
+ text-align: right;
+ background-color: #999966; /*#557278;*/
+
+ font-size: 9px;
+ font-family: silkscreen, verdana, sans-serif;
+ line-height: 9px;
+ color: #FFFFFF;
+ }
+
+.POISONfoot {
+ font-size: 9px;
+ font-family: silkscreen, verdana, sans-serif;
+ line-height: 9px;
+ text-align: right;
+ }
+
+select, input {
+   font: 11px verdana, sans-serif; 
+   color: #000; 
+   background-color: #CC9900; /*#cc6; */
+   margin: 0;
+   padding: 0 2px 0 2px;
+}
+
+select, textarea {
+   background-color: #E2E2C5;
+   font-family: verdana, sans-serif;
+}
+
+textarea {
+   padding: 5px;
+   font-size: 12px;
+   font-family: verdana, sans-serif;
+   line-height: 18px;
+}
+
+.tomfoolCOMMENT, .eleven42COMMENT, .testingCOMMENT, .bookclubCOMMENT, .geekCOMMENT, .BradsylvaniaCOMMENT, .wishlistCOMMENT, .movieclubCOMMENT, .audioclubCOMMENT, .mothershipCOMMENT, .munchCOMMENT, .storyTimeCOMMENT, .gardeningCOMMENT, .homeImprovementCOMMENT, .WordPlayCOMMENT, .pedantryCOMMENT, .governmentCOMMENT, .spamCOMMENT, .ooopsCOMMENT, .adviceCOMMENT, .riddlesCOMMENT, .recruitingCOMMENT, .roamCOMMENT, .spillItCOMMENT, .tripleWordScoreCOMMENT, .comicClubCOMMENT, .SummaryCOMMENT, .delusionsCOMMENT, .myStupidJobCOMMENT, .rimshotCOMMENT, .memberProjectsCOMMENT, .educationCOMMENT, .whingingCOMMENT, .fashionVictimCOMMENT, .gloatCOMMENT, .XOXOXCOMMENT, .EFTogetherCOMMENT, .schadenfreudeCOMMENT, .intarnetCOMMENT, .dramaClubCOMMENT, .moneyCOMMENT, .krittersCOMMENT, .hulkCOMMENT, .phlegmCOMMENT {
+ background-color: #999966; /*#CCCC99;*/
+ border-top: 2px solid #77774F; /*#999966;*/
+ border-right: 2px solid #EEEECC;
+ border-bottom: 2px solid #EEEECC;
+ border-left: 2px solid #77774F; /*#999966;*/
+ padding: 4px;
+
+ -moz-border-radius: 0.6em;
+ }
+
+.tomfoolCOMMENTBODY, .eleven42COMMENTBODY, .testingCOMMENTBODY, .bookclubCOMMENTBODY, .geekCOMMENTBODY, .BradsylvaniaCOMMENTBODY, .wishlistCOMMENTBODY, .movieclubCOMMENTBODY, .audioclubCOMMENTBODY, .mothershipCOMMENTBODY, .munchCOMMENTBODY, .storyTimeCOMMENTBODY, .gardeningCOMMENTBODY, .homeImprovementCOMMENTBODY, .WordPlayCOMMENTBODY, .pedantryCOMMENTBODY, .governmentCOMMENTBODY, .spamCOMMENTBODY, .ooopsCOMMENTBODY, .adviceCOMMENTBODY, .riddlesCOMMENTBODY, .recruitingCOMMENTBODY, .roamCOMMENTBODY, .spillItCOMMENTBODY, .tripleWordScoreCOMMENTBODY, .comicClubCOMMENTBODY, .SummaryCOMMENTBODY, .delusionsCOMMENTBODY, .myStupidJobCOMMENTBODY, .rimshotCOMMENTBODY, .memberProjectsCOMMENTBODY, .educationCOMMENTBODY, .whingingCOMMENTBODY, .fashionVictimCOMMENTBODY, .gloatCOMMENTBODY, .XOXOXCOMMENTBODY, .EFTogetherCOMMENTBODY, .schadenfreudeCOMMENTBODY, .intarnetCOMMENTBODY, .dramaClubCOMMENTBODY, .moneyCOMMENTBODY, .krittersCOMMENTBODY, .hulkCOMMENTBODY, .phlegmCOMMENTBODY {
+ padding: 4px;
+ padding-bottom: 1px;
+ background-color: #E2E2C5; /*#EDEDCA;*/
+ border: 1px solid #000000;
+ border-bottom: 0 none;
+
+ -moz-border-radius-topleft: 0.6em;
+ -moz-border-radius-topright: 0.6em;
+
+ font-size: 12px;
+ font-family: /*"trebuchet ms", */verdana, sans-serif;
+ line-height: 18px;
+ }
+
+
+.tomfoolCOMMENTFOOTER, .eleven42COMMENTFOOTER, .testingCOMMENTFOOTER, .bookclubCOMMENTFOOTER, .geekCOMMENTFOOTER, .BradsylvaniaCOMMENTFOOTER, .wishlistCOMMENTFOOTER, .movieclubCOMMENTFOOTER, .audioclubCOMMENTFOOTER, .mothershipCOMMENTFOOTER, .munchCOMMENTFOOTER, .storyTimeCOMMENTFOOTER, .gardeningCOMMENTFOOTER, .homeImprovementCOMMENTFOOTER, .WordPlayCOMMENTFOOTER, .pedantryCOMMENTFOOTER, .governmentCOMMENTFOOTER, .spamCOMMENTFOOTER, .ooopsCOMMENTFOOTER, .adviceCOMMENTFOOTER, .riddlesCOMMENTFOOTER, .recruitingCOMMENTFOOTER, .roamCOMMENTFOOTER, .spillItCOMMENTFOOTER, .tripleWordScoreCOMMENTFOOTER, .comicClubCOMMENTFOOTER, .SummaryCOMMENTFOOTER, .delusionsCOMMENTFOOTER, .myStupidJobCOMMENTFOOTER, .rimshotCOMMENTFOOTER, .memberProjectsCOMMENTFOOTER, .educationCOMMENTFOOTER, .whingingCOMMENTFOOTER, .fashionVictimCOMMENTFOOTER, .gloatCOMMENTFOOTER, .XOXOXCOMMENTFOOTER, .EFTogetherCOMMENTFOOTER, .schadenfreudeCOMMENTFOOTER, .intarnetCOMMENTFOOTER, .dramaClubCOMMENTFOOTER, .moneyCOMMENTFOOTER, .krittersCOMMENTFOOTER, .hulkCOMMENTFOOTER, .phlegmCOMMENTFOOTER {
+ padding: 4px;
+ padding-top: 0;
+ background-color: #E2E2C5;/*#EDEDCA;*/
+ border: 1px solid #000000;
+ border-top: 0 none;
+
+ -moz-border-radius-bottomleft: 0.6em;
+ -moz-border-radius-bottomright: 0.6em;
+ }
+
+.adviceCOMMENTBODY, .adviceCOMMENTFOOTER {
+    background-color: #ceceef;
+}
+
+.audioclubCOMMENTBODY, .audioclubCOMMENTFOOTER {
+    background-color: #bbc;
+}
+
+.bookclubCOMMENTBODY, .bookclubCOMMENTFOOTER {
+    background-color: #cbb;
+}
+
+.BradsylvaniaCOMMENTBODY, .BradsylvaniaCOMMENTFOOTER {
+ background-color: #000000;
+ color: #0e0;
+ border: 2px solid #AAAAAA;
+ }
+.BradsylvaniaCOMMENTBODY {
+ font-family: "lucida console", system, monospace;
+ border-bottom: 0 none;
+ }
+.BradsylvaniaCOMMENTFOOTER {
+ border-top: 0 none;
+ }
+
+.comicClubCOMMENTBODY, .comicClubCOMMENTFOOTER {
+    background-color: #dd9;
+}
+
+.delusionsCOMMENTBODY, .delusionsCOMMENTFOOTER {
+ background-color: #999999;
+ color: #eeeeee;
+ }
+
+.dramaClubCOMMENTBODY, .dramaClubCOMMENTFOOTER {
+    background-color: #eee;
+}
+
+.educationCOMMENTBODY, .educationCOMMENTFOOTER {
+    background-color: #bbcca3;
+}
+
+.EFTogetherCOMMENTBODY, .EFTogetherCOMMENTFOOTER {
+    background-color: #efceef;
+}
+
+.eleven42COMMENTBODY, .eleven42COMMENTFOOTER {
+    background-color: #eeeeff;
+}
+
+.fashionVictimCOMMENTBODY, .fashionVictimCOMMENTFOOTER {
+    background-color: #dff;
+}
+
+.gardeningCOMMENTBODY, .gardeningCOMMENTFOOTER {
+ background-color: #e0ffe3;
+ border: 3px double #3a4;
+ }
+.gardeningCOMMENTBODY {
+ border-bottom: 0 none;
+ }
+.gardeningCOMMENTFOOTER {
+ border-top: 0 none;
+ }
+
+.geekCOMMENTBODY, .geekCOMMENTFOOTER {
+ background-color: #00f;
+ border: 2px solid #acd;
+ color: #fff;
+ }
+.geekCOMMENTBODY {
+ border-bottom: 0 none;
+ }
+.geekCOMMENTFOOTER {
+ border-top: 0 none;
+ }
+.geekCOMMENTBODY a {
+   color: #fff;
+}
+
+.gloatCOMMENTBODY, .gloatCOMMENTFOOTER {
+   background-color: #fec;
+   }
+
+.governmentCOMMENTBODY,.governmentCOMMENTFOOTER {
+   background-color: #b6dadf;
+   }
+
+.homeImprovementCOMMENTBODY, .homeImprovementCOMMENTFOOTER {
+ background-color: #ffffff;
+ border : 2px solid #3333CC;
+ }
+.homeImprovementCOMMENTBODY {
+/* background-image: url(http://www.stuffeddog.com/1142/images/memberprojects.gif);
+ background-repeat: repeat-y;
+ background-position: right;
+ padding-right: 100px;*/
+ border-bottom: 0 none;
+ }
+.homeImprovementCOMMENTFOOTER {
+ border-top: 0 none;
+ }
+.homeImprovementCOMMENTBODY a:link, .homeImprovementCOMMENTFOOTER a:link {
+ color: #3333CC;
+ }
+.homeImprovementCOMMENTBODY a:visited, .homeImprovementCOMMENTFOOTER a:visited {
+ color: #000066;
+ }
+.homeImprovementCOMMENTBODY a:hover, .homeImprovementCOMMENTFOOTER a:hover {
+ background-color : #3333CC;
+
+ color: #FFFFFF;
+ }
+
+.hulkCOMMENTBODY,.hulkCOMMENTFOOTER {
+ background-color: #CBE977;
+}
+
+.intarnetCOMMENTBODY,.intarnetCOMMENTFOOTER {
+   background-color: #ddd;
+   }
+
+.krittersCOMMENTBODY,.krittersCOMMENTFOOTER {
+   background-color: #bbddbb;
+   }
+
+.memberProjectsCOMMENTBODY, .memberProjectsCOMMENTFOOTER {
+   background-color: #ceefce;
+   }
+
+.moneyCOMMENTBODY, .moneyCOMMENTFOOTER {
+   background-color: #adf;
+   }
+
+.mothershipCOMMENTBODY, .mothershipCOMMENTFOOTER {
+ background-color: #069;
+ color: #FFF;
+ }
+.mothershipCOMMENTBODY a:link, .mothershipCOMMENTFOOTER a:link {
+ color: #cc0;
+ }
+.mothershipCOMMENTBODY a:visited, .mothershipCOMMENTFOOTER a:visited {
+ color: #cc9;
+ }
+.mothershipCOMMENTBODY a:hover, .mothershipCOMMENTFOOTER a:hover {
+ color: #FFF;
+ }
+.mothershipCOMMENTBODY a:active, .mothershipCOMMENTFOOTER a:active {
+ color: #ffc;
+ }
+
+.movieclubCOMMENTBODY, .movieclubCOMMENTFOOTER {
+   background-color: #333;
+   color: #eee;
+   }
+
+.munchCOMMENTBODY, .munchCOMMENTFOOTER {
+ background-color: #ffc;
+ border: 3px double #dc0;
+}
+.munchCOMMENTBODY {
+ border-bottom: 0 none;
+ }
+.munchCOMMENTFOOTER {
+ border-top: 0 none;
+ }
+
+.myStupidJobCOMMENTBODY, .myStupidJobCOMMENTFOOTER {
+   background-color: #c5ddee;
+   }
+
+.ooopsCOMMENTBODY, .ooopsCOMMENTFOOTER {
+ background-color: #EDEDCA;
+ color: #dcdcb9;
+}
+
+.pedantryCOMMENTBODY, .pedantryCOMMENTFOOTER {
+   background-color: #ccc;
+}
+
+.phlegmCOMMENTBODY,.phlegmCOMMENTFOOTER {
+ background-color: #eee;
+} /* temporary like */
+
+.recruitingCOMMENTBODY, .recruitingCOMMENTFOOTER {
+   background-color: #efcece;
+   }
+
+.riddlesCOMMENTBODY, .riddlesCOMMENTFOOTER {
+   background-color: #fdb;
+   }
+
+.rimshotCOMMENTBODY, .rimshotCOMMENTFOOTER {
+   background-color: #fc9;
+   }
+
+.roamCOMMENTBODY, .roamCOMMENTFOOTER {
+ background-color: #ffffff;
+ border : 2px solid #33CC33;
+ }
+.roamCOMMENTBODY {
+/* background-image: url(http://www.stuffeddog.com/1142/images/roam.gif);
+ background-repeat: repeat-y;
+ background-position: right;
+ padding-right: 100px;*/
+ border-bottom: 0 none;
+ }
+.roamCOMMENTFOOTER {
+ border-top: 0 none;
+ }
+.roamCOMMENTBODY a:link, .roamCOMMENTFOOTER a:link {
+ color: #33CC33;
+ }
+.roamCOMMENTBODY a:visited, .roamCOMMENTFOOTER a:visited {
+ color: #006600;
+ }
+.roamCOMMENTBODY a:hover, .roamCOMMENTFOOTER a:hover {
+ background-color : #33CC33;
+ color: #FFFFFF;
+ }
+
+.schadenfreudeCOMMENTBODY, .schadenfreudeCOMMENTFOOTER {
+   background-color: #eeddaa;
+   }
+
+.spamCOMMENTBODY, .spamCOMMENTFOOTER {
+   background-color: #fff;
+   }
+
+.spillItCOMMENTBODY, .spillItCOMMENTFOOTER {
+   background-color: #ece;
+   }
+
+.storyTimeCOMMENTBODY, .storyTimeCOMMENTFOOTER {
+   background-color: #feffcc;
+   }
+
+div.storyTimeCOMMENTBODY:first-letter {
+ font-size: 200%;
+ font-family: "times new roman",serif;
+ float: left;
+ border: 0 none;
+ }
+div.storyTimeCOMMENTBODY:first-line {
+ font-variant: small-caps;
+ border: 0 none;
+ }
+
+.SummaryCOMMENTBODY, .SummaryCOMMENTFOOTER {
+   background-color: #fff;
+   }
+
+.testingCOMMENTBODY, .testingCOMMENTFOOTER {
+   background-color: #eef;
+   }
+
+.tripleWordScoreCOMMENTBODY, .tripleWordScoreCOMMENTFOOTER {
+   background-color: #d8cfb8;
+   }
+
+.whingingCOMMENTBODY, .whingingCOMMENTFOOTER {
+   background-color: #dcf;
+   }
+
+.wishlistCOMMENTBODY, .wishlistCOMMENTFOOTER {
+   background-color: #fff;
+   }
+
+.WordPlayCOMMENTBODY, .WordPlayCOMMENTFOOTER {
+   background-color: #c0c090;
+   }
+
+.XOXOXCOMMENTBODY, .XOXOXCOMMENTFOOTER {
+ background-color: #ffe3e0;
+ border: 3px double #ff0000;
+ }
+.XOXOXCOMMENTBODY {
+ border-bottom: 0 none;
+ }
+.XOXOXCOMMENTFOOTER {
+ border-top: 0 none;
+ }

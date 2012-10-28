@@ -1,0 +1,673 @@
+/* suggested - Win, IE 6.0, 800x600 */
+/* default template best, but works with current public templates */
+/* mothership, bradsyvania, ooops based on the handiwork of DAVEADAMS */
+/* tomfoolery based on styles by RODII, MAHOGNE, and AAAUGH */
+/* additional styles based on ANILDASH, AAAUGH, REDFOX, ONEBALLJAY, others? */
+/* avatars blatantly stolen from DAVEADAMS */
+
+body {
+    background-color: #eee9cc;
+    margin: 0;
+    padding: 10px;
+    font-size: 11pt;
+    font-family: verdana,arial,helvetica,sans-serif;
+    color: #000;
+    /* not good css */
+    scrollbar-face-color: #ccc7aa;
+    scrollbar-shadow-color: #000;
+    scrollbar-highlight-color: #fff6bb;
+    scrollbar-3dlight-color: #eee5aa;
+    scrollbar-darkshadow-color: #eee5aa;
+    scrollbar-track-color: #eee9cc;
+    scrollbar-arrow-color: #000;
+}
+
+a {
+    background-color: inherit;
+    text-decoration: none;
+    color: #00f;
+}
+a:visited {
+    background-color: inherit;
+    color: #01a;
+}
+a:hover {
+    background-color: #eee;
+    color: #00f;
+}
+
+input,select {
+    background-color: #ccc7aa;
+    font-family: verdana,sans-serif;
+    font-size: xx-small;
+    color: #000;
+}
+textarea {
+    background-color: #fff9dd;
+    margin: 0;
+    padding: 2px 5px 2px;
+    border: 1px solid #000;
+    font-size: 10pt;
+    font-family: "century gothic",verdana,sans-serif;
+    color: #000;
+    /* not good css */
+    scrollbar-face-color: #ccc7aa;
+    scrollbar-shadow-color: #000;
+    scrollbar-highlight-color: #fff6bb;
+    scrollbar-3dlight-color: #eee5aa;
+    scrollbar-darkshadow-color: #eee5aa;
+    scrollbar-track-color: #fff9dd;
+    scrollbar-arrow-color: #000;
+}
+table,td,ul,ol,li {
+    font-size: inherit;
+    font-family: inherit;
+}
+
+input.adviceLASTCMTBTN,input.audioclubLASTCMTBTN,input.bookclubLASTCMTBTN,input.BradsylvaniaLASTCMTBTN,input.comicClubLASTCMTBTN,input.delusionsLASTCMTBTN,input.educationLASTCMTBTN,input.EFTogetherLASTCMTBTN,input.eleven42LASTCMTBTN,input.fashionVictimLASTCMTBTN,input.gardeningLASTCMTBTN,input.geekLASTCMTBTN,input.gloatLASTCMTBTN,input.governmentLASTCMTBTN,input.homeImprovementLASTCMTBTN,input.memberProjectsLASTCMTBTN,input.mothershipLASTCMTBTN,input.movieclubLASTCMTBTN,input.munchLASTCMTBTN,input.myStupidJobLASTCMTBTN,input.ooopsLASTCMTBTN,input.pedantryLASTCMTBTN,input.recruitingLASTCMTBTN,input.riddlesLASTCMTBTN,input.rimshotLASTCMTBTN,input.roamLASTCMTBTN,input.schadenfreudeLASTCMTBTN,input.spamLASTCMTBTN,input.spillItLASTCMTBTN,input.storyTimeLASTCMTBTN,input.summaryLASTCMTBTN,input.testingLASTCMTBTN,input.tomfoolLASTCMTBTN,input.tripleWordScoreLASTCMTBTN,input.whingingLASTCMTBTN,input.wishlistLASTCMTBTN,input.WordPlayLASTCMTBTN,input.XOXOXLASTCMTBTN {
+    background-color: transparent;
+    padding: 0;
+    border: 0 none;
+}
+div.adviceCOMMENT,div.audioclubCOMMENT,div.bookclubCOMMENT,div.BradsylvaniaCOMMENT,div.comicClubCOMMENT,div.delusionsCOMMENT,div.educationCOMMENT,div.EFTogetherCOMMENT,div.eleven42COMMENT,div.fashionVictimCOMMENT,div.gardeningCOMMENT,div.geekCOMMENT,div.gloatCOMMENT,div.governmentCOMMENT,div.homeImprovementCOMMENT,div.memberProjectsCOMMENT,div.mothershipCOMMENT,div.movieclubCOMMENT,div.munchCOMMENT,div.myStupidJobCOMMENT,div.ooopsCOMMENT,div.pedantryCOMMENT,div.recruitingCOMMENT,div.riddlesCOMMENT,div.rimshotCOMMENT,div.roamCOMMENT,div.schadenfreudeCOMMENT,div.spamCOMMENT,div.spillItCOMMENT,div.storyTimeCOMMENT,div.summaryCOMMENT,div.testingCOMMENT,div.tomfoolCOMMENT,div.tripleWordScoreCOMMENT,div.whingingCOMMENT,div.wishlistCOMMENT,div.WordPlayCOMMENT,div.XOXOXCOMMENT {
+    clear: both;
+    margin: 0;
+    margin-left: 65px;
+    padding: 0;
+    border: 0 none;
+    background-color: inherit;
+    background-image: none;
+    color: inherit;
+}
+div.adviceCOMMENTBODY,div.audioclubCOMMENTBODY,div.bookclubCOMMENTBODY,div.BradsylvaniaCOMMENTBODY,div.comicClubCOMMENTBODY,div.delusionsCOMMENTBODY,div.educationCOMMENTBODY,div.EFTogetherCOMMENTBODY,div.eleven42COMMENTBODY,div.fashionVictimCOMMENTBODY,div.gardeningCOMMENTBODY,div.geekCOMMENTBODY,div.gloatCOMMENTBODY,div.governmentCOMMENTBODY,div.homeImprovementCOMMENTBODY,div.memberProjectsCOMMENTBODY,div.mothershipCOMMENTBODY,div.movieclubCOMMENTBODY,div.munchCOMMENTBODY,div.myStupidJobCOMMENTBODY,div.ooopsCOMMENTBODY,div.pedantryCOMMENTBODY,div.recruitingCOMMENTBODY,div.riddlesCOMMENTBODY,div.rimshotCOMMENTBODY,div.roamCOMMENTBODY,div.schadenfreudeCOMMENTBODY,div.spamCOMMENTBODY,div.spillItCOMMENTBODY,div.storyTimeCOMMENTBODY,div.summaryCOMMENTBODY,div.testingCOMMENTBODY,div.tomfoolCOMMENTBODY,div.tripleWordScoreCOMMENTBODY,div.whingingCOMMENTBODY,div.wishlistCOMMENTBODY,div.WordPlayCOMMENTBODY,div.XOXOXCOMMENTBODY {
+    background-image: none;
+    margin: 0;
+    padding: 7px;
+    padding-bottom: 3px;
+    font-size: /*10pt*/smaller;
+    /*word-wrap: break-word;*/
+    background-color: inherit;
+    color: inherit;
+}
+div.adviceCOMMENTBODY a,div.audioclubCOMMENTBODY a,div.bookclubCOMMENTBODY a,div.BradsylvaniaCOMMENTBODY a,div.comicClubCOMMENTBODY a,div.delusionsCOMMENTBODY a,div.educationCOMMENTBODY a,div.EFTogetherCOMMENTBODY a,div.eleven42COMMENTBODY a,div.fashionVictimCOMMENTBODY a,div.gardeningCOMMENTBODY a,div.geekCOMMENTBODY a,div.gloatCOMMENTBODY a,div.governmentCOMMENTBODY a,div.homeImprovementCOMMENTBODY a,div.memberProjectsCOMMENTBODY a,div.mothershipCOMMENTBODY a,div.movieclubCOMMENTBODY a,div.munchCOMMENTBODY a,div.myStupidJobCOMMENTBODY a,div.ooopsCOMMENTBODY a,div.pedantryCOMMENTBODY a,div.recruitingCOMMENTBODY a,div.riddlesCOMMENTBODY a,div.rimshotCOMMENTBODY a,div.roamCOMMENTBODY a,div.schadenfreudeCOMMENTBODY a,div.spamCOMMENTBODY a,div.spillItCOMMENTBODY a,div.storyTimeCOMMENTBODY a,div.summaryCOMMENTBODY a,div.testingCOMMENTBODY a,div.tomfoolCOMMENTBODY a,div.tripleWordScoreCOMMENTBODY a,div.whingingCOMMENTBODY a,div.wishlistCOMMENTBODY a,div.WordPlayCOMMENTBODY a,div.XOXOXCOMMENTBODY a {
+    font-weight: bold;
+}
+div.adviceCOMMENTFOOTER,div.audioclubCOMMENTFOOTER,div.bookclubCOMMENTFOOTER,div.BradsylvaniaCOMMENTFOOTER,div.comicClubCOMMENTFOOTER,div.delusionsCOMMENTFOOTER,div.educationCOMMENTFOOTER,div.EFTogetherCOMMENTFOOTER,div.eleven42COMMENTFOOTER,div.fashionVictimCOMMENTFOOTER,div.gardeningCOMMENTFOOTER,div.geekCOMMENTFOOTER,div.gloatCOMMENTFOOTER,div.governmentCOMMENTFOOTER,div.homeImprovementCOMMENTFOOTER,div.memberProjectsCOMMENTFOOTER,div.mothershipCOMMENTFOOTER,div.movieclubCOMMENTFOOTER,div.munchCOMMENTFOOTER,div.myStupidJobCOMMENTFOOTER,div.ooopsCOMMENTFOOTER,div.pedantryCOMMENTFOOTER,div.recruitingCOMMENTFOOTER,div.riddlesCOMMENTFOOTER,div.rimshotCOMMENTFOOTER,div.roamCOMMENTFOOTER,div.schadenfreudeCOMMENTFOOTER,div.spamCOMMENTFOOTER,div.spillItCOMMENTFOOTER,div.storyTimeCOMMENTFOOTER,div.summaryCOMMENTFOOTER,div.testingCOMMENTFOOTER,div.tomfoolCOMMENTFOOTER,div.tripleWordScoreCOMMENTFOOTER,div.whingingCOMMENTFOOTER,div.wishlistCOMMENTFOOTER,div.WordPlayCOMMENTFOOTER,div.XOXOXCOMMENTFOOTER {
+    background-image: none;
+    margin: 0;
+    margin-bottom: 4px;
+    padding: 7px;
+    padding-top: 0;
+    font-size: /*7pt*/xx-small;
+    text-align: right;
+    background-color: inherit;
+    color: inherit;
+}
+
+div.adviceNAME {
+    color: #ccc7aa;
+}
+div.adviceCOMMENTBODY,div.adviceCOMMENTFOOTER {
+    background-color: #ceceef;
+    border-left: 3px solid #ccc7aa;
+    border-top: 3px solid #ccc7aa;
+    border-right: 3px solid #fffbee;
+    border-bottom: 3px solid #fffbee;
+}
+
+div.audioclubNAME {
+    color: #ccd;
+}
+div.audioclubCOMMENTBODY,div.audioclubCOMMENTFOOTER {
+    background-color: #ccd;
+    border: 1px solid #eef;
+}
+
+div.bookclubNAME {
+    color: #dcc;
+}
+div.bookclubCOMMENTBODY,div.bookclubCOMMENTFOOTER {
+    background-color: #dcc;
+    border: 1px solid #fee;
+}
+
+div.BradsylvaniaNAME {
+    color: #222;
+}
+div.BradsylvaniaCOMMENTBODY,div.BradsylvaniaCOMMENTFOOTER {
+    background-color: #000;
+    border: 2px solid #222;
+    color: #0e0;
+}
+.BradsylvaniaCOMMENTBODY a,.BradsylvaniaCOMMENTBODY a:active,.BradsylvaniaCOMMENTBODY a:visited,.BradsylvaniaCOMMENTFOOTER a,.BradsylvaniaCOMMENTFOOTER a:active,.BradsylvaniaCOMMENTFOOTER a:visited {
+    background-color: inherit;
+    color: #1e1;
+}
+.BradsylvaniaCOMMENTBODY a:hover,.BradsylvaniaCOMMENTFOOTER a:hover {
+    background-color: #1e1;
+    color: #000;
+}
+
+div.comicClubNAME {
+    color: #dd9;
+}
+div.comicClubCOMMENTBODY,div.comicClubCOMMENTFOOTER {
+    background-color: #dd9;
+    border: 1px solid #ffe;
+}
+
+div.delusionsNAME {
+    color: #999;
+}
+div.delusionsCOMMENTBODY,div.delusionsCOMMENTFOOTER {
+    background-color: #999;
+    color: #eee;
+}
+
+div.educationNAME {
+    color: #bbcca3;
+}
+div.educationCOMMENTBODY,div.educationCOMMENTFOOTER {
+    background-color: #bbcca3;
+}
+
+div.EFTogetherNAME {
+    color: #ccc7aa;
+}
+div.EFTogetherCOMMENTBODY,div.EFTogetherCOMMENTFOOTER {
+    background-color: #efceef;
+    border-left: 3px solid #ccc7aa;
+    border-top: 3px solid #ccc7aa;
+    border-right: 3px solid #fffbee;
+    border-bottom: 3px solid #fffbee;
+}
+
+div.eleven42NAME {
+    color: #ccccff;
+}
+div.eleven42COMMENTBODY,div.eleven42COMMENTFOOTER {
+    background-color: #eeeeff;
+    border-top: 8px solid #ccccff;
+    border-bottom: 8px solid #ccccff;
+}
+
+div.fashionVictimNAME {
+    color: /*#def*/#dff;
+}
+div.fashionVictimCOMMENTBODY,div.fashionVictimCOMMENTFOOTER {
+    background-color: /*#def*/#dff;
+}
+
+div.gardeningNAME {
+   color: #3a4;
+   }
+div.gardeningCOMMENTBODY,div.gardeningCOMMENTFOOTER {
+   background-color: #e0ffe3;
+   border: 3px double #3a4;
+   }
+
+div.geekNAME {
+   color: #acd;
+   }
+div.geekCOMMENTBODY,div.geekCOMMENTFOOTER {
+   background-color: #00f;
+   border: 2px solid #acd;
+   color: #fff;
+   }
+div.geekCOMMENTBODY a,.geekCOMMENTBODY a:active,.geekCOMMENTBODY a:visited,div.geekCOMMENTFOOTER a,.geekCOMMENTFOOTER a:active,.geekCOMMENTFOOTER a:visited {
+   background-color: inherit;
+   color: #fff;
+}
+.geekCOMMENTBODY a:hover,.geekCOMMENTFOOTER a:hover {
+    background-color: #eee;
+    color: #00f;
+}
+
+div.gloatNAME {
+   color: #ffa500;/*#ac0*/
+   }
+div.gloatCOMMENTBODY,div.gloatCOMMENTFOOTER {
+   background-color: #fec;/*#e3ffe0*/
+   border: 3px double #ffa500;/*#ac0*/
+   }
+
+div.governmentNAME {
+   color: #b6dadf;
+   }
+div.governmentCOMMENTBODY,div.governmentCOMMENTFOOTER {
+   background-color: #b6dadf;
+   }
+
+div.homeImprovementNAME {
+   color: #00f;
+   }
+div.homeImprovementCOMMENTBODY,div.homeImprovementCOMMENTFOOTER {
+   background-color: #eee;
+   border: 2px solid #00f;
+   color: #00f;
+   }
+div.homeImprovementCOMMENTBODY a:hover,div.homeImprovementCOMMENTFOOTER a:hover {
+   text-decoration: underline;
+}
+
+div.memberProjectsNAME {
+   color: #ccc7aa;
+   }
+div.memberProjectsCOMMENTBODY,div.memberProjectsCOMMENTFOOTER {
+   background-color: #ceefce;
+   border-left: 3px solid #ccc7aa;
+   border-top: 3px solid #ccc7aa;
+   border-right: 3px solid #fffbee;
+   border-bottom: 3px solid #fffbee;
+   }
+
+div.mothershipNAME {
+   color: #004D73;
+   }
+div.mothershipCOMMENTBODY,div.mothershipCOMMENTFOOTER {
+   background-color: #069;
+   border: 2px solid #004D73;
+   color: #fff;
+   }
+.mothershipCOMMENTBODY a,.mothershipCOMMENTFOOTER a {
+    background-color: inherit;
+    text-decoration: none;
+    font-weight: bold;
+    color: #cc0;
+}
+.mothershipCOMMENTBODY a:visited,.mothershipCOMMENTFOOTER a:visited {
+    background-color: inherit;
+    color: #cc9;
+}
+.mothershipCOMMENTBODY a:active,.mothershipCOMMENTFOOTER a:active {
+    background-color: inherit;
+    color: #ffc;
+}
+.mothershipCOMMENTBODY a:hover,.mothershipCOMMENTFOOTER a:hover {
+    background-color: #069;
+    text-decoration: none;
+    color: #fff;
+}
+
+div.movieclubNAME {
+   color: #999;
+   }
+div.movieclubCOMMENTBODY,div.movieclubCOMMENTFOOTER {
+   background-color: #333;
+   border: 2px solid #999;
+   color: #fff;
+   }
+.movieclubCOMMENTBODY a,.movieclubCOMMENTBODY a:active,.movieclubCOMMENTBODY a:visited,.movieclubCOMMENTFOOTER a,.movieclubCOMMENTFOOTER a:active,.movieclubCOMMENTFOOTER a:visited {
+    background-color: inherit;
+    color: #aaa;
+}
+.movieclubCOMMENTBODY a:hover,.movieclubCOMMENTFOOTER a:hover {
+    background-color: #aaa;
+    color: #fff;
+}
+
+div.munchNAME {
+   color: #dc0;
+   }
+div.munchCOMMENTBODY,div.munchCOMMENTFOOTER {
+   background-color: #ffc;
+   border: 3px double #dc0;
+   }
+
+div.myStupidJobNAME {
+   color: #c5ddee;
+   }
+div.myStupidJobCOMMENTBODY,div.myStupidJobCOMMENTFOOTER {
+   background-color: #c5ddee;
+   }
+
+div.ooopsNAME,div.ooopsCOMMENTBODY,div.ooopsCOMMENTFOOTER,.ooopsCOMMENT a,.ooopsCOMMENT a:visited,.ooopsCOMMENT a:active,.ooopsCOMMENT a:hover {
+    background-color: #eee9cc;   
+    color: #ddd5bb;
+}
+div.ooopsCOMMENTBODY,div.ooopsCOMMENTFOOTER {
+    background-color: #eee9cc;
+    border: 2px solid #ddd5bb;
+}
+
+div.pedantryNAME {
+   color: #ccc;
+   }
+div.pedantryCOMMENTBODY,div.pedantryCOMMENTFOOTER {
+   background-color: #ccc;
+   border-left: 3px solid #fff;
+   border-top: 3px solid #fff;
+   border-right: 3px solid #000;
+   border-bottom: 3px solid #000;
+   }
+
+div.recruitingNAME {
+   color: #ccc7aa;
+   }
+div.recruitingCOMMENTBODY,div.recruitingCOMMENTFOOTER {
+   background-color: #efcece;
+   border-left: 3px solid #ccc7aa;
+   border-top: 3px solid #ccc7aa;
+   border-right: 3px solid #fffbee;
+   border-bottom: 3px solid #fffbee;
+   }
+
+div.riddlesNAME {
+   color: #fdb;
+   }
+div.riddlesCOMMENTBODY,div.riddlesCOMMENTFOOTER {
+   background-color: #fdb;
+   }
+
+div.rimshotNAME {
+   color: #fc9;
+   }
+div.rimshotCOMMENTBODY,div.rimshotCOMMENTFOOTER {
+   background-color: #fc9;
+   }
+
+div.roamNAME {
+   color: #3c3;
+   }
+div.roamCOMMENTBODY,div.roamCOMMENTFOOTER {
+   background-color: #eee;
+   border: 2px solid #3c3;
+   }
+div.roamCOMMENTBODY a,.roamCOMMENTBODY a:active,.roamCOMMENTBODY a:visited,div.roamCOMMENTFOOTER a,.roamCOMMENTFOOTER a:active,.roamCOMMENTFOOTER a:visited {
+   background-color: inherit;
+   color: #3c3;
+}
+.roamCOMMENTBODY a:hover,.roamCOMMENTFOOTER a:hover {
+    background-color: #3c3;
+    color: #cfc;
+}
+
+div.schadenfreudeNAME {
+   color: #ca0;
+   }
+div.schadenfreudeCOMMENTBODY,div.schadenfreudeCOMMENTFOOTER {
+   background-color: #eeddaa;
+   border: 3px double #ca0;
+   }
+
+div.spamNAME {
+   color: #000;
+   }
+div.spamCOMMENTBODY,div.spamCOMMENTFOOTER {
+   background-color: #fff;
+   border: 2px solid #000;
+   }
+
+div.spillItNAME {
+   color: #ece;
+   }
+div.spillItCOMMENTBODY,div.spillItCOMMENTFOOTER {
+   background-color: /*#edf*/#ece;
+   }
+
+div.storyTimeNAME {
+   color: #000;
+   }
+div.storyTimeCOMMENTBODY,div.storyTimeCOMMENTFOOTER {
+   background-color: #feffcc;
+   border: 2px solid #000;
+   }
+div.storyTimeCOMMENTBODY:first-letter {
+   font-family: Old English Text MT,fantasy;
+   font-size: 30pt;
+   text-transform: uppercase;
+   }
+
+div.summaryNAME {
+   color: #000;
+   }
+div.summaryCOMMENTBODY,div.summaryCOMMENTFOOTER {
+   background-color: #fff;
+   border: 2px dotted #000;
+   }
+
+div.testingNAME {
+   color: #000;
+   }
+div.testingCOMMENTBODY,div.testingCOMMENTFOOTER {
+   background-color: #eef;
+   border: 2px dashed #000;
+   }
+
+div.tomfoolNAME {
+   color: #bbb699;
+   }
+div.tomfoolCOMMENTBODY,div.tomfoolCOMMENTFOOTER {
+   background-color: #fff9cc;
+   border: 2px solid #bbb699;
+   }
+
+div.tripleWordScoreNAME {
+   color: #d8cfb8;
+   }
+div.tripleWordScoreCOMMENTBODY,div.tripleWordScoreCOMMENTFOOTER {
+   background-color: #d8cfb8;
+   }
+
+div.whingingNAME {
+   color: #dcf;
+   }
+div.whingingCOMMENTBODY,div.whingingCOMMENTFOOTER {
+   background-color: #dcf;
+   }
+
+div.wishlistNAME {
+   color: #fff;
+   }
+div.wishlistCOMMENTBODY,div.wishlistCOMMENTFOOTER {
+   background-color: #fff;
+   }
+
+div.WordPlayNAME {
+   color: #c0c090;
+   }
+div.WordPlayCOMMENTBODY,div.WordPlayCOMMENTFOOTER {
+   background-color: #c0c090;
+   }
+
+div.XOXOXNAME {
+   color: #f00;
+   }
+div.XOXOXCOMMENTBODY,div.XOXOXCOMMENTFOOTER {
+   background-color: #ffe3e0;
+   border: 3px double #f00;
+   }
+
+div.adviceCOMMENTBODY,div.audioclubCOMMENTBODY,div.bookclubCOMMENTBODY,div.BradsylvaniaCOMMENTBODY,div.comicclubCOMMENTBODY,div.delusionsCOMMENTBODY,div.educationCOMMENTBODY,div.EFTogetherCOMMENTBODY,div.eleven42COMMENTBODY,div.fashionVictimCOMMENTBODY,div.gardeningCOMMENTBODY,div.geekCOMMENTBODY,div.gloatCOMMENTBODY,div.governmentCOMMENTBODY,div.homeImprovementCOMMENTBODY,div.memberProjectsCOMMENTBODY,div.mothershipCOMMENTBODY,div.movieclubCOMMENTBODY,div.munchCOMMENTBODY,div.myStupidJobCOMMENTBODY,div.ooopsCOMMENTBODY,div.pedantryCOMMENTBODY,div.recruitingCOMMENTBODY,div.riddlesCOMMENTBODY,div.rimshotCOMMENTBODY,div.roamCOMMENTBODY,div.schadenfreudeCOMMENTBODY,div.spamCOMMENTBODY,div.spillItCOMMENTBODY,div.storyTimeCOMMENTBODY,div.summaryCOMMENTBODY,div.testingCOMMENTBODY,div.tomfoolCOMMENTBODY,div.tripleWordScoreCOMMENTBODY,div.whingingCOMMENTBODY,div.wishlistCOMMENTBODY,div.WordPlayCOMMENTBODY,div.XOXOXCOMMENTBODY {
+   border-bottom: 0 none;
+}
+div.adviceCOMMENTFOOTER,div.audioclubCOMMENTFOOTER,div.bookclubCOMMENTFOOTER,div.BradsylvaniaCOMMENTFOOTER,div.comicclubCOMMENTFOOTER,div.delusionsCOMMENTFOOTER,div.educationCOMMENTFOOTER,div.EFTogetherCOMMENTFOOTER,div.eleven42COMMENTFOOTER,div.fashionVictimCOMMENTFOOTER,div.gardeningCOMMENTFOOTER,div.geekCOMMENTFOOTER,div.gloatCOMMENTFOOTER,div.governmentCOMMENTFOOTER,div.homeImprovementCOMMENTFOOTER,div.memberProjectsCOMMENTFOOTER,div.mothershipCOMMENTFOOTER,div.movieclubCOMMENTFOOTER,div.munchCOMMENTFOOTER,div.myStupidJobCOMMENTFOOTER,div.ooopsCOMMENTFOOTER,div.pedantryCOMMENTFOOTER,div.recruitingCOMMENTFOOTER,div.riddlesCOMMENTFOOTER,div.rimshotCOMMENTFOOTER,div.roamCOMMENTFOOTER,div.schadenfreudeCOMMENTFOOTER,div.spamCOMMENTFOOTER,div.spillItCOMMENTFOOTER,div.storyTimeCOMMENTFOOTER,div.summaryCOMMENTFOOTER,div.testingCOMMENTFOOTER,div.tomfoolCOMMENTFOOTER,div.tripleWordScoreCOMMENTFOOTER,div.whingingCOMMENTFOOTER,div.wishlistCOMMENTFOOTER,div.WordPlayCOMMENTFOOTER,div.XOXOXCOMMENTFOOTER {
+    border-top: 0 none;
+}
+
+div.logo1142 {
+    background-color: inherit;
+    font-size: 32pt;
+    font-family: georgia,"trebuchet ms",sans-serif;
+    color: #ddd588;
+}
+div.tagline1142 {
+    background-color: inherit;
+    font-size: 11pt;
+    font-weight: 100;
+    top: 15px;
+    left: 210px;
+    color: inherit;
+}
+div.content1142 {
+    background-color: inherit;
+    padding-top: 30px;
+    color: inherit;
+}
+
+/* begin leeching off of dave */
+div.aaron, div.anapestic, div.anildash, div.Avogadro, div.binkin, div.cCranium, div.ceiriog, div.clare, div.claxton6, div.crazyunclejoe, div.daveadams, div.daviobrien, div.dcehr, div.frykitty, div.girlhacker, div.graham, div.iceberg273, div.jbushnell, div.jedwards, div.jennifer13, div.jr, div.Judith, div.kathryn, div.lia, div.Lirp, div.mahogne, div.MarkAnd, div.mathowie, div.mattpfeff, div.molliebug, div.Mommy, div.Neale, div.norm, div.null, div.Octaviuz, div.oneballjay, div.redfox, div.rodii, div.rorschach, div.salt, div.Sennoma, div.Skot, div.snarkout, div.stavrosthewonderchicken, div.Succa, div.sudama, div.TheBrad, div.thirteen, div.Wilhelm, div.YSA, div.zempf, div.Zurls {
+    background-position: top left;
+    background-repeat: no-repeat;
+}
+div.aaron {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/aaron.gif);
+}
+div.anapestic {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/anapestic.gif);
+}
+div.anildash {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/anildash.gif);
+}
+div.Avogadro {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/Avogadro.gif);
+}
+div.binkin {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/binkin.gif);
+}
+div.cCranium {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/ccranium.gif);
+}
+div.ceiriog {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/ceiriog.gif);
+}
+div.clare {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/clare.gif);
+}
+div.claxton6 {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/claxton6.gif);
+}
+div.crazyunclejoe {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/crazyunclejoe.gif);
+}
+div.daveadams {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/daveadams.gif);
+}
+div.daviobrien {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/daviobrien.gif);
+}
+div.dcehr {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/dcehr.gif);
+}
+div.frykitty {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/frykitty.gif);
+}
+div.girlhacker {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/girlhacker.gif);
+}
+div.graham {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/graham.gif);
+}
+div.iceberg273 {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/iceberg273.gif);
+}
+div.jbushnell {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/jbushnell.gif);
+}
+div.jedwards {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/jedwards.gif);
+}
+div.jennifer13 {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/jennifer13.gif);
+}
+div.jr {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/jr.gif);
+}
+div.judith {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/judith.gif);
+}
+div.kathryn {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/kathryn.gif);
+}
+div.lia {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/lia.gif);
+}
+div.Lirp {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/lirp.gif);
+}
+div.mahogne {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/mahogne.gif);
+}
+div.MarkAnd {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/mark.gif);
+}
+div.mathowie {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/mathowie.gif);
+}
+div.mattpfeff {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/mattpfeff.gif);
+}
+div.molliebug {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/mollie.gif);
+}
+div.Mommy {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/mommyfucknose.gif);
+}
+div.Neale {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/neale.gif);
+}
+div.norm {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/norm.gif);
+}
+div.null {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/null.gif);
+}
+div.Octaviuz {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/Octaviuz.gif);
+}
+div.oneballjay {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/oneballjay.gif);
+}
+div.redfox {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/redfox.gif);
+}
+div.rodii {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/rodii.gif);
+}
+div.rorschach {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/rory.gif);
+}
+div.salt {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/salt.gif);
+}
+div.Sennoma {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/Sennoma.gif);
+}
+div.Skot {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/Skot.gif);
+}
+div.snarkout {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/snark.gif);
+}
+div.stavrosthewonderchicken {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/stavrosthewonderchicken.gif);
+}
+div.Succa {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/Succa.gif);
+}
+div.sudama {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/sudama.gif);
+}
+div.TheBrad {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/brad.gif);
+}
+div.thirteen {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/13.gif);
+}
+div.Wilhelm {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/fredwilhelm.gif);
+}
+div.YSA {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/YSA.gif);
+}
+div.zempf {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/zempf.gif);
+}
+div.Zurls {
+    background-image: url(http://www.stuffeddog.com/1142/avatars/Zurls.gif);
+}
+div.Aaaugh\! {
+    background-position: top left;
+    background-repeat: no-repeat;
+    background-image: url(http://www.stuffeddog.com/1142/avatars/Aaaugh!.gif);
+}

@@ -1,0 +1,411 @@
+// mitochondria.js
+// the powerhouse of the cell
+// June 30, 2010
+
+// browser sniffing
+var clientPC = navigator.userAgent.toLowerCase(); // Get client info
+var is_gecko = ((clientPC.indexOf('gecko')!=-1) && (clientPC.indexOf('spoofer')==-1) && (clientPC.indexOf('khtml') == -1) && (clientPC.indexOf('netscape/7.0')==-1));
+var is_safari = ((clientPC.indexOf('AppleWebKit')!=-1) && (clientPC.indexOf('spoofer')==-1));
+var is_khtml = (navigator.vendor == 'KDE' || ( document.childNodes && !document.all && !navigator.taintEnabled ));
+if (clientPC.indexOf('opera')!=-1) {
+	var is_opera = true;
+	var is_opera_preseven = (window.opera && !document.childNodes);
+	var is_opera_seven = (window.opera && document.childNodes);
+}
+
+// cookies
+function createCookie(name,value,days) {
+	if (days) {
+		var date = new Date();
+		date.setTime(date.getTime()+(days*24*60*60*1000));
+		var expires = "; expires="+date.toGMTString();
+	}
+	else expires = "";
+	document.cookie = name+"="+value+expires+"; path=/";
+}
+
+function readCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0;i < ca.length;i++) {
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1,c.length);
+		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	}
+	return null;
+}
+
+// global variables
+var alertText = "";
+var sampleText = "";
+
+// onload
+	/* dean edwards behavior */
+function init() {
+	// quit if this function has already been called
+	if (arguments.callee.done) return;
+	// flag this function so we don't do the same thing twice
+	arguments.callee.done = true;
+	// kill the timer
+	if (_timer) clearInterval(_timer);
+
+	// default action
+	var cookie = readCookie("avatars");
+	if (cookie == "nullAvatars") {
+		activateStylesheet(cookie);
+		document.bleenform.avastavatars.checked = true;
+	}
+};
+
+/* for Mozilla */
+if (document.addEventListener) { document.addEventListener("DOMContentLoaded", init, false); }
+
+/* for Internet Explorer */
+/*@cc_on @*/
+/*@if (@_win32)
+	document.write("<script id=__ie_onload defer src=javascript:void(0)><\/script>");
+	var script = document.getElementById("__ie_onload");
+	script.onreadystatechange = function() {
+		if (this.readyState == "complete") {
+			init(); // call the onload handler
+		}
+	};
+/*@end @*/
+
+/* for Safari */
+if (/WebKit/i.test(navigator.userAgent)) { // sniff
+	var _timer = setInterval(function() {
+		if (/loaded|complete/.test(document.readyState)) {
+			init(); // call the onload handler
+		}
+	}, 10);
+}
+
+/* for other browsers */
+window.onload = init;
+
+// avatar toggle
+function avastAvatars() {
+	if (document.bleenform.avastavatars.checked) {
+		activateStylesheet("nullAvatars");
+		createCookie("avatars", "nullAvatars", 365);
+	}
+	else {
+                deactivateStylesheet("nullAvatars");
+		createCookie("avatars", "", 365);
+	}
+}
+
+// stylesheet swap
+	/* alistapart behavior */
+function activateStylesheet(title) {
+	var i, a, main;
+	for(i = 0; (a = document.getElementsByTagName("link")[i]); i++) {
+		if(a.getAttribute("rel").indexOf("style") != -1 && a.getAttribute("title")) {
+			a.disabled = true;
+			if(a.getAttribute("title") == title) a.disabled = false;
+		}
+	}
+}
+
+function deactivateStylesheet(title) {
+	var i, a, main;
+	for(i = 0; (a = document.getElementsByTagName("link")[i]); i++) {
+		if(a.getAttribute("rel").indexOf("style") != -1 && a.getAttribute("title")) {
+			a.disabled = false;
+			if(a.getAttribute("title") == title) a.disabled = true;
+		}
+	}
+}
+
+//function getActiveStyleSheet() {
+//	var i, a;
+//	for(i = 0; (a = document.getElementsByTagName("link")[i]); i++) {
+//		if(a.getAttribute("rel").indexOf("style") != -1 && a.getAttribute("title") && !a.disabled) return a.getAttribute("title");
+//	}
+//	return null;
+//}
+
+//function getPreferredStyleSheet() {
+//	var i, a;
+//	for(i = 0; (a = document.getElementsByTagName("link")[i]); i++) {
+//		if(a.getAttribute("rel").indexOf("style") != -1 && a.getAttribute("rel").indexOf("alt") == -1 && a.getAttribute("title")) return a.getAttribute("title");
+//	}
+//	return null;
+//}
+
+// legacy tag support
+	/* pilfered from: megnut, stuffeddog, massless, placenamehere
+	   http://www.massless.org/mozedit/ (no longer online i guess)
+	   http://placenamehere.com/photographica/js_textareas.html
+	   modified for 1142 */
+function mouseover(el) { el.className = "raised"; }
+function mouseout(el)  { el.className = "raised";  }
+function mousedown(el) { el.className = "pressed"; }
+function mouseup(el)   { el.className = "raised"; }
+
+function tagit(text1, text2) {
+	// grab the textarea off the dom tree
+	var ta = document.frmComment.txtComment;
+	if (document.selection) { //IE win
+	// code ripped/modified from Meg Hourihan 
+	// http://www.oreillynet.com/pub/a/javascript/2001/12/21/js_toolbar.html	
+		var str = document.selection.createRange().text;
+		ta.focus();
+		var sel = document.selection.createRange();
+		sel.text = text1 + str + text2;
+	} else if (ta.selectionStart | ta.selectionStart == 0) {
+	// Mozzzzzzila relies on builds post bug #88049
+	// work around Mozilla Bug #190382
+		if (ta.selectionEnd > ta.value.length) { ta.selectionEnd = ta.value.length; }
+		// decide where to add it and then add it
+		var firstPos = ta.selectionStart;
+		var secondPos = ta.selectionEnd+text1.length;
+		// cause we're inserting one at a time
+		ta.value=ta.value.slice(0,firstPos)+text1+ta.value.slice(firstPos);
+		ta.value=ta.value.slice(0,secondPos)+text2+ta.value.slice(secondPos);
+		// reset selection & focus... after the first tag and before the second 
+		ta.selectionStart = firstPos+text1.length;
+		ta.selectionEnd = secondPos;
+		ta.focus();
+	}	
+}
+
+function tagger(action) {
+	// decide what you're addding
+	var startTag = "";
+	var endTag = "";
+	switch (action) {
+		case "b":	
+			startTag = "<b>";
+			endTag = "<\/b>";
+			break;
+		case "i":	
+			startTag = "<i>";
+			endTag = "<\/i>";
+			break;
+		case "a":
+			var mysite = prompt("Please enter the site you'd like to link", "http://");
+			var mytitle = prompt("Please enter the title for the link", mysite);
+			startTag = "<a href=\"" + encodeURI(mysite) + "\" title=\"" + encodeURI(mytitle) + "\">";
+			endTag = "<\/a>";
+			break;
+	}
+	tagit(startTag,endTag);
+	return false;
+}
+
+// current tag support
+	/* wikipedia behavior */
+function insertTags(tagtype) {
+	var tagOpen = "";
+	var tagClose = "";
+	switch (tagtype) {
+		case "b":	
+			tagOpen = "<b>";
+			tagClose = "<\/b>";
+			break;
+		case "i":	
+			tagOpen = "<i>";
+			tagClose = "<\/i>";
+			break;
+		case "a":
+			var mysite = prompt("Please enter the site you'd like to link", "http://");
+			var mytitle = prompt("Please enter the title for the link", mysite);
+			if (mysite==null||mysite=="http://") {
+				tagOpen = "";
+				tagClose = "";
+			}
+			else {
+				tagOpen = "<a href=\"" + encodeURI(mysite) + "\" title=\"" + encodeURI(mytitle) + "\">";
+				tagClose = "<\/a>";
+			}
+			break;
+		case "lblock":
+			var mysite = prompt("Please enter the site you'd like to link", "http://");
+			if (mysite==null||mysite=="http://") {
+				tagOpen = "";
+				tagClose = "";
+			}
+			else {
+				tagOpen = "<a href=\"http://www.zippitybop.com/tools/refer.php?url=" + encodeURIComponent(mysite) + "&type=link\" title=\"" + encodeURI(mysite) + "\">";
+				tagClose = "<\/a>";
+			}
+			break;
+		case "iblock":
+			var mysite = prompt("Please enter the image you'd like to display", "http://");
+			if (mysite==null||mysite=="http://") {
+				tagOpen = "";
+				tagClose = "";
+			}
+			else {
+				tagOpen = "<img src=\"http://www.zippitybop.com/tools/refer.php?url=" + encodeURIComponent(mysite) + "&type=image\" alt=\"Referrer-blocked image\" title=\"" + encodeURI(mysite) + "\">";
+				tagClose = "";
+			}
+			break;
+		case "spoiler":
+			tagOpen = "<span class=\"spoiler\">";
+			tagClose = "<\/span>";
+			break;
+	}
+	wrapTags(tagOpen,tagClose);
+	return false;
+}
+
+function wrapTags(tagOpen,tagClose) {
+	var txtarea = document.frmComment.txtComment;
+	// IE
+	if(document.selection  && !is_gecko) {
+		var theSelection = document.selection.createRange().text;
+		if(!theSelection) { theSelection=sampleText;}
+		txtarea.focus();
+		if(theSelection.charAt(theSelection.length - 1) == " "){// exclude ending space char, if any
+			theSelection = theSelection.substring(0, theSelection.length - 1);
+			document.selection.createRange().text = tagOpen + theSelection + tagClose + " ";
+		} else {
+			document.selection.createRange().text = tagOpen + theSelection + tagClose;
+		}
+	// Mozilla
+	} else if(txtarea.selectionStart || txtarea.selectionStart == '0') {
+		var startPos = txtarea.selectionStart;
+		var endPos = txtarea.selectionEnd;
+		var scrollTop=txtarea.scrollTop;
+		var myText = (txtarea.value).substring(startPos, endPos);
+		if(!myText) { myText=sampleText;}
+		if(myText.charAt(myText.length - 1) == " "){ // exclude ending space char, if any
+			subst = tagOpen + myText.substring(0, (myText.length - 1)) + tagClose + " ";
+		} else {
+			subst = tagOpen + myText + tagClose;
+		}
+		txtarea.value = txtarea.value.substring(0, startPos) + subst +
+		txtarea.value.substring(endPos, txtarea.value.length);
+		txtarea.focus();
+		var cPos=startPos+(tagOpen.length+myText.length+tagClose.length);
+		txtarea.selectionStart=cPos;
+		txtarea.selectionEnd=cPos;
+		txtarea.scrollTop=scrollTop;
+	// All others
+        /* not supported */
+	} else {
+		var copy_alertText=alertText;
+		var re1=new RegExp("\\$1","g");
+		var re2=new RegExp("\\$2","g");
+		copy_alertText=copy_alertText.replace(re1,sampleText);
+		copy_alertText=copy_alertText.replace(re2,tagOpen+sampleText+tagClose);
+		var text;
+		if (sampleText) {
+			text=prompt(copy_alertText);
+		} else {
+			text="";
+		}
+		if(!text) { text=sampleText;}
+		text=tagOpen+text+tagClose;
+		document.infoform.infobox.value=text;
+		// in Safari this causes scrolling
+		if(!is_safari) {
+			txtarea.focus();
+		}
+		noOverwrite=true;
+	}
+	// reposition cursor if possible
+	if (txtarea.createTextRange) txtarea.caretPos = document.selection.createRange().duplicate();
+}
+
+// reply link
+function addReply(num,bnum,cnum) {
+	// var b = '<a href=\"main.php?ViewPost=' + num + '\">' + document.getElementById(bnum).innerHTML + '</a> said:\n';
+	// var b = '<a href=\"main.php?ViewPost=' + num + '\">MARKAND</a> BELLOWED:\n';
+	var c = '<i>' + document.getElementById(cnum).innerHTML.replace(/\n/g, '') + '</i>\n\n';
+	document.frmComment.txtComment.value= c;
+	document.frmComment.txtComment.focus();
+}
+
+// quote link
+	/* quote, by zempf [42] hackluster */
+function snip() {
+	var txt = "";
+	if (window.getSelection) {
+		txt += window.getSelection();
+	}
+	else if (document.getSelection) {
+		txt += document.getSelection();
+	}
+	else if (document.selection) {
+		txt += document.selection.createRange().text;
+	}
+	txt = txt.replace(/\</g, "\\<");
+	document.frmComment.txtComment.value = "<i>" + txt + "</i>";
+	document.frmComment.txtComment.focus();
+}
+
+// favorite link
+	/* add favorite, by zempf [42] hackluster */
+function addFavorite(postNum) {
+	req = false;
+	success = false;
+	if (postNum != null && postNum != undefined) {
+		postURL = "favorites.php";
+		if (window.XMLHttpRequest) {
+			try {
+				req = new XMLHttpRequest();
+			} catch (e) {
+				req = false;
+			}
+		} else if (window.ActiveXObject) {
+			try {
+				req = new ActiveXObject("Msxml2.XMLHTTP");
+			} catch(e) {
+        			try {
+          				req = new ActiveXObject("Microsoft.XMLHTTP");
+        			} catch(e) {
+          				req = false;
+        			}
+			}
+    		}
+		if (req) {
+			var confirmfave = window.confirm("Set " + postNum + " as a favorite?");
+			if (confirmfave) {
+				req.onreadystatechange = function() {
+					if (req.readystate == 4) {
+						success = true;
+					}
+				}
+				req.open("GET", postURL + "?add=" + postNum, true);
+				req.send("");
+			}
+		} else {
+			alert("something blew up.");
+		}
+	} else {
+	alert("pass a post num, plz.");
+	}
+	return success;
+}
+
+function hideSidebar() { 
+	var s = document.getElementById("rbid-posting").style;
+	s.display = (s.display == "none" ? "block" : "none");
+	var s1 = document.getElementById("rbid-main").style;
+	var s2 = document.getElementById("rbid-sidebar").style;
+	if (s.display == "none") {
+		s1.marginRight = "0px";
+		if(is_gecko) {
+			s2.position = "absolute";
+		}
+	}
+	else {
+		s1.marginRight = "320px";
+		if(is_gecko) {
+			s2.position = "fixed";
+		}
+	}
+}
+
+function hidePost() {
+	var s = document.getElementById("rbid-post").style;
+	if (s.position != "absolute") {
+		s.position = "absolute";
+		s.Top = yMousePos + "px";
+		s.Left = xMousePos + "px";
+	}
+}

@@ -1,0 +1,30 @@
+@import url(http://www.1142.net/essl.css);
+
+/* Body Elements
+----------------------------------------------- */
+body {
+	background:#fff;
+	color:#000;
+	padding:0;
+	font:x-small arial,sans-serif;
+}
+
+/* Links
+----------------------------------------------- */
+a { text-decoration:none;}
+a:link { color:#cc0033;}
+a:visited {color:#cc0033;}
+a:hover{color:#FFCC33;}
+a img {
+	border-width:0;
+	border-style:none;
+}
+
+a.userlink, a.userlink:link, a.userlink:visited {
+	color: #000;
+	text-decoration: none;
+}
+
+a.userlink:hover {
+	text-decoration: underline;
+}
