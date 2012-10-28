@@ -3,4 +3,4 @@
 .DS_Store
 *.esproj
 include.php
-style/*.css
+styles/*.css
