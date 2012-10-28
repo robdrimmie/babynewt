@@ -1,5 +1,7 @@
 <?php
 
+require_once( "Model.php");
+
 class Comment extends Model {
     protected $_mostRecent;
 
