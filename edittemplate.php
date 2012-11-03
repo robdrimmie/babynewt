@@ -70,7 +70,7 @@
         }
 
 	if ( -1 == $hdnTemplateId ) {
-            $template->create( 
+            $selTemplate = $template->create( 
                 $hdnUserId, $iTemplatePublic, 
                 $txtHeader, $txtComment, $txtFooter, 
                 $txtTemplateName
