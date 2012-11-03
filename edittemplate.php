@@ -69,7 +69,7 @@
             $iTemplatePublic = 1;
         }
 
-        if ( 0 === $hdnTemplateId ) {
+	if ( -1 == $hdnTemplateId ) {
             $template->create( 
                 $hdnUserId, $iTemplatePublic, 
                 $txtHeader, $txtComment, $txtFooter, 

@@ -7,10 +7,10 @@ class Model {
         $this->_db = $db;
     }
 
-    private function prepareStatementForQuery( $query ) {
+    protected function prepareStatementForQuery( $query ) {
     	$conn = $this->_db->getConnection();
     	$statement = $conn->stmt_init();
-        $statement->prepare( query );
+        $statement->prepare( $query );
 
         return $statement;    	
     }
