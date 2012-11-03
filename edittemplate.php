@@ -60,29 +60,26 @@
     }
 
     if ( !Empty( $btnSaveTemplate ) ) {
+        $template = new Template( $db );
+
         $iTemplatePublic = 0;
         if ( $chkTemplatePublic == "on" ) {
             $iTemplatePublic = 1;
         }
 
-//      if ( 0 === $hdnTemplateId ) {
-            $InsTemplateQuery = sprintf(
-                "INSERT INTO Template
-                VALUES (0 , '%s', '%s', '%s'
-                    , $hdnUserId, $iTemplatePublic, '%s');"
-                    , mysql_real_escape_string($txtHeader)
-                    , mysql_real_escape_string($txtComment)
-                    , mysql_real_escape_string($txtFooter)
-                    , mysql_real_escape_string($txtTemplateName)
+        if ( 0 === $hdnTemplateId ) {
+            $template->create( 
+                $hdnUserId, $iTemplatePublic, 
+                $txtHeader, $txtComment, $txtFooter, 
+                $txtTemplateName
             );
-            var_dump( $InsTemplateQuery );
-            $InsTemplateQueryId = mysql_query( $InsTemplateQuery );
-            var_dump( mysql_error() );
-//      }
-//      else{
-//          $UpdTemplateQuery = "UPDATE Template SET  i_UID=$hdnUserId, b_Public=$iTemplatePublic, vc_TemplateName = \"$txtTemplateName\", t_TemplateHdr=\"$txtHeader\", t_TemplateCmt=\"$txtComment\", t_TemplateFtr=\"$txtFooter \" WHERE i_TemplateID=$hdnTemplateId";
-//          $UpdTemplateQueryId = mysql_query( $UpdTemplateQuery );
-//      }
+        } else {
+            $template->update( 
+                $hdnTemplateId, $hdnUserId, $iTemplatePublic, 
+                $txtHeader, $txtComment, $txtFooter, 
+                $txtTemplateName
+            );
+        }
     }
 
     // Save the template preference change if required
