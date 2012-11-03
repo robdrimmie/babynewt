@@ -1,6 +1,8 @@
 <?php
-    include("session.php");
-    include("include.php");
+    require_once "session.php";
+    require_once "include.php";
+    require_once "Template.php";
+
 
     $sessionUserId = $_SESSION[ 'sessionUserId' ];
 
