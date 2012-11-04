@@ -24,12 +24,10 @@ class Style extends Model {
         $query .= " WHERE i_StyleSheetId=?";
 
         $statement = $this->prepareStatementForQuery( $query );
-
-        $statement->bind_param( 'si', $id, $sheet );
-var_dump( $sheet );
-
+        
+	$statement->bind_param( 'si', $sheet, $id );
         $statement->execute();
-var_dump( $statement->errno );        
-        $statement->close();
+
+	$statement->close();
     }
 }

@@ -40,12 +40,11 @@ Page flow:
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <HTML>
 <HEAD>
-<TITLE>1142.org - Edit Your Stylesheet</TITLE>
-<META NAME="Author" CONTENT="Robert M. Drimmie">
+<TITLE>Edit Your Stylesheet</TITLE>
 </HEAD>
 <BODY>
 
-<a href="index.php">return to index</A> | <a href="EditTemplate.php">jump to Templates</a> | <a href="uploadStyle.php">upload a stylesheet to 1142 </a><br>
+<a href="index.php">return to index</A> | <a href="EditTemplate.php">jump to Templates</a> | <a href="uploadStyle.php">upload a stylesheet </a><br>
 
 <a href="categories.php">Category list</A>: Preview your selected stylesheet and get category stylesheet names<br>
 <?php
@@ -142,7 +141,6 @@ Page flow:
 
 			$GetStyleIdResults = mysql_fetch_object( $GetStyleIdQueryId );
 			$selUserStyle = $GetStyleIdResults->i_StyleSheetId;
-
 			$UpdateStyleQueryId = $style->create( $selUserStyle, $txtStyleSheet);
 		} else {
 			$selUserStyle = $hdnStyleId;
@@ -155,7 +153,6 @@ Page flow:
 			$UpdateStyleQuery .= " WHERE i_StyleSheetId = $hdnStyleId";
 
 			$UpdateStyleQueryId = mysql_query( $UpdateStyleQuery );
-var_dump( $txtStyleSheet );
 			$UpdateStyleQueryId = $style->update( $hdnStyleId, $txtStyleSheet);
 
 			if( !Empty($btnMakeStyle) )
