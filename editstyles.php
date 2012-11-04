@@ -87,33 +87,46 @@ Page flow:
 	}
 
 	// if the stylesheet is saved
-	$formPosted = false;
+	$btnSaveStyle = null;
 	if( array_key_exists( 'btnSaveStyle', $_REQUEST ) ) {
 		$btnSaveStyle = $_REQUEST[ 'btnSaveStyle' ];
-		$btnMakeStyle = '';		
-		$btnMakePubliStyle = '';
-		$formPosted = true;
 	}
-	if( array_key_exists( 'btnmakestyle', $_REQUEST ) ) {
+
+	$btnMakeStyle = null;
+	if( array_key_exists( 'btnMakeStyle', $_REQUEST ) ) {
 		$btnMakeStyle = $_REQUEST[ 'btnMakeStyle' ];
-		$btnSaveStyle = '';
-		$btnMakePubliStyle = '';
-		$formPosted = true;
 	}
-	if( array_key_exists( 'btnmakestyle', $_REQUEST ) ) {
+
+ 	$btnMakePublicStyle= null;
+	if( array_key_exists( 'btnMakePublicStyle', $_REQUEST ) ) {
 		$btnMakePublicStyle  = $_REQUEST[ 'btnMakePublicStyle' ];
-		$btnMakeStlye = '';
-		$btnSaveStyle = '';
-		$formPosted = true;
 	}
-	if( $formPosted ) {	
+
+ 	$hdnStyleId= null;
+	if( array_key_exists( 'hdnStyleId', $_REQUEST ) ) {
 		$hdnStyleId = $_REQUEST[ 'hdnStyleId' ];
-	
+	}
+
+	$txtStyleName = null;
+	if( array_key_exists( 'txtStyleName', $_REQUEST ) ) {
 		$txtStyleName = $_REQUEST[ 'txtStyleName' ];
+	}
+
+	$selUserStyle = null;
+	if( array_key_exists( 'selUserStyle', $_REQUEST ) ) {		
 		$selUserStyle = $_REQUEST[ 'selUserStyle' ];
+	}
+
+	$txtStyleSheet = null;
+	if( array_key_exists( 'txtStyleSheet', $_REQUEST ) ) {		
 		$txtStyleSheet = $_REQUEST[ 'txtStyleSheet' ];
+	}
+
+	$hdnPublicStyleId = null;
+	if( array_key_exists( 'hdnPublicStyleId', $_REQUEST ) ) {		
 		$hdnPublicStyleId = $_REQUEST[ 'hdnPublicStyleId' ];
 	}
+
 	if( !Empty($btnSaveStyle) || !Empty($btnMakeStyle))
 	{
 		$style = new Style($db);
