@@ -87,12 +87,27 @@ Page flow:
 	}
 
 	// if the stylesheet is saved
+	$formPosted = false;
 	if( array_key_exists( 'btnSaveStyle', $_REQUEST ) ) {
 		$btnSaveStyle = $_REQUEST[ 'btnSaveStyle' ];
-	
+		$btnMakeStyle = '';		
+		$btnMakePubliStyle = '';
+		$formPosted = true;
+	}
+	if( array_key_exists( 'btnmakestyle', $_REQUEST ) ) {
 		$btnMakeStyle = $_REQUEST[ 'btnMakeStyle' ];
-		$hdnStyleId = $_REQUEST[ 'hdnStyleId' ];
+		$btnSaveStyle = '';
+		$btnMakePubliStyle = '';
+		$formPosted = true;
+	}
+	if( array_key_exists( 'btnmakestyle', $_REQUEST ) ) {
 		$btnMakePublicStyle  = $_REQUEST[ 'btnMakePublicStyle' ];
+		$btnMakeStlye = '';
+		$btnSaveStyle = '';
+		$formPosted = true;
+	}
+	if( $formPosted ) {	
+		$hdnStyleId = $_REQUEST[ 'hdnStyleId' ];
 	
 		$txtStyleName = $_REQUEST[ 'txtStyleName' ];
 		$selUserStyle = $_REQUEST[ 'selUserStyle' ];
