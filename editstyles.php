@@ -1,6 +1,7 @@
 <?php
-	include( "session.php" );
-	include("include.php");
+	require_once "session.php";
+	require_once "include.php";
+	require_once "Style.php";
 	
 	$sessionUserId = $_SESSION[ 'sessionUserId' ];
 	if( Empty( $sessionUserId )) {
@@ -100,6 +101,7 @@ Page flow:
 	}
 	if( !Empty($btnSaveStyle) || !Empty($btnMakeStyle))
 	{
+		$style = new Style($db);
 		if( $hdnStyleId == -1 )
 		{
 			$UpdateStyleQuery = "INSERT INTO StyleSheet (i_UID, i_StyleSheetTypeId, i_Public, vc_Name)";
@@ -113,10 +115,7 @@ Page flow:
 			$GetStyleIdResults = mysql_fetch_object( $GetStyleIdQueryId );
 			$selUserStyle = $GetStyleIdResults->i_StyleSheetId;
 
-			$UpdateStyleQuery = "INSERT INTO DBStyleSheet (i_StyleSheetId, t_StyleSheet)";
-			$UpdateStyleQuery .= " VALUES ($selUserStyle, \"$txtStyleSheet\")";
-
-			$UpdateStyleQueryId = mysql_query( $UpdateStyleQuery );
+			$UpdateStyleQueryId = $style->create( $selUserStyle, $txtStyleSheet);
 		} else {
 			$selUserStyle = $hdnStyleId;
 
@@ -129,11 +128,7 @@ Page flow:
 
 			$UpdateStyleQueryId = mysql_query( $UpdateStyleQuery );
 
-			$UpdateStyleQuery = "UPDATE DBStyleSheet ";
-			$UpdateStyleQuery .= " set t_StyleSheet = \"$txtStyleSheet\"";
-			$UpdateStyleQuery .= " WHERE i_StyleSheetId = $hdnStyleId";
-
-			$UpdateStyleQueryId = mysql_query( $UpdateStyleQuery );
+			$UpdateStyleQueryId = $style->update( $hdnStyleId, $txtStyleSheet);
 
 			if( !Empty($btnMakeStyle) )
 			{
