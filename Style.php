@@ -19,7 +19,7 @@ class Style extends Model {
     }
 
     public function update( $id, $sheet ) {
-        $query = " UPDATE StyleSheet";
+        $query = " UPDATE DBStyleSheet";
         $query .= " SET t_StyleSheet=?";
         $query .= " WHERE i_StyleSheetId=?";
 
