@@ -26,8 +26,10 @@ class Style extends Model {
         $statement = $this->prepareStatementForQuery( $query );
 
         $statement->bind_param( 'si', $id, $sheet );
+var_dump( $sheet );
 
         $statement->execute();
+var_dump( $statement->errno );        
         $statement->close();
     }
 }

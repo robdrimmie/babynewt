@@ -155,7 +155,7 @@ Page flow:
 			$UpdateStyleQuery .= " WHERE i_StyleSheetId = $hdnStyleId";
 
 			$UpdateStyleQueryId = mysql_query( $UpdateStyleQuery );
-
+var_dump( $txtStyleSheet );
 			$UpdateStyleQueryId = $style->update( $hdnStyleId, $txtStyleSheet);
 
 			if( !Empty($btnMakeStyle) )
