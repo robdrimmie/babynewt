@@ -1,14 +1,14 @@
 <?php
-// update 24 January 2005, added functionality to search by username and/or specific comment archive.  (Rob)
+	require_once '../include.php';
+	require_once '../session.php';
 
-  $SelectedCategory = $_REQUEST[ "Category" ];
-  //	include( "../session.php" );
-	include("../include.php");
-	// establish connection to MySQL database or output error message.
-	$link = mysql_connect ($dbHost, $dbUser, $dbPassword);
-	if (!mysql_select_db($dbName, $link)) echo mysql_errno().": ".mysql_error()."<BR>";
-	
-	$Title = "Search";
+	if( array_key_exists( $_REQUEST, 'Category' ) ) {
+	  $selectedCategory = $_REQUEST[ 'Category' ];
+	} else {
+		$selectedCategory = 1;
+	}
+
+	$title = "Search";
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
@@ -19,15 +19,13 @@
 <body>
 
 <?php
-    // added categories july 10, 2005
-   	// Do-wop the category option list
-  	$CatOptions = "<option value=\"-1\">search all categories</option>";
-  	$CategoryListQuery = "SELECT i_CategoryId, vc_Name FROM Category ORDER BY vc_Name";
-  	$CategoryListResultId =  mysql_query ($CategoryListQuery, $link);
+	$CatOptions = "<option value=\"-1\">search all categories</option>";
+	$CategoryListQuery = "SELECT i_CategoryId, vc_Name FROM Category ORDER BY vc_Name";
+	$CategoryListResultId =  mysql_query ($CategoryListQuery, $link);
 
   	while( $CategoryListResult = mysql_fetch_object($CategoryListResultId)){
   		$CatOptions .= "<OPTION VALUE=\"$CategoryListResult->i_CategoryId\"";
-        if( $SelectedCategory == $CategoryListResult->i_CategoryId ) $CatOptions .= " SELECTED";
+        if( $selectedCategory == $CategoryListResult->i_CategoryId ) $CatOptions .= " SELECTED";
     		$CatOptions .= ">$CategoryListResult->vc_Name</OPTION>";
 	  }    
     
@@ -46,7 +44,7 @@
 		$ByUser = $_REQUEST[ 'ByUser' ];
 
 	$Total = 0;
-	echo "<h1>".$Title."</h1>";
+	echo "<h1>".$title."</h1>";
 	if(!Empty($LookFor)){
 	    echo "Results for <B>$LookFor</B>";
 	    if( $ByUser != "" ) {
@@ -79,8 +77,8 @@
 
 		$Query.="	WHERE t_Comment LIKE '%$LookFor%'";
 
-    if( $SelectedCategory > 0 ) {
-      $Query.= " AND i_CategoryId = $SelectedCategory";
+    if( $selectedCategory > 0 ) {
+      $Query.= " AND i_CategoryId = $selectedCategory";
     }
 
 		$Q2 = " 	SELECT $strCurrentArchive.i_CommentId AS 
@@ -94,8 +92,8 @@
 
 		$Q2.= "	WHERE t_Comment LIKE '%$LookFor%' ";
 
-    if( $SelectedCategory > 0 ) {
-      $Q2.= " AND i_CategoryId = $SelectedCategory";
+    if( $selectedCategory > 0 ) {
+      $Q2.= " AND i_CategoryId = $selectedCategory";
     }
 		$Q2.= "	ORDER BY $strCurrentArchive.i_CommentId ASC";
 
@@ -129,8 +127,8 @@
 		}
 		$Query.="	WHERE t_Comment LIKE '%$LookFor%' ";
 
-    if( $SelectedCategory > 0 ) {
-      $Query.= " AND i_CategoryId = $SelectedCategory";
+    if( $selectedCategory > 0 ) {
+      $Query.= " AND i_CategoryId = $selectedCategory";
     }
 
 
@@ -142,8 +140,8 @@
 		}
 		$Q2.= "	WHERE t_Comment LIKE '%$LookFor%' ";
 
-    if( $SelectedCategory > 0 ) {
-      $Q2.= " AND i_CategoryId = $SelectedCategory";
+    if( $selectedCategory > 0 ) {
+      $Q2.= " AND i_CategoryId = $selectedCategory";
     }
 		$Q2.= "	ORDER BY $strCurrentArchive.i_CommentId ASC";
 
@@ -236,11 +234,7 @@ $intTrueMaxCommentArchive; $intCurrentCA++ ) {
 	</form>
 	</table>
 </CENTER><BR><BR><BR>
-<FONT SIZE=1><CENTER><A HREF="http://www.1142.org">Main</A> | <A HREF="Statistics.php">Re-Select</A> | <A HREF="UserInfo.php">Users</A> | <A HREF="oddball.php">Random Statistics</A></CENTER></FONT>
+<font size='1'><center><a href="http://www.1142.org">Main</a> | <a href="Statistics.php">Re-Select</A> | <A HREF="UserInfo.php">Users</A> | <A HREF="oddball.php">Random Statistics</A></CENTER></FONT>
 </FONT>
-</BODY>
-</HTML>
-<?php
-	// close connection to MySQL Database
-	mysql_close($link);
-?>
+</body>
+</html>
