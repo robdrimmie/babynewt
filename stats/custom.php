@@ -2,7 +2,7 @@
 	require_once '../include.php';
 	require_once '../session.php';
 
-	if( array_key_exists( $_REQUEST, 'Category' ) ) {
+	if( array_key_exists( 'Category', $_REQUEST ) ) {
 	  $selectedCategory = $_REQUEST[ 'Category' ];
 	} else {
 		$selectedCategory = 1;
