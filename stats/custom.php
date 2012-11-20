@@ -22,17 +22,12 @@
 	$CategoryListQuery = "SELECT i_CategoryId, vc_Name FROM Category ORDER BY vc_Name";
 	$CategoryListResultId =  mysql_query ($CategoryListQuery, $link);
 
-  	while( $CategoryListResult = mysql_fetch_object($CategoryListResultId)){
+  	while( $CategoryListResult = mysql_fetch_object($CategoryListResultId)) {
   		$CatOptions .= "<OPTION VALUE=\"$CategoryListResult->i_CategoryId\"";
+  		
         if( $selectedCategory == $CategoryListResult->i_CategoryId ) $CatOptions .= " SELECTED";
     		$CatOptions .= ">$CategoryListResult->vc_Name</OPTION>";
-	  }    
-    
-            // converted to while loop oct 16 2002
-    $intMinCommentArchive = 1;
-    $intTrueMaxCommentArchive = 31;
-    $intMaxCommentArchive = $intTrueMaxCommentArchive;
-    $strCurrentArchive = "";
+	  	}
 
     $intFirstCommentId = 0;
     $intLastCommentId = -1;
@@ -41,11 +36,6 @@
     $LookFor = '';
     if( array_key_exists( 'LookFor', $_REQUEST ) ) {
 		$LookFor = $_REQUEST[ 'LookFor' ];
-	}
-	
-    $ArchiveToSearch = '';	
-	if( array_key_exists( 'ArchiveToSearch', $_REQUEST ) ) {
-		$ArchiveToSearch = $_REQUEST[ 'ArchiveToSearch' ];
 	}
 
     $ByUser = '';	
@@ -56,104 +46,38 @@
 	$Total = 0;
 	echo "<h1>".$title."</h1>";
 	if(!Empty($LookFor)){
-	    echo "Results for <B>$LookFor</B>";
+	    echo "Results for <b>$LookFor</b>";
 	    if( $ByUser != "" ) {
 		echo " posted by user <b>$ByUser</b>";
 	    }
-	    if( $ArchiveToSearch > 0 ) {
-		echo " in CommentArchive$ArchiveToSearch ";
-		$intMinCommentArchive = $ArchiveToSearch;
-		$intMaxCommentArchive = $ArchiveToSearch;
-	    }
-	   if( $ArchiveToSearch == 0 ) {
-		$intMinCommentArchive = 1001;
-		$intMaxCommentArchive = 0;
-	   }
-	
 
 	    echo "<span style=\"font-size: 10px;\"> ";
-
-	    for( $intCurrentCA = $intMinCommentArchive; $intCurrentCA <= $intMaxCommentArchive; $intCurrentCA++ )
-	    {
-		$strCurrentArchive = "CommentArchive$intCurrentCA";
-
-		$Query = 	"SELECT COUNT(t_Comment) AS COUNTER 
-				FROM $strCurrentArchive ";
-		if( $ByUser != "" ) {
-			$Query.= "JOIN Users On Users.i_UID = 
-					$strCurrentArchive.i_UID
-				AND Users.vc_Username = \"$ByUser\" ";
-		} 
-
-		$Query.="	WHERE t_Comment LIKE '%$LookFor%'";
-
-    if( $selectedCategory > 0 ) {
-      $Query.= " AND i_CategoryId = $selectedCategory";
-    }
-
-		$Q2 = " 	SELECT $strCurrentArchive.i_CommentId AS 
-              LABELLER FROM $strCurrentArchive ";
-
- 		if( $ByUser != "" ) {
-			$Q2.= "JOIN Users On Users.i_UID =
-					$strCurrentArchive.i_UID
-				AND Users.vc_Username = \"$ByUser\" ";
-		}
-
-		$Q2.= "	WHERE t_Comment LIKE '%$LookFor%' ";
-
-    if( $selectedCategory > 0 ) {
-      $Q2.= " AND i_CategoryId = $selectedCategory";
-    }
-		$Q2.= "	ORDER BY $strCurrentArchive.i_CommentId ASC";
-
-//	  echo $Query;
-      
-		$UInfId = mysql_query ($Query, $link);
-		$UInfRes = mysql_fetch_object($UInfId);
-
-		$intFirstCommentId = ( ($intCurrentCA-1) * 50000) + 1;
-		$intLastCommentId = $intFirstCommentId + 49999;
-
-		$strCommentRange = "$intFirstCommentId - $intLastCommentId";
-
-		if(!Empty($UInfRes->COUNTER)){ echo "<HR>$UInfRes->COUNTER Results in $strCommentRange <BR>"; $Total += $UInfRes->COUNTER;}
-		else echo "<hr />0 Results in $strCommentRange<br />";
-		$UInfId2 = mysql_query ($Q2, $link);
-		while($UInfRes = mysql_fetch_object($UInfId2)){
-			echo "<A HREF=\"../main.php?ViewPost=$UInfRes->LABELLER\">p$UInfRes->LABELLER</A> | ";
-		}
-	    }
-
-// search comment table
-	    if( $ArchiveToSearch < 1 ) {	
-		$strCurrentArchive = "Comment";
 	    	
-		$Query = " 	SELECT COUNT(t_Comment) AS COUNTER 
-				FROM $strCurrentArchive ";
+		$Query = " 	SELECT COUNT(t_Comment) AS COUNTER FROM Comment ";
+
  		if( $ByUser != "" ) {
 			$Query.="JOIN Users on Users.i_UID = Comment.i_UID
 				AND Users.vc_Username = \"$ByUser\" ";
 		}
+
 		$Query.="	WHERE t_Comment LIKE '%$LookFor%' ";
 
-    if( $selectedCategory > 0 ) {
-      $Query.= " AND i_CategoryId = $selectedCategory";
-    }
+	    if( $selectedCategory > 0 ) {
+	      $Query.= " AND i_CategoryId = $selectedCategory";
+	    }
 
 
-		$Q2 = " 	SELECT $strCurrentArchive.i_CommentId AS LABELLER 
-				FROM $strCurrentArchive ";
+		$Q2 = " 	SELECT Comment.i_CommentId AS LABELLER FROM Comment ";
 		if( $ByUser != "" ) {
-			$Q2.="JOIN Users on Users.i_UID = Comment.i_UID
-				AND Users.vc_Username = \"$ByUser\" ";
+			$Q2 .= "JOIN Users on Users.i_UID = Comment.i_UID
+							AND Users.vc_Username = \"$ByUser\" ";
 		}
-		$Q2.= "	WHERE t_Comment LIKE '%$LookFor%' ";
+		$Q2 .= "	WHERE t_Comment LIKE '%$LookFor%' ";
 
     if( $selectedCategory > 0 ) {
       $Q2.= " AND i_CategoryId = $selectedCategory";
     }
-		$Q2.= "	ORDER BY $strCurrentArchive.i_CommentId ASC";
+		$Q2.= "	ORDER BY Comment.i_CommentId ASC";
 
     $Query = $Q2;
 		$UInfId = mysql_query ($Query, $link);
@@ -197,32 +121,6 @@ value="<?php echo $LookFor; ?>">
 			<td>
 				<input type="text" name="ByUser" 
 value="<?php echo $ByUser ?>" />
-			</td>
-		</tr>
-		<tr>
-			<td>
-				Search comment archive:
-			</td>
-			<td>
-				<select name="ArchiveToSearch">
-					<option value="-1" 
-<?php if( $ArchiveToSearch == -1 ) { echo "selected"; } ?>
-				>Search all archives</option>
-					<option value="0"
-<?php if( $ArchiveToSearch == 0 ) { echo "selected"; } ?>
-				>Search current comment table</option>
-<?php
-for( $intCurrentCA = 1; $intCurrentCA <= 
-$intTrueMaxCommentArchive; $intCurrentCA++ ) {
-	echo "<option value=\"$intCurrentCA\"";
-	if( $intCurrentCA == $ArchiveToSearch ) {
-		echo " selected ";
-	}
-	echo ">Comment Archive $intCurrentCA</option>";
-}
-
-?>
-				</select>
 			</td>
 		</tr>
     <tr>
