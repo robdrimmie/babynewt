@@ -12,11 +12,10 @@
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
-<head>
-<title>1142 Comment Search</title>
-
-</head>
-<body>
+	<head>
+	<title>1142 Comment Search</title>
+	</head>
+	<body>
 
 <?php
 	$CatOptions = "<option value=\"-1\">search all categories</option>";
@@ -39,9 +38,20 @@
     $intLastCommentId = -1;
     $strCommentRange = "";
 
+    $LookFor = '';
+    if( array_key_exists( 'LookFor', $_REQUEST ) ) {
 		$LookFor = $_REQUEST[ 'LookFor' ];
+	}
+	
+    $ArchiveToSearch = '';	
+	if( array_key_exists( 'ArchiveToSearch', $_REQUEST ) ) {
 		$ArchiveToSearch = $_REQUEST[ 'ArchiveToSearch' ];
+	}
+
+    $ByUser = '';	
+	if( array_key_exists( 'ByUser', $_REQUEST ) ) {
 		$ByUser = $_REQUEST[ 'ByUser' ];
+	}
 
 	$Total = 0;
 	echo "<h1>".$title."</h1>";
