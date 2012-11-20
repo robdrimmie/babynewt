@@ -29,9 +29,7 @@
     		$CatOptions .= ">$CategoryListResult->vc_Name</OPTION>";
 	  	}
 
-    $intFirstCommentId = 0;
-    $intLastCommentId = -1;
-    $strCommentRange = "";
+   $strCommentRange = "";
 
     $LookFor = '';
     if( array_key_exists( 'LookFor', $_REQUEST ) ) {
@@ -83,9 +81,6 @@
 		$UInfId = mysql_query ($Query, $link);
 		$UInfRes = mysql_fetch_object($UInfId);
 
-		$intFirstCommentId = ($intTrueMaxCommentId * 50000) + 1;
-		$intLastCommentId = $intFirstCommentId + 49999;
-
 		$strCommentRange = "Current Comment Table";
 
 		if(!Empty($UInfRes->COUNTER)){ echo "<HR>$UInfRes->COUNTER Results in $strCommentRange <BR>"; $Total += $UInfRes->COUNTER;}
@@ -95,7 +90,7 @@
 			echo "<A HREF=\"../main.php?ViewPost=$UInfRes->LABELLER\">p$UInfRes->LABELLER</A> | ";
 		}
 	    }
-	}
+	
 ?>
 </span><br /><br />
 <?Php
