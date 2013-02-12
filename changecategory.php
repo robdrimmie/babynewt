@@ -13,12 +13,6 @@
 	include("include.php");
 
 
-	// establish connection to MySQL database or output error message.
-	$link = mysql_connect ($dbHost, $dbUser, $dbPassword);
-	if (!mysql_select_db($dbName, $link)) echo mysql_errno().": ".mysql_error()."<BR>";
-
-
-
 	// get all the relevant info about the comment in question
 	$CommentQuery  = "SELECT c.i_CommentId, c.t_Comment, ";
 	$CommentQuery .= "u.i_UID, t.vc_Name ";
