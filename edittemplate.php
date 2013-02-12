@@ -38,7 +38,7 @@
     <body>
     <a href="main.php">return to index</a> |
     <a href="TemplateHelp.html">Get your helpfile here!</a> |
-    <a href="editstyles.php">jump to stylesheets</a>
+    <a href="editstyles.php">jump to stylesheets</a> |
 <?php
 
     $properties = array(
@@ -120,6 +120,7 @@
 
     echo "<input type=\"submit\" name=\"btnPickUserTemplate\" value=\"View/Edit Your Template\">\n";
     echo "<br>\n";
+    echo "<a href=\"main.php?TemplateID=$selTemplate\">
 
     echo "</form>\n";
 
@@ -146,6 +147,7 @@
 
     echo "</form>\n";
 
+    echo "<a href=\"main.php?TemplateID=$selTemplate\">View site with selected template</a>";
 
     //  if an editable style is already selected (default to user's current style, or if the button for a new stylesheet is selected)
     if (  Empty($btnMakeMine)
