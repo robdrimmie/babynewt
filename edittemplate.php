@@ -120,7 +120,7 @@
 
     echo "<input type=\"submit\" name=\"btnPickUserTemplate\" value=\"View/Edit Your Template\">\n";
     echo "<br>\n";
-    echo "<a href=\"main.php?TemplateID=$selTemplate\">
+    echo "<a href=\"main.php?TemplateID=$selTemplate\">";
 
     echo "</form>\n";
 
