@@ -12,10 +12,11 @@
     }
 
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title><?php echo $siteTitle ?></title>
+	<meta charset="utf-8" />
+	<title><?php echo $siteTitle ?></title>
 </head>
 <body style="text-align:justify;margin-left:20px;margin-top:20px;">
 <div style="width:300px;">
