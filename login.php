@@ -2,8 +2,8 @@
 
 if ( array_key_exists( 'btnExpireSession', $_REQUEST ) && $_REQUEST['btnExpireSession'] == '1' ) {
     // break cookies
-    setcookie( "cookieUsername", FALSE, mktime(0,0,0,12,1,2015));
-    setcookie( "cookiePassword", FALSE, mktime(0,0,0,12,1,1999));
+    setcookie( "cookieUsername", FALSE, mktime(0,0,0,12,1,3015));
+    setcookie( "cookiePassword", FALSE, mktime(0,0,0,12,1,3015));
     $_SESSION[ 'sessionUserId' ] = -1;
     header( "Location: main.php");
 }
@@ -43,8 +43,8 @@ if ( ( !Empty( $_POST['userLoginSubmit'] ) ) || ( !Empty($_COOKIE['cookieUsernam
         $_SESSION['sessionLastVisit'] = time();
 
         if ( $_REQUEST[ 'chkRemember' ] == "on" ) {
-            setcookie( "cookieUsername", $txtUsername, mktime(0,0,0,12,1,2015));
-            setcookie( "cookiePassword", $txtPassword, mktime(0,0,0,12,1,2015));
+            setcookie( "cookieUsername", $txtUsername, mktime(0,0,0,12,1,3015));
+            setcookie( "cookiePassword", $txtPassword, mktime(0,0,0,12,1,3015));
         }
 
         // redirect to main area on login success.
