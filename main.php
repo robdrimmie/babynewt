@@ -23,12 +23,12 @@
     }
 
     $MyLastCommentQuery = "SELECT i_CommentId FROM Users WHERE Users.i_UID = $sessionUserId";
-    $MyLastCommentResultId = mysql_query ($MyLastCommentQuery, $link);
-    $MyLastCommentResult = mysql_fetch_object($MyLastCommentResultId);
+    $MyLastCommentResultId = mysqli_query ($link, $MyLastCommentQuery);
+    $MyLastCommentResult = mysqli_fetch_object($MyLastCommentResultId);
 
     $MaxCmtQuery = "SELECT MAX(Comment.i_CommentID) AS MaxCmt FROM Comment";
-    $MaxCmtResId = mysql_query ($MaxCmtQuery, $link);
-    $MaxCmtRes = mysql_fetch_object($MaxCmtResId);
+    $MaxCmtResId = mysqli_query ($link, $MaxCmtQuery);
+    $MaxCmtRes = mysqli_fetch_object($MaxCmtResId);
     // Start at the first comment if there's none already set in the database.
     $hdnCurrentRecord = array_key_exists( 'hdnCurrentRecord', $_REQUEST ) ? $_REQUEST[ 'hdnCurrentRecord' ] : '';
     if ( ('' === $hdnCurrentRecord ) && !Empty( $MyLastCommentResult->i_CommentId )) {
@@ -73,7 +73,7 @@
 //      if ( $btnUpdateMyLastComment > 1 ) $btnUpdateMyLastComment -= 1;
         $UpdateMyLastCommentQuery = "UPDATE Users SET i_CommentId = $btnUpdateMyLastComment WHERE Users.i_UID = $sessionUserId";
 
-        $UpdateMyLastCommentResultId = mysql_query ($UpdateMyLastCommentQuery, $link);
+        $UpdateMyLastCommentResultId = mysqli_query ($link, $UpdateMyLastCommentQuery);
         $hdnCurrentRecord = $btnUpdateMyLastComment;
     }
 
@@ -82,8 +82,8 @@
     $TemplateID = array_key_exists( 'TemplateID', $_REQUEST ) ? $_REQUEST[ 'TemplateID' ] : null;
     if ( null === $TemplateID ) {
         $UserTemplateQuery = "SELECT i_TemplateID FROM UserTemplate WHERE UserTemplate.i_UID = $sessionUserId";
-        $TemplateResId = mysql_query ($UserTemplateQuery, $link);
-        $TemplateRes = mysql_fetch_object($TemplateResId);
+        $TemplateResId = mysqli_query ($link, $UserTemplateQuery);
+        $TemplateRes = mysqli_fetch_object($TemplateResId);
 
         if (!Empty($TemplateRes->i_TemplateID)) {
             $TemplateQuery = "SELECT t_TemplateHdr, t_TemplateCmt, t_TemplateFtr FROM Template WHERE i_TemplateID = $TemplateRes->i_TemplateID";
@@ -97,15 +97,15 @@
     }
     //---------------------------------------End Mods Dec 5, 2001------------------------------------
 
-    $TemplateResId = mysql_query ($TemplateQuery, $link);
+    $TemplateResId = mysqli_query ($link, $TemplateQuery);
 
-    $TemplateRes = mysql_fetch_object($TemplateResId);
+    $TemplateRes = mysqli_fetch_object($TemplateResId);
 
     // Get the max tagline to make a better query
     // Add the taglines
     $TaglineQuery = "SELECT max(i_TaglineId) as i_TaglineId FROM Tagline";
-    $TaglineResId = mysql_query ($TaglineQuery, $link);
-    $TaglineRes = mysql_fetch_object($TaglineResId);
+    $TaglineResId = mysqli_query ($link, $TaglineQuery);
+    $TaglineRes = mysqli_fetch_object($TaglineResId);
 
     if ( null === $TaglineRes->i_TaglineId ) {
         $TaglineRes->i_TaglineId = 1;
@@ -115,14 +115,14 @@
     // Add the taglines
     $TaglineQuery = "SELECT vc_Tagline FROM Tagline
                     WHERE i_TaglineId = $TaglineId";
-    $TaglineResId = mysql_query ($TaglineQuery, $link);
-    $TaglineRes = mysql_fetch_object($TaglineResId);
+    $TaglineResId = mysqli_query ($link, $TaglineQuery);
+    $TaglineRes = mysqli_fetch_object($TaglineResId);
 
     // Get a tagline prefix
     $TaglinePrefixQuery = "SELECT max(i_TaglinePrefixId) as
             i_TaglinePrefixId FROM TaglinePrefix";
-    $TaglinePrefixResId = mysql_query ($TaglinePrefixQuery, $link);
-    $TaglinePrefixRes = mysql_fetch_object($TaglinePrefixResId);
+    $TaglinePrefixResId = mysqli_query ($link, $TaglinePrefixQuery);
+    $TaglinePrefixRes = mysqli_fetch_object($TaglinePrefixResId);
 
     if ( null === $TaglinePrefixRes->i_TaglinePrefixId ) {
         $TaglinePrefixRes->i_TaglinePrefixId = 1;
@@ -132,8 +132,8 @@
                                 vc_TaglineSuffix
         FROM TaglinePrefix
                 WHERE i_TaglinePrefixId = $TaglinePrefixId";
-    $TaglinePrefixResId = mysql_query ($TaglinePrefixQuery, $link);
-    $TaglinePrefixRes = mysql_fetch_object($TaglinePrefixResId);
+    $TaglinePrefixResId = mysqli_query ($link, $TaglinePrefixQuery);
+    $TaglinePrefixRes = mysqli_fetch_object($TaglinePrefixResId);
 
     $strTagline = '';
     if ( $TaglinePrefixRes ) {
@@ -207,8 +207,8 @@
                                             AND UserStyleSheet.i_UID = $sessionUserId";
     }
 
-    $StyleResId = mysql_query ($UserStyleQuery, $link);
-    if ( $StyleRes = mysql_fetch_object($StyleResId) ) {
+    $StyleResId = mysqli_query ($link, $UserStyleQuery);
+    if ( $StyleRes = mysqli_fetch_object($StyleResId) ) {
         // if a stylesheet for this user exists,
         // do nothing here.
     }
@@ -218,8 +218,8 @@
                                             FROM DBStyleSheet
                                             WHERE DBStyleSheet.i_StyleSheetId = 1";
 
-        $StyleResId = mysql_query ($UserStyleQuery, $link);
-        $StyleRes = mysql_fetch_object($StyleResId);
+        $StyleResId = mysqli_query ($link, $UserStyleQuery);
+        $StyleRes = mysqli_fetch_object($StyleResId);
     }
 
     $ssheet = "<style>";
@@ -235,8 +235,8 @@
                                         FROM Users
                                         WHERE Users.i_UID = $sessionUserId";
 
-    $StyleResId = mysql_query ($UserStyleQuery, $link);
-    $StyleRes = mysql_fetch_object($StyleResId);
+    $StyleResId = mysqli_query ($link, $UserStyleQuery);
+    $StyleRes = mysqli_fetch_object($StyleResId);
 
     // Replace all additional Current User
     $Header = str_replace("[\$NAME\$]", $StyleRes->vc_UserName, $Header);
@@ -255,9 +255,9 @@
     // Do-wop the category option list
     $CatOptions = "";
     $CategoryListQuery = "SELECT i_CategoryId, vc_Name FROM Category ORDER BY vc_Name";
-    $CategoryListResultId =  mysql_query ($CategoryListQuery, $link);
+    $CategoryListResultId =  mysqli_query ($link, $CategoryListQuery);
 
-    while ( $CategoryListResult = mysql_fetch_object($CategoryListResultId)) {
+    while ( $CategoryListResult = mysqli_fetch_object($CategoryListResultId)) {
         $CatOptions .= "<option value=\"$CategoryListResult->i_CategoryId\"";
         if ( $CategoryListResult->i_CategoryId == 1 ) {
             $CatOptions .=  " selected";
@@ -298,8 +298,8 @@
     $GMTOffsetQuery =   "SELECT vc_GMTOffset
                                             FROM Users
                                             WHERE i_UID = $sessionUserId";
-    $GMTOffsetResultId = mysql_query ( $GMTOffsetQuery, $link );
-    while ( $GMTOffsetResult = mysql_fetch_object( $GMTOffsetResultId ) ) {
+    $GMTOffsetResultId = mysqli_query ($link, $GMTOffsetQuery );
+    while ( $GMTOffsetResult = mysqli_fetch_object( $GMTOffsetResultId ) ) {
         $GMTOffset = $GMTOffsetResult->vc_GMTOffset;
     }
 
@@ -393,10 +393,10 @@
                                         ORDER BY Users.dt_LastPosted DESC";
 
         // Get the posters
-        $PosterResultId = mysql_query ($PosterQuery, $link);
+        $PosterResultId = mysqli_query ($link, $PosterQuery);
 $PosterStr = '';
         // output comments
-        while (  $PosterResult = mysql_fetch_object($PosterResultId) ) {
+        while (  $PosterResult = mysqli_fetch_object($PosterResultId) ) {
             $PosterStr .=  "$PostersPrefix$PosterResult->vc_Username$PostersSuffix";
         }
         $Header = str_replace("[\$15POSTERS\$]", $PosterStr, $Header);
@@ -422,10 +422,10 @@ $PosterStr = '';
     if (preg_match("/[\$15LURKERS\$]/", $Header) || preg_match("/[\$15LURKERS\$]/", $Footer)) {
         $PosterQuery = " SELECT  Users.vc_Username FROM Users WHERE DATE_ADD(dt_LastVisit, INTERVAL 15 MINUTE) > now() ORDER BY Users.dt_LastVisit DESC";
         // Get the posters
-        $PosterResultId = mysql_query ($PosterQuery, $link);
+        $PosterResultId = mysqli_query ($link, $PosterQuery);
          // output comments
 	$LurkerStr = '';
-        while (  $PosterResult = mysql_fetch_object($PosterResultId) ) {
+        while (  $PosterResult = mysqli_fetch_object($PosterResultId) ) {
             $LurkerStr .=  "$VisitorPrefix$PosterResult->vc_Username$VisitorSuffix";
         }
         $Header = str_replace("[\$15LURKERS\$]", $LurkerStr, $Header);
@@ -445,8 +445,8 @@ $PosterStr = '';
     $comments_from_user=false;
     if ( array_key_exists( "username", $_REQUEST ) ) {
         $cfuquery = "select i_UID from Users where vc_Username like '".urldecode($_REQUEST["username"])."'";
-        $cfures = mysql_query( $cfuquery );
-        if ( $cfu = mysql_fetch_object( $cfures ) ) {
+        $cfures = mysqli_query( $cfuquery );
+        if ( $cfu = mysqli_fetch_object( $cfures ) ) {
             $comments_from_user = true;
             $cfu_id = $cfu->i_UID;
         }
@@ -477,14 +477,14 @@ $PosterStr = '';
             ORDER BY i_CommentId";
     }
     echo "<!-- cq: ".$CommentsQuery." -->";
-    $CommentsResultId = mysql_query ($CommentsQuery, $link);
+    $CommentsResultId = mysqli_query ($link, $CommentsQuery);
     $iCommentCount = 0;
 
     // output header
     echo $Header."\n";
 
     // output comments
-    while (  $CommentsResult = mysql_fetch_object($CommentsResultId)) {
+    while (  $CommentsResult = mysqli_fetch_object($CommentsResultId)) {
         $iCommentCount = $CommentsResult->i_CommentId;
         $tComment = str_replace("[\$COMMENTBUTTON\$]","<input class=\"[\$CATCSSNAME\$]LASTCMTBTN\" type=\"submit\" name=\"btnUpdateMyLastComment\" value=\"[\$COMMENTNUMBER\$]\">", $Comment);
         if ($CommentsResult->i_UID == $sessionUserId) {
@@ -508,10 +508,10 @@ $PosterStr = '';
 
     // Update the DateLastVisit information
     $UpdateLastCommentQuery = "UPDATE Users SET dt_LastVisit = NOW(), i_CommentId = $iCommentCount - 10 WHERE i_UID = $sessionUserId";
-    $UpdateLastCommentResultId = mysql_query ($UpdateLastCommentQuery, $link);
+    $UpdateLastCommentResultId = mysqli_query ($link, $UpdateLastCommentQuery);
 
     // close connection to MySQL Database
-    mysql_close($link);
+    mysqli_close($link);
     $TimeCheck2 = time()- $timecheck1;
 
     echo "<!-- Page Processing time: $TimeCheck2 Seconds -->";

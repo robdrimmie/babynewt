@@ -38,16 +38,16 @@ class Database {
 
     protected function _connectOld() {
         if ( null === $this->_oldConnection ) {
-            $this->_oldConnection = mysql_connect( 
+            $this->_oldConnection = mysqli_connect( 
                 $this->_host, 
                 $this->_user, 
                 $this->_password 
             );
 
-            if ( !mysql_select_db( $this->_name, $this->_oldConnection ) ) {
+            if ( !mysqli_select_db( $this->_oldConnection, $this->_name ) ) {
                 throw new Exception( 
-                    'Unable to select old database: [' . mysql_errno() . 
-                    ']' . mysql_error() 
+                    'Unable to select old database: [' . mysqli_errno() . 
+                    ']' . mysqli_error() 
                 );
             }
         }
@@ -93,8 +93,8 @@ class Database {
             $value = stripslashes( $value );
         }
         // check if this function exists
-        if ( function_exists( "mysql_real_escape_string" ) ) {
-            $value = mysql_real_escape_string( $value );
+        if ( function_exists( "mysqli_real_escape_string" ) ) {
+            $value = mysqli_real_escape_string( $value );
         }
         // for PHP version < 4.3.0 use addslashes
         else {

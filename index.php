@@ -36,5 +36,5 @@
 </html>
 <?php
     // close connection to MySQL Database
-    mysql_close($link);
+    mysqli_close($link);
 ?>

@@ -1,4 +1,7 @@
 <?php
+
+ini_set('display_errors', 1);
+
 require_once( "session.php" );
 require_once( "include.php" );
 require_once( "Comment.php" );
@@ -49,7 +52,7 @@ if (!Empty( $_REQUEST[ "btnSubmitPreviewedComment" ] )) {
         $comment->create( $txtComment, $hdnUID, $selCategoryId );
 
         $UpdateLastPostedQuery = "UPDATE Users SET dt_LastPosted = NOW() WHERE i_UID = $hdnUID";
-        $UpdateLastPostedQuery = mysql_query( $UpdateLastPostedQuery, $link );
+        $UpdateLastPostedQuery = mysqli_query($link, $UpdateLastPostedQuery );
 
         header ("Location: main.php");
         exit;
@@ -65,7 +68,7 @@ else {
     $txtComment = nl2br($txtComment);
 
     $CategoryListQuery = "SELECT i_CategoryId, vc_Name, vc_CSSName FROM Category  ORDER BY vc_Name";
-    $CategoryListResultId = mysql_query ($CategoryListQuery, $link);
+    $CategoryListResultId = mysqli_query ($link, $CategoryListQuery);
 
     echo "<html><head><title><?php $siteTitle; ?> - post preview</title>";
 
@@ -75,8 +78,8 @@ else {
                         WHERE DBStyleSheet.i_StyleSheetId = UserStyleSheet.i_StyleSheetId
                         AND UserStyleSheet.i_UID = ".$_REQUEST[ "hdnUID" ];
 
-    $StyleResId = mysql_query ($UserStyleQuery, $link);
-    if ( $StyleRes = mysql_fetch_object($StyleResId) ) {
+    $StyleResId = mysqli_query ($link, $UserStyleQuery);
+    if ( $StyleRes = mysqli_fetch_object($StyleResId) ) {
         // If a stylesheet for this user exists, do nothing here.
     }
     else {
@@ -85,12 +88,12 @@ else {
                                                 FROM DBStyleSheet
                                                 WHERE DBStyleSheet.i_StyleSheetId = 1";
 
-        $StyleResId = mysql_query ($UserStyleQuery, $link);
-        $StyleRes = mysql_fetch_object($StyleResId);
+        $StyleResId = mysqli_query ($link, $UserStyleQuery);
+        $StyleRes = mysqli_fetch_object($StyleResId);
     }
 
-    $StyleResId = mysql_query ($UserStyleQuery, $link);
-    $StyleRes = mysql_fetch_object($StyleResId);
+    $StyleResId = mysqli_query ($link, $UserStyleQuery);
+    $StyleRes = mysqli_fetch_object($StyleResId);
 
     echo "\n<style>";
     echo "\n@import url(/essl.css);";
@@ -116,7 +119,7 @@ else {
     echo "<select name=\"selCategoryId\">";
     $selCategoryId = $_REQUEST[ "selCategoryId" ];
 
-    while ( $CategoryListResult = mysql_fetch_object($CategoryListResultId)) {
+    while ( $CategoryListResult = mysqli_fetch_object($CategoryListResultId)) {
         echo "<option value=\"$CategoryListResult->i_CategoryId\"";
         if ( $CategoryListResult->i_CategoryId == $selCategoryId ) {
             $hdnCSSName = $CategoryListResult->vc_CSSName;
@@ -133,8 +136,8 @@ else {
 
     // output comments
     $UserTemplateQuery = "SELECT i_TemplateID FROM UserTemplate WHERE UserTemplate.i_UID = ".$_REQUEST[ "hdnUID" ];
-    $TemplateResId = mysql_query ($UserTemplateQuery, $link);
-    $TemplateRes = mysql_fetch_object($TemplateResId);
+    $TemplateResId = mysqli_query ($UserTemplateQuery, $link);
+    $TemplateRes = mysqli_fetch_object($TemplateResId);
 
     if (!Empty($TemplateRes->i_TemplateID)) {
         $TemplateQuery = "SELECT t_TemplateHdr, t_TemplateCmt, t_TemplateFtr FROM Template WHERE i_TemplateID = $TemplateRes->i_TemplateID";
@@ -143,9 +146,9 @@ else {
         $TemplateQuery = "SELECT t_TemplateHdr, t_TemplateCmt, t_TemplateFtr FROM Template WHERE i_TemplateID = 1";
     }
 
-    $TemplateResId = mysql_query ($TemplateQuery, $link);
+    $TemplateResId = mysqli_query ($TemplateQuery, $link);
 
-    $TemplateRes = mysql_fetch_object($TemplateResId);
+    $TemplateRes = mysqli_fetch_object($TemplateResId);
 
     $tComment = str_replace("[\$COMMENTBUTTON\$]","<input class=\"[\$CATCSSNAME\$]LASTCMTBTN\" type=\"submit\" name=\"btnUpdateMyLastComment\" value=\"[\$COMMENTNUMBER\$]\">", $TemplateRes->t_TemplateCmt);
     $tComment = str_replace("[\$CATNAMELINK\$]", "[\$CATEGORYNAME\$]", $tComment);

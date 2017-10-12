@@ -24,8 +24,8 @@ if ( ( !Empty( $_POST['userLoginSubmit'] ) ) || ( !Empty($_COOKIE['cookieUsernam
                          FROM Users
                         WHERE vc_Username=\"$txtUsername\"
                         AND vc_Password = substr( md5( \"$txtPassword\"), 1, 20 )";
-    $UserLoginResultId = mysql_query ($UserLoginQuery, $link);
-    $UserLoginResults = mysql_fetch_object($UserLoginResultId);
+    $UserLoginResultId = mysqli_query ($link, $UserLoginQuery);
+    $UserLoginResults = mysqli_fetch_object($UserLoginResultId);
 
     if ( Empty( $UserLoginResults->i_UID ) ) {
         $_SESSION['sessionUserId'] = -1;
@@ -39,7 +39,7 @@ if ( ( !Empty( $_POST['userLoginSubmit'] ) ) || ( !Empty($_COOKIE['cookieUsernam
         $UpdateLastVisitQuery = "UPDATE Users SET dt_LastVisit = NOW(),";
         $UpdateLastVisitQuery .= " WHERE i_UID = $UserLoginResults->i_UID";
 
-        $UpdateLastVisitResultId = mysql_query ($UpdateLastVisitQuery, $link);
+        $UpdateLastVisitResultId = mysqli_query ($UpdateLastVisitQuery, $link);
         $_SESSION['sessionLastVisit'] = time();
 
         if ( $_REQUEST[ 'chkRemember' ] == "on" ) {
