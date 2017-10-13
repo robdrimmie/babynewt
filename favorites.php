@@ -28,8 +28,8 @@
         $username = sql_quote( $_REQUEST[ "username" ] );
         $findusername_query="SELECT Users.i_UID FROM Users WHERE vc_Username='{$username}'";
 
-        $findusername_resultid = mysql_query ($findusername_query, $link);
-        $findusername = mysql_fetch_object( $findusername_resultid );
+        $findusername_resultid = mysqli_query ($link, $findusername_query);
+        $findusername = mysqli_fetch_object( $findusername_resultid );
         $find_userid = $findusername->i_UID;
     }
 
@@ -41,13 +41,13 @@
                                 WHERE i_UID = {$this_user}
                                 AND i_CommentId = {$favorite_id}";
 
-            $favorite_exists_result = mysql_query( $favorite_exists, $link );
-            $favorite_obj = mysql_fetch_object( $favorite_exists_result );
+            $favorite_exists_result = mysqli_query ($link,  $favorite_exists);
+            $favorite_obj = mysqli_fetch_object( $favorite_exists_result );
             if ( $favorite_obj->count_fav == 0 ) {
                 $add_favorite_query = "INSERT INTO Favorites
                                         (i_UID, i_CommentId)
                                        VALUES ({$this_user}, {$favorite_id})";
-                mysql_query( $add_favorite_query );
+                mysqli_query ($link,  $add_favorite_query );
                 echo "Favorite Added!";
             }
         }
@@ -60,7 +60,7 @@
             $add_favorite_query = "DELETE FROM  Favorites
                                    WHERE i_UID = {$this_user}
                                    AND i_CommentId = {$favorite_id}";
-            mysql_query( $add_favorite_query );
+            mysqli_query ($link,  $add_favorite_query );
             echo "Favorite Deleted";
         }
     }
@@ -74,7 +74,7 @@
                                           SET vc_Annotation = '{$annotation}'
                                            WHERE i_UID = {$this_user}
                                            AND i_CommentId = {$commentid}";
-                mysql_query( $update_favorite_query );
+                mysqli_query ($link,  $update_favorite_query );
             }
         }
     }
@@ -92,8 +92,8 @@
       if ( array_key_exists( "chooseuser", $_REQUEST ) ) {
           echo "<dl name=\"userfavoriteslist\" id=\"userfavoriteslist\">";
           $fav_query = "SELECT i_CommentId, vc_Annotation FROM Favorites WHERE i_UID = {$find_userid} ORDER BY i_CommentId ASC";
-          $fav_result = mysql_query( $fav_query, $link );
-          while ( $favorite = mysql_fetch_object( $fav_result ) ) {
+          $fav_result = mysqli_query ($link,  $fav_query);
+          while ( $favorite = mysqli_fetch_object( $fav_result ) ) {
               echo "<dt><a href=\"main.php?ViewPost=".$favorite->i_CommentId."\">".$favorite->i_CommentId."</a></dt>";
               echo "<dd>{$favorite->vc_Annotation}</dd>";
           }
@@ -106,11 +106,11 @@
     <h3>Your favorites</h3>
     <?php
         $fav_query = "SELECT i_CommentId, vc_Annotation FROM Favorites WHERE i_UID = {$this_user} ORDER BY i_CommentId ASC";
-        $fav_result = mysql_query( $fav_query, $link );
+        $fav_result = mysqli_query ($link,  $fav_query);
         echo "<form name=\"yourfavoritesform\" id=\"yourfavoritesform\" action=\"favorites.php\" method=\"post\">";
         echo "<dl name=\"yourfavoriteslist\" id=\"yourfavoriteslist\">";
         $yourfavoritecount = 0;
-        while ( $favorite = mysql_fetch_object( $fav_result ) ) {
+        while ( $favorite = mysqli_fetch_object( $fav_result ) ) {
             echo "<dt><a href=\"main.php?ViewPost=".$favorite->i_CommentId."\">".$favorite->i_CommentId."</a>";
             echo "<input type=\"hidden\" name=\"commentid_{$yourfavoritecount}\" id=\"commentid_{$yourfavoritecount}\" value=\"{$favorite->i_CommentId}\" /></dt>";
             echo "<dd>(<a href=\"favorites.php?delete=".$favorite->i_CommentId."\">del</a>)</dd>";
@@ -131,9 +131,9 @@
                       FROM Favorites
                       GROUP BY i_CommentId
                       ORDER BY efts DESC, i_CommentId ASC";
-        $fav_result = mysql_query( $fav_query, $link );
+        $fav_result = mysqli_query ($link,  $fav_query);
         echo "<dl>";
-        while ( $favorite = mysql_fetch_object( $fav_result ) ) {
+        while ( $favorite = mysqli_fetch_object( $fav_result ) ) {
             echo "<dt><a href=\"main.php?ViewPost=".$favorite->i_CommentId."\">".$favorite->i_CommentId."</a>";
             echo "(".$favorite->efts.")</dt>";
             $annotation_query = "SELECT vc_Annotation
@@ -141,9 +141,9 @@
                                  FROM Favorites
                                  INNER JOIN Users on Users.i_UID = Favorites.i_UID
                                  WHERE Favorites.i_CommentId = {$favorite->i_CommentId}";
-            $annotation_result = mysql_query( $annotation_query );
-            echo mysql_error();
-            while ( $annotation = mysql_fetch_object( $annotation_result ) ) {
+            $annotation_result = mysqli_query ($link,  $annotation_query );
+            echo mysqli_error();
+            while ( $annotation = mysqli_fetch_object( $annotation_result ) ) {
                 if ( strlen( $annotation->vc_Annotation ) > 0 ) {
                     echo "<dd>{$annotation->vc_Username}: ";
                     echo stripslashes($annotation->vc_Annotation);

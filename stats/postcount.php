@@ -7,8 +7,8 @@
   //	include( "../session.php" );
 	include("../include.php");
 	// establish connection to MySQL database or output error message.
-	$link = mysql_connect ($dbHost, $dbUser, $dbPassword);
-	if (!mysql_select_db($dbName, $link)) echo mysql_errno().": ".mysql_error()."<BR>";
+	$link = mysqli_connect ($dbHost, $dbUser, $dbPassword);
+	if (!mysqli_select_db($dbName)) echo mysqli_errno().": ".mysqli_error()."<BR>";
 	
 	$Title = "Search";
 ?>
@@ -25,9 +25,9 @@
    	// Do-wop the category option list
   	$CatOptions = "<option value=\"-1\">search all categories</option>";
   	$CategoryListQuery = "SELECT i_CategoryId, vc_Name FROM Category ORDER BY vc_Name";
-  	$CategoryListResultId =  mysql_query ($CategoryListQuery, $link);
+  	$CategoryListResultId =  mysqli_query ($link, $CategoryListQuery);
 
-  	while( $CategoryListResult = mysql_fetch_object($CategoryListResultId)){
+  	while( $CategoryListResult = mysqli_fetch_object($CategoryListResultId)){
   		$CatOptions .= "<OPTION VALUE=\"$CategoryListResult->i_CategoryId\"";
         if( $SelectedCategory == $CategoryListResult->i_CategoryId ) $CatOptions .= " SELECTED";
     		$CatOptions .= ">$CategoryListResult->vc_Name</OPTION>";
@@ -83,8 +83,8 @@
       $Query.= " WHERE i_CategoryId = $SelectedCategory";
     }
 
-		$UInfId = mysql_query ($Query, $link);
-		$UInfRes = mysql_fetch_object($UInfId);
+		$UInfId = mysqli_query ($link, $Query);
+		$UInfRes = mysqli_fetch_object($UInfId);
 
 		$intFirstCommentId = ( ($intCurrentCA-1) * 50000) + 1;
 		$intLastCommentId = $intFirstCommentId + 49999;
@@ -93,7 +93,7 @@
 
 		if(!Empty($UInfRes->COUNTER)){ echo "<HR>$UInfRes->COUNTER Results in $strCommentRange <BR>"; $Total += $UInfRes->COUNTER;}
 		else echo "<hr />0 Results in $strCommentRange<br />";
-		$UInfId2 = mysql_query ($Q2, $link);
+		$UInfId2 = mysqli_query ($link, $Q2);
 	    }
 
 // search comment table
@@ -110,8 +110,8 @@
       $Query.= " WHERE i_CategoryId = $SelectedCategory";
     }
 
-		$UInfId = mysql_query ($Query, $link);
-		$UInfRes = mysql_fetch_object($UInfId);
+		$UInfId = mysqli_query ($link, $Query);
+		$UInfRes = mysqli_fetch_object($UInfId);
 
 		$intFirstCommentId = ($intTrueMaxCommentId * 50000) + 1;
 		$intLastCommentId = $intFirstCommentId + 49999;
@@ -201,5 +201,5 @@ $intTrueMaxCommentArchive; $intCurrentCA++ ) {
 </HTML>
 <?php
 	// close connection to MySQL Database
-	mysql_close($link);
+	mysqli_close($link);
 ?>

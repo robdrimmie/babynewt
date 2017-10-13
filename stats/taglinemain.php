@@ -2,11 +2,11 @@
 	include( "../session.php" );
 
 	// establish connection to MySQL database or output error message.
-	$link = mysql_connect ("1142.org", "org1142", "ultima");
-	if (!mysql_select_db("org1142", $link)) echo mysql_errno().": ".mysql_error()."<BR>";
+	$link = mysqli_connect ("1142.org", "org1142", "ultima");
+	if (!mysqli_select_db("org1142")) echo mysqli_errno().": ".mysqli_error()."<BR>";
 
 //	include( "login.php" );
-	
+
 	if( !session_is_registered("sessionUserId") ){
 		$sessionUserId = -1;
 		session_register("sessionUserId");
@@ -14,7 +14,7 @@
 
 	// if user is not logged in, show message and login inputs
 //	if( $sessionUserId == -1 ){
-//		header ("Location: index.php"); 
+//		header ("Location: index.php");
 //	}
 
 	// Default page to show 50 Taglines
@@ -22,8 +22,8 @@
 
 	// Start at the first comment if there's none already set in the database.
 	if( Empty($hdnCurrentRecord))		$hdnCurrentRecord = 0;
-	
-	
+
+
 	// Start at the post before the clicked link.
 	if (!Empty( $ViewPost )) $hdnCurrentRecord = ($ViewPost - 1);
 
@@ -31,16 +31,16 @@
 	if (!Empty( $btnNextPage )) $hdnCurrentRecord += $txtPageSize;
 	if (!Empty( $btnPrevPage )) $hdnCurrentRecord -= $txtPageSize;
 
-	// If the user clicked a comment button update last viewed to the 
+	// If the user clicked a comment button update last viewed to the
 	if (!Empty( $btnUpdateMyLastComment )){
 		if( $btnUpdateMyLastComment > 1 ) $btnUpdateMyLastComment -= 1;
 		$hdnCurrentRecord = $btnUpdateMyLastComment;
 	}
 
 	echo "<BR><BR><BR>Start At: ".$hdnCurrentRecord."<BR>";
-	
+
 	// Build the Query to get the comments.
-	$CommentsQuery = " SELECT Comment.i_CommentId, Comment.t_Comment, Comment.dt_DatePosted, Users.i_UID,	
+	$CommentsQuery = " SELECT Comment.i_CommentId, Comment.t_Comment, Comment.dt_DatePosted, Users.i_UID,
 	 Users.vc_Username, Users.vc_UserId, Category.vc_Name, Category.vc_CSSName
 	 FROM Comment, Users, Category
 	 WHERE Users.i_UID = Comment.i_UID
@@ -62,24 +62,24 @@
 <META NAME="Author" CONTENT="Robert M. Drimmie">
 <META NAME="Author" CONTENT="Clayton Hannah">
 <?PHP
-	$UserPreferencesQuery = "SELECT i_PreferenceId, vc_PreferenceValue"; 
+	$UserPreferencesQuery = "SELECT i_PreferenceId, vc_PreferenceValue";
 	$UserPreferencesQuery .= " FROM UserPreferences WHERE UserPreferences.i_UID = $sessionUserId ORDER BY i_PreferenceId ASC";
-	$UserPreferencesId = mysql_query ($UserPreferencesQuery, $link);
-	$UserPreferencesResult = mysql_fetch_object($UserPreferencesId);
-		
+	$UserPreferencesId = mysqli_query ($link, $UserPreferencesQuery);
+	$UserPreferencesResult = mysqli_fetch_object($UserPreferencesId);
+
 	echo "<STYLE>";
 	echo "DIV.logo1142{ position: absolute; top: 2px; left: 10px; font-size: 42px; font-weight: bold; color: #CCCCCC;}";
 	echo "DIV.tagline1142{ position: absolute; top: 21px; left: 70px; font-size: 16px; font-weight: bold; color: black;}";
 	echo "DIV.content1142{ padding-top: 30px; }";
 
 
-	$UserStyleQuery = "SELECT t_StyleSheet"; 
+	$UserStyleQuery = "SELECT t_StyleSheet";
 	$UserStyleQuery .= " FROM UserStyleSheet, DBStyleSheet ";
 	$UserStyleQuery .= " WHERE DBStyleSheet.i_StyleSheetId = UserStyleSheet.i_StyleSheetId";
 	$UserStyleQuery .= " AND UserStyleSheet.i_UID = $sessionUserId";
 
-	$UserStyleQueryId = mysql_query ($UserStyleQuery, $link);
-	$UserStyleQueryResult = mysql_fetch_object($UserStyleQueryId);
+	$UserStyleQueryId = mysqli_query ($link, $UserStyleQuery);
+	$UserStyleQueryResult = mysqli_fetch_object($UserStyleQueryId);
 	echo $UserStyleQueryResult->t_StyleSheet;
 
 	echo "</STYLE>";
@@ -88,7 +88,7 @@
 <a name="top">&nbsp;</a>
 <BODY MARGINWIDTH=0 MARGINHEIGHT=0>
 <div class="content1142">
-<?PhP 
+<?PhP
 	// Page Navigation Tools
 	echo "<div class=\"NavigationTools\">";
 	if(!Empty($Hour)) echo "<form name=\"frmFilter\" action=\"taglinemain.php?Hour=".$Hour."\" method=\"post\">";
@@ -102,14 +102,14 @@
 	echo " | <a href=\"#bottom\">bottom of page</A>";
 	echo "</form>";
 	echo "</div>";
-		
+
 	// Get comments
-	$CommentsResultId = mysql_query ($CommentsQuery, $link);
+	$CommentsResultId = mysqli_query ($link, $CommentsQuery);
 
 	$iCommentCount = 0;
 
 	// output comments
-	while( 	$CommentsResult = mysql_fetch_object($CommentsResultId) )
+	while( 	$CommentsResult = mysqli_fetch_object($CommentsResultId) )
 	{
 		$iCommentCount += 1;
 
@@ -141,12 +141,12 @@
 		echo " on $CommentsResult->dt_DatePosted";
 		echo "&nbsp;<a class=\"".$CommentsResult->vc_CSSName."COMMENTPERMALINK\" href=\"http://www.1142.org/main.php?ViewPost=$CommentsResult->i_CommentId\">link!</a>";
 
-		echo "<input type=\"hidden\" name=\"hdnMyLastCommentId\" value=\"$CommentsResult->i_CommentId\">";				
+		echo "<input type=\"hidden\" name=\"hdnMyLastCommentId\" value=\"$CommentsResult->i_CommentId\">";
 		echo "</div></div></form>";
-		echo "\n<!-- END COMMENT $CommentsResult->i_CommentId -->";		
+		echo "\n<!-- END COMMENT $CommentsResult->i_CommentId -->";
 		echo "\n\n\n";
 
-	}	
+	}
 	echo "<a name=\"bottom\">&nbsp;</a>";
 	echo "<a href=\"#top\">top of page</a>";
 	if( $sessionUserId != -1 ){
@@ -156,10 +156,10 @@
 		echo " | <a href=\"code\">Code base</a>";
 		echo " | <a href=\"theList.txt\">Rob's To Do List</a>";
 		echo " | <a href=\"main.php\">reload the page</a>";
-		echo " | <a href=\"index.php?btnExpireSession=1\">logout</a>";	
+		echo " | <a href=\"index.php?btnExpireSession=1\">logout</a>";
 
 	}
-	
+
 	// Page Navigation Tools
 	// DUPLICATED CODE rmd todo:  modularise this
 	echo "<div class=\"NavigationTools\">";
@@ -193,5 +193,5 @@
 </HTML>
 <?php
 	// close connection to MySQL Database
-	mysql_close($link);
+	mysqli_close($link);
 ?>

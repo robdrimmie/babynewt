@@ -3,8 +3,8 @@
 //	include( "../session.php" );
 	include("../include.php");
 	// establish connection to MySQL database or output error message.
-	$link = mysql_connect ($dbHost, $dbUser, $dbPassword);
-	if (!mysql_select_db($dbName, $link)) echo mysql_errno().": ".mysql_error()."<BR>";
+	$link = mysqli_connect ($dbHost, $dbUser, $dbPassword);
+	if (!mysqli_select_db($dbName)) echo mysqli_errno().": ".mysqli_error()."<BR>";
 	
 	$Title = " Custom Stats";
 ?>
@@ -46,8 +46,8 @@ $strCurrentArchive WHERE dt_DatePosted > '$LookFor'";
 		$Q2 = " SELECT i_CommentId AS LABELLER FROM 
 $strCurrentArchive WHERE dt_DatePosted > '$LookFor' ORDER BY 
 i_CommentId ASC";
-		$UInfId = mysql_query ($Query, $link);
-		$UInfRes = mysql_fetch_object($UInfId);
+		$UInfId = mysqli_query ($link, $Query);
+		$UInfRes = mysqli_fetch_object($UInfId);
 
 		$intFirstCommentId = $intLastCommentId + 1;
 		$intLastCommentId = $intFirstCommentId + 49999;
@@ -56,8 +56,8 @@ i_CommentId ASC";
 
 		if(!Empty($UInfRes->COUNTER)){ echo "<HR>$UInfRes->COUNTER Results in $strCommentRange <BR>"; $Total += $UInfRes->COUNTER;}
 		else echo "<HR>0 Results in $strCommentRange<BR>";
-		$UInfId2 = mysql_query ($Q2, $link);
-		while($UInfRes = mysql_fetch_object($UInfId2)){
+		$UInfId2 = mysqli_query ($link, $Q2);
+		while($UInfRes = mysqli_fetch_object($UInfId2)){
 			echo "<A HREF=\"http://www.1142.net/main.php?ViewPost=$UInfRes->LABELLER\">p$UInfRes->LABELLER</A> | ";
 		}
 	    }
@@ -71,8 +71,8 @@ $strCurrentArchive WHERE dt_DatePosted >= '$LookFor' LIMIT 1";
 $strCurrentArchive WHERE dt_DatePosted >= '$LookFor' ORDER BY 
 i_CommentId ASC LIMIT 1";
 	
-		$UInfId = mysql_query ($Query, $link);
-		$UInfRes = mysql_fetch_object($UInfId);
+		$UInfId = mysqli_query ($link, $Query);
+		$UInfRes = mysqli_fetch_object($UInfId);
 
 		$intFirstCommentId = $intLastCommentId + 1;
 		$intLastCommentId = $intFirstCommentId + 49999;
@@ -81,8 +81,8 @@ i_CommentId ASC LIMIT 1";
 
 		if(!Empty($UInfRes->COUNTER)){ echo "<HR>$UInfRes->COUNTER Results in $strCommentRange <BR>"; $Total += $UInfRes->COUNTER;}
 		else echo "<HR>0 Results in $strCommentRange<BR>";
-		$UInfId2 = mysql_query ($Q2, $link);
-		while($UInfRes = mysql_fetch_object($UInfId2)){
+		$UInfId2 = mysqli_query ($link, $Q2);
+		while($UInfRes = mysqli_fetch_object($UInfId2)){
 			echo "<A HREF=\"http://www.1142.net/main.php?ViewPost=$UInfRes->LABELLER\">p$UInfRes->LABELLER</A> | ";
 		}
 	}
@@ -107,5 +107,5 @@ Try again? (hyphens required)
 </HTML>
 <?php
 	// close connection to MySQL Database
-	mysql_close($link);
+	mysqli_close($link);
 ?>

@@ -20,9 +20,9 @@
 	$CommentQuery .= "WHERE u.i_UID = c.i_UID ";
 	$CommentQuery .= "AND t.i_CategoryId = c.i_CategoryId ";
 	$CommentQuery .= "AND c.i_CommentId = ".$_REQUEST['id'];
-	$CommentResultId = mysql_query($CommentQuery, $link);
+	$CommentResultId = mysqli_query ($link, $CommentQuery);
 
-	$CommentResult = mysql_fetch_object($CommentResultId);
+	$CommentResult = mysqli_fetch_object($CommentResultId);
 
 	// check to see that session user id is the same as the comment user id
 	// (needs to be changed if admin users can also change categories)
@@ -42,7 +42,7 @@
 		// Category list to build select box with
 		// DUPLICATE FUNCTIONALITY
 		$CategoryListQuery = "SELECT i_CategoryId, vc_Name FROM Category ORDER BY vc_Name";
-		$CategoryListResultId = mysql_query ($CategoryListQuery, $link);
+		$CategoryListResultId = mysqli_query ($link, $CategoryListQuery);
 
 		// output the page
 ?><html>
@@ -57,8 +57,8 @@ Change the category of this post:
 
 New category:
 <select name="newCategoryId">
-<?php 
-	while( $CategoryListResult = mysql_fetch_object($CategoryListResultId))
+<?php
+	while( $CategoryListResult = mysqli_fetch_object($CategoryListResultId))
 	{
 		echo "<OPTION VALUE=\"$CategoryListResult->i_CategoryId\"";
 		if( $CategoryListResult->i_CategoryId == $CommentResult->i_CategoryId )
@@ -84,7 +84,7 @@ New category:
 		$UpdateCategoryQuery  = "UPDATE Comment SET i_CategoryId=";
 		$UpdateCategoryQuery .= $_REQUEST['newCategoryId'];
 		$UpdateCategoryQuery .= " WHERE i_CommentId = ".$_REQUEST['id'];
-		$UpdateCategoryResultId = mysql_query($UpdateCategoryQuery, $link);
+		$UpdateCategoryResultId = mysqli_query ($link, $UpdateCategoryQuery);
 
 		// then update last-viewed comment property (?)
 		// (I don't know if this is how you want to do it or not...
@@ -92,7 +92,7 @@ New category:
 		$UpdateLastCommentQuery  = "UPDATE Users ";
 		$UpdateLastCommentQuery .= "SET i_CommentId = ".$_REQUEST['id'];
 		$UpdateLastCommentQuery .= "WHERE i_UID = ".$_SESSION['sessionUserId'];
-		$UpdateLastCommentResultId = mysql_query ($UpdateLastCommentQuery, $link);
+		$UpdateLastCommentResultId = mysqli_query ($link, $UpdateLastCommentQuery);
 
 		// anyway, then redirect to main!
 		header("Location: main.php");

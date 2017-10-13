@@ -17,9 +17,9 @@
                                , vc_Name
                             FROM Category
                         ORDER BY vc_Name";
-    $CategoryListResultId =  mysql_query ($CategoryListQuery, $link);
+    $CategoryListResultId =  mysqli_query ($link, $CategoryListQuery);
 
-    while ( $CategoryListResult = mysql_fetch_object($CategoryListResultId) ) {
+    while ( $CategoryListResult = mysqli_fetch_object($CategoryListResultId) ) {
         $CatOptions .= "<option value=\"$CategoryListResult->i_CategoryId\"";
 
         if ( $SelectedCategory == $CategoryListResult->i_CategoryId ) {
@@ -95,8 +95,8 @@
             }
             $Q2.= " ORDER BY $strCurrentArchive.i_CommentId ASC";
 
-            $UInfId = mysql_query ($Query, $link);
-            $UInfRes = mysql_fetch_object($UInfId);
+            $UInfId = mysqli_query ($link, $Query);
+            $UInfRes = mysqli_fetch_object($UInfId);
 
             $intFirstCommentId = ( ($intCurrentCA-1) * 50000) + 1;
             $intLastCommentId = $intFirstCommentId + 49999;
@@ -109,8 +109,8 @@
             else {
                 echo "<hr>0 Results in $strCommentRange<br>";
             }
-            $UInfId2 = mysql_query ($Q2, $link);
-            while ($UInfRes = mysql_fetch_object($UInfId2)) {
+            $UInfId2 = mysqli_query ($link, $Q2);
+            while ($UInfRes = mysqli_fetch_object($UInfId2)) {
                 echo "<a href=\"../main.php?ViewPost=$UInfRes->LABELLER\">p$UInfRes->LABELLER</a> | ";
             }
         }
@@ -145,8 +145,8 @@
             $Q2.= " ORDER BY $strCurrentArchive.i_CommentId ASC";
 
             $Query = $Q2;
-            $UInfId = mysql_query ($Query, $link);
-            $UInfRes = mysql_fetch_object($UInfId);
+            $UInfId = mysqli_query ($link, $Query);
+            $UInfRes = mysqli_fetch_object($UInfId);
 
             $intFirstCommentId = ($intTrueMaxCommentId * 50000) + 1;
             $intLastCommentId = $intFirstCommentId + 49999;
@@ -159,8 +159,8 @@
             else {
                 echo "<hr>0 Results in $strCommentRange<br>";
             }
-            $UInfId2 = mysql_query ($Q2, $link);
-            while ($UInfRes = mysql_fetch_object($UInfId2)) {
+            $UInfId2 = mysqli_query ($link, $Q2);
+            while ($UInfRes = mysqli_fetch_object($UInfId2)) {
                 echo "<a href=\"../main.php?ViewPost=$UInfRes->LABELLER\">p$UInfRes->LABELLER</a> | ";
             }
         }
@@ -240,5 +240,5 @@ for( $intCurrentCA = 1; $intCurrentCA <= $intTrueMaxCommentArchive; $intCurrentC
 </html>
 <?php
     // close connection to MySQL Database
-    mysql_close($link);
+    mysqli_close($link);
 ?>

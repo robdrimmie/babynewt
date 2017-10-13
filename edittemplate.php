@@ -19,9 +19,9 @@
                              FROM UserTemplate
                             WHERE i_UID = $sessionUserId";
 
-        $CurTemplateSQLId = mysql_query( $CurTemplateSQL );
+        $CurTemplateSQLId = mysqli_query ($link,  $CurTemplateSQL);
 
-        $objCurTemplate = mysql_fetch_object( $CurTemplateSQLId );
+        $objCurTemplate = mysqli_fetch_object( $CurTemplateSQLId );
 
         if ( $objCurTemplate ) {
             $selTemplate = $objCurTemplate->i_TemplateId;
@@ -70,15 +70,15 @@
         }
 
 	if ( -1 == $hdnTemplateId ) {
-            $selTemplate = $template->create( 
-                $hdnUserId, $iTemplatePublic, 
-                $txtHeader, $txtComment, $txtFooter, 
+            $selTemplate = $template->create(
+                $hdnUserId, $iTemplatePublic,
+                $txtHeader, $txtComment, $txtFooter,
                 $txtTemplateName
             );
         } else {
-            $template->update( 
-                $hdnTemplateId, $hdnUserId, $iTemplatePublic, 
-                $txtHeader, $txtComment, $txtFooter, 
+            $template->update(
+                $hdnTemplateId, $hdnUserId, $iTemplatePublic,
+                $txtHeader, $txtComment, $txtFooter,
                 $txtTemplateName
             );
         }
@@ -87,10 +87,10 @@
     // Save the template preference change if required
     if (!Empty($_REQUEST[ 'btnMakeMine' ] )) {
         $TempQuery = " DELETE FROM UserTemplate WHERE i_UID = $hdnUserId";
-        $TempQueryId = mysql_query( $TempQuery );
+        $TempQueryId = mysqli_query ($link,  $TempQuery);
 
         $TempQuery = "INSERT INTO UserTemplate VALUES ($hdnUserId, $hdnTemplateId)";
-        $TempQueryId = mysql_query( $TempQuery );
+        $TempQueryId = mysqli_query ($link,  $TempQuery);
 
         echo $TempQuery;
     }
@@ -101,14 +101,14 @@
                         FROM Template
                        WHERE i_UID = $hdnUserId
                     ORDER BY i_TemplateID";
-    $TemplateQueryId = mysql_query ($TemplateQuery, $link);
+    $TemplateQueryId = mysqli_query ($link, $TemplateQuery);
 
     echo "<form name=\"frmSelection\" action=\"edittemplate.php\" method=\"post\">\n";
     echo "Your Templates: <select name=\"selTemplate\">\n";
     if ( Empty($selTemplate) && !Empty($hdnTemplateId)) {
         $selTemplate = $hdnTemplateId;
     }
-    while ( $Templates = mysql_fetch_object($TemplateQueryId) ) {
+    while ( $Templates = mysqli_fetch_object($TemplateQueryId) ) {
         echo "<option value=\"".$Templates->i_TemplateID."\"";
         if ( $Templates->i_TemplateID == $selTemplate ) {
             echo " selected";
@@ -129,11 +129,11 @@
                                         FROM Template
                                         WHERE b_Public = 1
                                         ORDER BY i_TemplateID";
-    $TemplateQueryId = mysql_query ($TemplateQuery, $link);
+    $TemplateQueryId = mysqli_query ($link, $TemplateQuery);
 
     echo "<form name=\"frmSelection\" action=\"edittemplate.php\" method=\"post\">\n";
     echo "Public Templates: <select name=\"selTemplate\">\n";
-    while ( $Templates = mysql_fetch_object($TemplateQueryId) ) {
+    while ( $Templates = mysqli_fetch_object($TemplateQueryId) ) {
         echo "<option value=\"$Templates->i_TemplateID\"";
         if ( $_REQUEST[ 'selTemplate' ] == $Templates->i_TemplateID ) {
             echo " selected";
@@ -179,9 +179,9 @@
         else {
             echo "$selTemplate\">";
             $TemplateQuery = "SELECT vc_TemplateName, t_TemplateHdr, t_TemplateCmt, t_TemplateFtr, b_Public FROM Template WHERE i_TemplateID = $selTemplate";
-            $TemplateQueryId = mysql_query ($TemplateQuery, $link);
+            $TemplateQueryId = mysqli_query ($link, $TemplateQuery);
             if ( $TemplateQueryId ) {
-                $Templates = mysql_fetch_object($TemplateQueryId);
+                $Templates = mysqli_fetch_object($TemplateQueryId);
                 $templateName = $Templates->vc_TemplateName;
                 $templatePublic = $Templates->b_Public;
                 $templateHdr = $Templates->t_TemplateHdr;
@@ -215,8 +215,8 @@
         echo "<form name=\"frmTemplate\" action=\"edittemplate.php\" method=\"post\">";
         echo "<input type=\"hidden\" name=\"hdnTemplateId\" value=\"$selTemplate\">";
         $TemplateQuery = "SELECT vc_TemplateName, t_TemplateHdr, t_TemplateCmt, t_TemplateFtr FROM Template WHERE i_TemplateID = $selTemplate";
-        $TemplateQueryId = mysql_query ($TemplateQuery, $link);
-        $Templates = mysql_fetch_object($TemplateQueryId);
+        $TemplateQueryId = mysqli_query ($link, $TemplateQuery);
+        $Templates = mysqli_fetch_object($TemplateQueryId);
 
         if ( $Templates ) {
             $templateName = $Templates->vc_TemplateName;
@@ -249,5 +249,5 @@
 
     // close connection to MySQL Database
 
-    mysql_close($link);
+    mysqli_close($link);
 ?>

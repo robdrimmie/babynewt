@@ -2,8 +2,8 @@
 	include( "../session.php" );
 
 	// establish connection to MySQL database or output error message.
-	$link = mysql_connect ("1142.org", "org1142", "ultima");
-	if (!mysql_select_db("org1142", $link)) echo mysql_errno().": ".mysql_error()."<BR>";
+	$link = mysqli_connect ("1142.org", "org1142", "ultima");
+	if (!mysqli_select_db("org1142")) echo mysqli_errno().": ".mysqli_error()."<BR>";
 
 	// Build the Query to get the post per hour
 	$CommentsQuery = " select vc_UserName as UNAME";
@@ -24,25 +24,25 @@
 <BODY MARGINWIDTH=0 MARGINHEIGHT=0>
 <FONT FACE=VERDANA SIZE=4>
 
-<?PhP 
+<?PhP
 	echo "User List for 1142.org<BR><BR><BR>";
 	// Get comments
-	$CommentsResultId = mysql_query ($CommentsQuery, $link);
+	$CommentsResultId = mysqli_query ($link, $CommentsQuery);
 	// output comments
 	echo "<TABLE CELLPADDING=0 CELLSPACING=1>";//<TR VALIGN=BOTTOM>";
-	while($CommentsResult = mysql_fetch_object($CommentsResultId) )
+	while($CommentsResult = mysqli_fetch_object($CommentsResultId) )
 	{
 		echo "<TR><TD>".$CommentsResult->UNAME."</TD></TR>";
 	}
 	echo "</TR></TABLE>";
-	$TotalsResId = mysql_query ($TotalsQuery, $link);
-	while($TotalsResult = mysql_fetch_object($TotalsResId) )
+	$TotalsResId = mysqli_query ($link, $TotalsQuery);
+	while($TotalsResult = mysqli_fetch_object($TotalsResId) )
 	{
 		echo "<P><FONT SIZE=2>The top 10 posters total ".$total." posts out of ".$TotalsResult->TOTAL.".</FONT><BR>";
 	}
 
-	$LUResId = mysql_query ($LUQuery, $link);
-	while($LUResult = mysql_fetch_object($LUResId) )
+	$LUResId = mysqli_query ($link, $LUQuery);
+	while($LUResult = mysqli_fetch_object($LUResId) )
 	{
 		echo "<FONT SIZE=2>You have [".$LUResult->TOTAL."] posts.</FONT></P>";
 	}
@@ -51,5 +51,5 @@
 </HTML>
 <?php
 	// close connection to MySQL Database
-	mysql_close($link);
+	mysqli_close($link);
 ?>

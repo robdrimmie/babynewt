@@ -1,11 +1,11 @@
 <?php
         include( "../include.php" );
 // establish connection to MySQL database or output error message.
-	$link = mysql_connect ($dbHost, $dbUser, $dbPassword);
-	if (!mysql_select_db($dbName, $link)) echo mysql_errno().": ".mysql_error()."<BR>";
-/*	
-//	$link1 = mysql_connect ("1142.org", "org1142", "ultima");
-	if (!mysql_select_db("org1142", $link1)) echo mysql_errno().": ".mysql_error()."<BR>";
+	$link = mysqli_connect ($dbHost, $dbUser, $dbPassword);
+	if (!mysqli_select_db($dbName)) echo mysqli_errno().": ".mysqli_error()."<BR>";
+/*
+//	$link1 = mysqli_connect ("1142.org", "org1142", "ultima");
+	if (!mysqli_select_db("org1142", $link1)) echo mysqli_errno().": ".mysqli_error()."<BR>";
 */
 	class UserListItem{
 	  var $UID;     // UserID number (private)
@@ -18,7 +18,7 @@
 	  var $DLV;			// Date of last visit
 	  var $SSheet;	// Style Sheet Name
 	  var $TPosts;  // Total posts posted
-	  
+
 	  function UserListItem(){
 	  	$UID = 0;
 	  	$UName = "Unknown";
@@ -38,22 +38,22 @@
 //	WHERE StyleSheet.i_StyleSheetId = UserStyleSheet.i_StyleSheetId
 //	AND UserStyleSheet.i_UID = Users.i_UID
 //	 ORDER BY UName";
-	 
+
 	 	$Query = "SELECT i_UID, vc_Username AS UName, vc_Email AS Email, b_PublicEmail as PubEm, vc_URL AS URL, Users.i_CommentID AS LCmtR,
-			DATE_FORMAT(dt_DateJoined, \"%e.%c.%Y\") AS DJ, DATE_FORMAT(dt_LastVisit, \"%e %M, %Y %r\") AS DLV, \"0\" AS LCmtP 
+			DATE_FORMAT(dt_DateJoined, \"%e.%c.%Y\") AS DJ, DATE_FORMAT(dt_LastVisit, \"%e %M, %Y %r\") AS DLV, \"0\" AS LCmtP
 			FROM Users";
-		
+
 		if($Order == "LastVisit") $Query .= " ORDER BY dt_LastVisit DESC";
 		if($Order == "LastView")  $Query .= " ORDER BY LCmtR DESC";
 		if($Order == "Join")      $Query .= " ORDER BY dt_DateJoined ASC";
 		if($Order == "URL")      $Query .= " ORDER BY URL ASC";
 		if($Order == "Name")      $Query .= " ORDER BY UName ASC";
-		
+
 
 		$UserList = array();
-		
-		$UInfId = mysql_query ($Query, $link);
-		while ($UInfRes = mysql_fetch_object($UInfId)){
+
+		$UInfId = mysqli_query ($link, $Query);
+		while ($UInfRes = mysqli_fetch_object($UInfId)){
 			$temp = new UserListItem;
 			$temp->UID = $UInfRes->i_UID;
 	  	$temp->UName = $UInfRes->UName;
@@ -68,14 +68,14 @@
 	  	$temp->DJ = $UInfRes->DJ;
 	  	$temp->DLV = $UInfRes->DLV;
 	  	$temp->SSheet = "Unknown";
-	  	
+
 	  	$UserList[$UInfRes->i_UID] = $temp;
 		}
-/*	
+/*
 		while(list ($key, $val) = each($UserList)){
 			$Query = "SELECT MAX(i_CommentId) AS LCP, COUNT(i_CommentId) AS CNTR from Comment where i_UID = $key";
-			$UInfId = mysql_query ($Query, $link);
-			$UInfRes = mysql_fetch_object($UInfId);
+			$UInfId = mysqli_query ($link, $Query);
+			$UInfRes = mysqli_fetch_object($UInfId);
 			$val->LCmtP = $UInfRes->LCP;
 			$val->TPosts = $UInfRes->CNTR;
 			$UserList[$key] = $val;
@@ -144,7 +144,7 @@
 			<TD CLASS='HdrRow'>Number of Posts</TD>
 		</TR>
 		<?Php
-		  
+
 			//<TD CLASS='HdrRow'>Number of Taglines</TD>
 			//<TD CLASS='HdrRow'>Most Posts in 1 Day</TD>
 			//<TD CLASS='HdrRow'>Most Posts in 1 Hour</TD>
@@ -203,5 +203,5 @@
 </HTML>
 <?php
 	// close connection to MySQL Database
-	mysql_close($link);
+	mysqli_close($link);
 ?>

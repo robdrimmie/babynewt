@@ -52,7 +52,7 @@ if (!Empty( $_REQUEST[ "btnSubmitPreviewedComment" ] )) {
         $comment->create( $txtComment, $hdnUID, $selCategoryId );
 
         $UpdateLastPostedQuery = "UPDATE Users SET dt_LastPosted = NOW() WHERE i_UID = $hdnUID";
-        $UpdateLastPostedQuery = mysqli_query($link, $UpdateLastPostedQuery );
+        $UpdateLastPostedQuery = mysqli_query ($link, $UpdateLastPostedQuery );
 
         header ("Location: main.php");
         exit;
@@ -136,7 +136,7 @@ else {
 
     // output comments
     $UserTemplateQuery = "SELECT i_TemplateID FROM UserTemplate WHERE UserTemplate.i_UID = ".$_REQUEST[ "hdnUID" ];
-    $TemplateResId = mysqli_query ($UserTemplateQuery, $link);
+    $TemplateResId = mysqli_query ($link, $UserTemplateQuery);
     $TemplateRes = mysqli_fetch_object($TemplateResId);
 
     if (!Empty($TemplateRes->i_TemplateID)) {
@@ -146,7 +146,7 @@ else {
         $TemplateQuery = "SELECT t_TemplateHdr, t_TemplateCmt, t_TemplateFtr FROM Template WHERE i_TemplateID = 1";
     }
 
-    $TemplateResId = mysqli_query ($TemplateQuery, $link);
+    $TemplateResId = mysqli_query ($link, $TemplateQuery);
 
     $TemplateRes = mysqli_fetch_object($TemplateResId);
 

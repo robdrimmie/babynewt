@@ -12,21 +12,21 @@ class Comment extends Model {
 
 	$conn = $this->_db->getConnection();
 	$addCommentStatement = $conn->stmt_init();
-        $addCommentStatement->prepare( 
-		$AddCommentQuery 
+        $addCommentStatement->prepare(
+		$AddCommentQuery
 	);
         $addCommentStatement->bind_param( 'sii', $comment, $uid, $category );
         $addCommentStatement->execute();
 
-        //$AddCommentResultId = mysql_query ($AddCommentQuery, $link);        
+        //$AddCommentResultId = mysqli_query ($link, $AddCommentQuery);
     }
 
     public function mostRecent() {
         if ( null === $this->_mostRecent ) {
             $query = "SELECT MAX( Comment.i_CommentID ) AS maxCmt FROM Comment";
 
-            $result = mysql_query ($query, $this->_db->getConnection() );
-            $mostRecent = mysql_fetch_object($MaxCmtResId);
+            $result = mysqli_query ($this->_db->getConnection(), $query);
+            $mostRecent = mysqli_fetch_object($MaxCmtResId);
 
             $this->_mostRecent = $mostRecent->maxComment;
         }

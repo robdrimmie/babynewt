@@ -34,21 +34,21 @@
                               AND UserStyleSheet.i_UID = $sessionUserId";
     }
 
-    $UserStyleQueryId = mysql_query ($UserStyleQuery, $link);
-    $UserStyleQueryResult = mysql_fetch_object($UserStyleQueryId);
+    $UserStyleQueryId = mysqli_query ($link, $UserStyleQuery);
+    $UserStyleQueryResult = mysqli_fetch_object($UserStyleQueryId);
     echo $UserStyleQueryResult->t_StyleSheet;
 
     echo "</style>";
 
-    $CategoryListResultId = mysql_query ($CategoryList, $link);
+    $CategoryListResultId = mysqli_query ($link, $CategoryList);
 
     $TemplateID = $_REQUEST[ 'TemplateID' ];
     if (Empty($TemplateID)) {
         $UserTemplateQuery = "SELECT i_TemplateID
                                 FROM UserTemplate
                                WHERE UserTemplate.i_UID = $sessionUserId";
-        $TemplateResId = mysql_query ($UserTemplateQuery, $link);
-        $TemplateRes = mysql_fetch_object($TemplateResId);
+        $TemplateResId = mysqli_query ($link, $UserTemplateQuery);
+        $TemplateRes = mysqli_fetch_object($TemplateResId);
 
         if (!Empty($TemplateRes->i_TemplateID)) {
             $TemplateQuery = "SELECT t_TemplateHdr
@@ -73,11 +73,11 @@
                            WHERE i_TemplateID = $TemplateID";
     }
 
-    $TemplateResId = mysql_query ($TemplateQuery, $link);
-    $TemplateRes = mysql_fetch_object($TemplateResId);
+    $TemplateResId = mysqli_query ($link, $TemplateQuery);
+    $TemplateRes = mysqli_fetch_object($TemplateResId);
     $Comment = $TemplateRes->t_TemplateCmt;
 
-    while ( $CategoryListResult = mysql_fetch_object($CategoryListResultId)) {
+    while ( $CategoryListResult = mysqli_fetch_object($CategoryListResultId)) {
         $category_info = "Stylename:$CategoryListResult->vc_CSSName";
         $category_info .= "<br>Description: $CategoryListResult->t_Description";
 

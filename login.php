@@ -39,7 +39,7 @@ if ( ( !Empty( $_POST['userLoginSubmit'] ) ) || ( !Empty($_COOKIE['cookieUsernam
         $UpdateLastVisitQuery = "UPDATE Users SET dt_LastVisit = NOW(),";
         $UpdateLastVisitQuery .= " WHERE i_UID = $UserLoginResults->i_UID";
 
-        $UpdateLastVisitResultId = mysqli_query ($UpdateLastVisitQuery, $link);
+        $UpdateLastVisitResultId = mysqli_query ($link, $UpdateLastVisitQuery);
         $_SESSION['sessionLastVisit'] = time();
 
         if ( $_REQUEST[ 'chkRemember' ] == "on" ) {

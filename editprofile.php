@@ -64,11 +64,11 @@ else if ($hdnUserId == -1 && !Empty( $btnSubmit ) ) {
         $UserNumberQuery = "SELECT i_UID FROM Users ";
         $UserNumberQuery .= "WHERE vc_UserId = \"$txtUserNumber\"";
 
-        $UpdateUserQueryId = mysql_query ($ProfileQuery, $link);
-        $UserProfile = mysql_fetch_object($UpdateUserQueryId);
+        $UpdateUserQueryId = mysqli_query ($link, $ProfileQuery);
+        $UserProfile = mysqli_fetch_object($UpdateUserQueryId);
 
-        $UserNumberQueryId = mysql_query ($UserNumberQuery, $link);
-        $UserNumber = mysql_fetch_object($UserNumberQueryId);
+        $UserNumberQueryId = mysqli_query ($link, $UserNumberQuery);
+        $UserNumber = mysqli_fetch_object($UserNumberQueryId);
 
         if ( $UserProfile && $UserProfile->i_UID > 0 ) {
             echo ("Sorry, that username already exists.  Please pick another.<br>");
@@ -100,20 +100,20 @@ else if ($hdnUserId == -1 && !Empty( $btnSubmit ) ) {
                         , $iPublicEmail
                         , \"$txtGMTOffset\"
                     )";
-                $UpdateUserQueryId = mysql_query ($ProfileQuery, $link);
+                $UpdateUserQueryId = mysqli_query ($link, $ProfileQuery);
 
                 if ( $UpdateUserQueryId ) {
                     echo "Saved!";
                 }
                 else {
                     echo "Error:<br>".$ProfileQuery;
-                    echo "<br>".mysql_errno().": ".mysql_error()."<br>";
+                    echo "<br>".mysqli_errno().": ".mysqli_error()."<br>";
                 }
 
                 $ProfileQuery = "SELECT MAX(i_UID) i_UID FROM Users";
-                $UpdateUserQueryId = mysql_query ($ProfileQuery, $link);
+                $UpdateUserQueryId = mysqli_query ($link, $ProfileQuery);
                 if ( $UpdateUserQueryId ) {
-                    $UserProfile = mysql_fetch_object($UpdateUserQueryId);
+                    $UserProfile = mysqli_fetch_object($UpdateUserQueryId);
                     $hdnUserId = $UserProfile->i_UID;
                 }
                 else {
@@ -141,12 +141,12 @@ else if ($hdnUserId > -1 && !Empty( $btnSubmit ) ) {
                         vc_GMTOffset = \"$txtGMTOffset\"
                         WHERE i_UID = $hdnUserId";
 
-        $UpdateUserQueryId = mysql_query ($ProfileQuery, $link);
+        $UpdateUserQueryId = mysqli_query ($link, $ProfileQuery);
 
         // returning user editing profile
         $PreferencesQuery = "SELECT i_PreferenceId, vc_PreferenceName";
         $PreferencesQuery .= " FROM Preferences ORDER BY i_PreferenceId ASC";
-        $PreferencesResultsId = mysql_query ($PreferencesQuery, $link);
+        $PreferencesResultsId = mysqli_query ($link, $PreferencesQuery);
     }
 }
 else {
@@ -164,8 +164,8 @@ else {
          FROM Users
         WHERE i_UID = {$hdnUserId}";
 
-    $ProfileResultsIdId = mysql_query ($ProfileQuery, $link);
-    $UserProfile = mysql_fetch_object($ProfileResultsIdId);
+    $ProfileResultsIdId = mysqli_query ($link, $ProfileQuery);
+    $UserProfile = mysqli_fetch_object($ProfileResultsIdId);
 
     $txtUsername = $UserProfile->vc_UserName;
     $txtPassword = $UserProfile->vc_Password;
@@ -291,6 +291,6 @@ value="<?php echo $txtUserNumber;?>" maxlength="500">
 </body>
 <?php
     // close connection to MySQL Database
-    mysql_close($link);
+    mysqli_close($link);
 ?>
 </html>

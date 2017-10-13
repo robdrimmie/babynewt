@@ -445,7 +445,7 @@ $PosterStr = '';
     $comments_from_user=false;
     if ( array_key_exists( "username", $_REQUEST ) ) {
         $cfuquery = "select i_UID from Users where vc_Username like '".urldecode($_REQUEST["username"])."'";
-        $cfures = mysqli_query( $cfuquery );
+        $cfures = mysqli_query ($link,  $cfuquery );
         if ( $cfu = mysqli_fetch_object( $cfures ) ) {
             $comments_from_user = true;
             $cfu_id = $cfu->i_UID;

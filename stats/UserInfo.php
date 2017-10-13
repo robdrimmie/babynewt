@@ -3,11 +3,11 @@
 	include( "../session.php" );
 	include("../include.php");
 	// establish connection to MySQL database or output error message.
-	$link = mysql_connect ($dbHost, $dbUser, $dbPassword);
-	if (!mysql_select_db($dbName, $link)) echo mysql_errno().": ".mysql_error()."<BR>";
-	
-	$link1 = mysql_connect ($dbHost, $dbUser, $dbPassword);
-	if (!mysql_select_db($dbName, $link)) echo mysql_errno().": ".mysql_error()."<BR>";
+	$link = mysqli_connect ($dbHost, $dbUser, $dbPassword);
+	if (!mysqli_select_db($dbName)) echo mysqli_errno().": ".mysqli_error()."<BR>";
+
+	$link1 = mysqli_connect ($dbHost, $dbUser, $dbPassword);
+	if (!mysqli_select_db($dbName)) echo mysqli_errno().": ".mysqli_error()."<BR>";
 
 	$UList = FALSE;
 
@@ -39,60 +39,60 @@ function openpopup(boo){
 <BODY MARGINWIDTH=0 MARGINHEIGHT=0>
 <FONT FACE=VERDANA SIZE=3>
 
-<?PhP 
+<?PhP
 	echo $Title."<BR><BR>";
 	if($UList){
-		$UListId = mysql_query ($Query, $link);
-		while($UListRes = mysql_fetch_object($UListId) ){
+		$UListId = mysqli_query ($link, $Query);
+		while($UListRes = mysqli_fetch_object($UListId) ){
 			echo "<A HREF=\"UserInfo.php?UserName=".$UListRes->LABEL."\">".$UListRes->LABEL."</A><BR>";
 		}
 	}
 	else{
-		$Query = " SELECT COUNT(Comment.i_UID) AS COUNTER, Comment.i_UID FROM Comment, Users WHERE t_Comment LIKE '1142:%' AND 
+		$Query = " SELECT COUNT(Comment.i_UID) AS COUNTER, Comment.i_UID FROM Comment, Users WHERE t_Comment LIKE '1142:%' AND
 		Comment.i_UID = Users.i_UID and Users.vc_Username = '".$UserName."' GROUP BY Comment.i_UID";
 		$QLabel = "Number of Taglines: ";
-		$UInfId = mysql_query ($Query, $link);
-		$UInfRes = mysql_fetch_object($UInfId);
+		$UInfId = mysqli_query ($link, $Query);
+		$UInfRes = mysqli_fetch_object($UInfId);
 		if(!Empty($UInfRes->COUNTER))
 			echo $QLabel.$UInfRes->COUNTER."<BR>";
 		else
 			echo $QLabel."0<BR>";
-		
-		$Query = " SELECT COUNT(Comment.i_UID) AS COUNTER, Comment.i_UID FROM Comment, Users WHERE Comment.i_CommentId % 100 = 0 AND 
+
+		$Query = " SELECT COUNT(Comment.i_UID) AS COUNTER, Comment.i_UID FROM Comment, Users WHERE Comment.i_CommentId % 100 = 0 AND
 		Comment.i_UID = Users.i_UID and Users.vc_Username = '".$UserName."' GROUP BY Comment.i_UID";
 		$QLabel = "Number of Century Posts: ";
-		$UInfId = mysql_query ($Query, $link);
-		$UInfRes = mysql_fetch_object($UInfId);
+		$UInfId = mysqli_query ($link, $Query);
+		$UInfRes = mysqli_fetch_object($UInfId);
 		if(!Empty($UInfRes->COUNTER))
 			echo $QLabel.$UInfRes->COUNTER."<BR>";
 		else
 			echo $QLabel."0<BR>";
-		
-		$Query = " SELECT COUNT(Comment.i_UID) AS COUNTER, Comment.i_UID FROM Comment, Users WHERE Comment.i_CommentId % 1000 = 0 AND 
+
+		$Query = " SELECT COUNT(Comment.i_UID) AS COUNTER, Comment.i_UID FROM Comment, Users WHERE Comment.i_CommentId % 1000 = 0 AND
 		Comment.i_UID = Users.i_UID and Users.vc_Username = '".$UserName."' GROUP BY Comment.i_UID";
 		$QLabel = "Number of Millenium Posts: ";
-		$UInfId = mysql_query ($Query, $link);
-		$UInfRes = mysql_fetch_object($UInfId);
+		$UInfId = mysqli_query ($link, $Query);
+		$UInfRes = mysqli_fetch_object($UInfId);
 		if(!Empty($UInfRes->COUNTER))
 			echo $QLabel.$UInfRes->COUNTER."<BR>";
 		else
 			echo $QLabel."0<BR>";
-		
-		$Query = " SELECT COUNT(Comment.i_UID) AS COUNTER, Comment.i_UID FROM Comment, Users WHERE  
+
+		$Query = " SELECT COUNT(Comment.i_UID) AS COUNTER, Comment.i_UID FROM Comment, Users WHERE
 		Comment.i_UID = Users.i_UID and Users.vc_Username = '".$UserName."' GROUP BY Comment.i_UID";
 		$QLabel = "Number of Total Posts: ";
-		$UInfId = mysql_query ($Query, $link);
-		$UInfRes = mysql_fetch_object($UInfId);
+		$UInfId = mysqli_query ($link, $Query);
+		$UInfRes = mysqli_fetch_object($UInfId);
 		if(!Empty($UInfRes->COUNTER))
 			echo $QLabel.$UInfRes->COUNTER."<BR>";
 		else
 			echo $QLabel."0<BR>";
-		
+
 		$Query = " SELECT COUNT(Comment.i_UID) AS COUNTER, Comment.i_UID FROM Comment, Users WHERE  t_Comment LIKE '%!%' AND
 		Comment.i_UID = Users.i_UID and Users.vc_Username = '".$UserName."' GROUP BY Comment.i_UID";
 		$QLabel = "Number of '!' Posts: ";
-		$UInfId = mysql_query ($Query, $link);
-		$UInfRes = mysql_fetch_object($UInfId);
+		$UInfId = mysqli_query ($link, $Query);
+		$UInfRes = mysqli_fetch_object($UInfId);
 		if(!Empty($UInfRes->COUNTER))
 			echo $QLabel.$UInfRes->COUNTER."<BR><BR>";
 		else
@@ -100,8 +100,8 @@ function openpopup(boo){
 
 		// Date Joined
 		$Query = " SELECT dt_DateJoined, dt_LastVisit, vc_URL FROM Users WHERE Users.vc_Username = '$UserName'";
-		$UInfId = mysql_query ($Query, $link);
-		$UInfRes = mysql_fetch_object($UInfId);
+		$UInfId = mysqli_query ($link, $Query);
+		$UInfRes = mysqli_fetch_object($UInfId);
 		if(!Empty($UInfRes->dt_DateJoined))
 			echo "Date Joined: $UInfRes->dt_DateJoined<BR>";
 		else
@@ -111,8 +111,8 @@ function openpopup(boo){
 		else
 			echo "Last Visit: Never<BR>";
 		$Query = " SELECT vc_Email, vc_URL FROM Users WHERE Users.vc_Username = '$UserName' AND b_PublicEmail";
-		$UInfId = mysql_query ($Query, $link);
-		$UInfRes = mysql_fetch_object($UInfId);
+		$UInfId = mysqli_query ($link, $Query);
+		$UInfRes = mysqli_fetch_object($UInfId);
 		if(!Empty($UInfRes->vc_Email)){
 			$temp = str_replace("@", " <B>at</B> ", $UInfRes->vc_Email);
 			$temp = str_replace(".", " <B>dot</B> ", $temp);
@@ -129,8 +129,8 @@ function openpopup(boo){
 		// First Post
 		$Query = " SELECT MIN(Comment.i_CommentId) AS SM, MAX(Comment.i_CommentId) AS LG FROM Comment, Users WHERE Comment.i_UID = Users.i_UID and Users.vc_Username = '$UserName' GROUP BY Comment.i_UID";
 
-		$UInfId = mysql_query ($Query, $link);
-		$UInfRes = mysql_fetch_object($UInfId);
+		$UInfId = mysqli_query ($link, $Query);
+		$UInfRes = mysqli_fetch_object($UInfId);
 		if(!Empty($UInfRes->SM))
 			echo "First Post: <A HREF=\"http://www.1142.org/main.php?ViewPost=$UInfRes->SM\">$UInfRes->SM</A><BR>";
 		else
@@ -153,6 +153,6 @@ function openpopup(boo){
 </HTML>
 <?php
 	// close connection to MySQL Database
-	mysql_close($link);
-	mysql_close($link1);
+	mysqli_close($link);
+	mysqli_close($link1);
 ?>

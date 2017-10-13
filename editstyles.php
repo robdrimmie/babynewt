@@ -59,9 +59,9 @@ Page flow:
 		// get current style from database
 		$CurStyleSQL= "SELECT i_StyleSheetId FROM UserStyleSheet
 				WHERE i_UID = $sessionUserId";
-		$CurStyleSQLId = mysql_query( $CurStyleSQL );
+		$CurStyleSQLId = mysqli_query ($link,  $CurStyleSQL );
 
-		$objUserStyle = mysql_fetch_object( $CurStyleSQLId );
+		$objUserStyle = mysqli_fetch_object( $CurStyleSQLId );
 	 	if( $objUserStyle ) {	
 			$selUserStyle = $objUserStyle->i_StyleSheetId;
 		}
@@ -134,12 +134,12 @@ Page flow:
 			$UpdateStyleQuery = "INSERT INTO StyleSheet (i_UID, i_StyleSheetTypeId, i_Public, vc_Name)";
 			$UpdateStyleQuery .= " VALUES ($hdnUserId, 1, $iStylePublic, \"$txtStyleName\")";
 
-			$UpdateStyleQueryId = mysql_query( $UpdateStyleQuery );
+			$UpdateStyleQueryId = mysqli_query ($link,  $UpdateStyleQuery );
 
 			$GetStyleIdQuery = "SELECT MAX(i_StyleSheetId) i_StyleSheetId FROM StyleSheet where i_UID = $hdnUserId";
-			$GetStyleIdQueryId = mysql_query( $GetStyleIdQuery );
+			$GetStyleIdQueryId = mysqli_query ($link,  $GetStyleIdQuery );
 
-			$GetStyleIdResults = mysql_fetch_object( $GetStyleIdQueryId );
+			$GetStyleIdResults = mysqli_fetch_object( $GetStyleIdQueryId );
 			$selUserStyle = $GetStyleIdResults->i_StyleSheetId;
 			$UpdateStyleQueryId = $style->create( $selUserStyle, $txtStyleSheet);
 		} else {
@@ -152,27 +152,27 @@ Page flow:
 			$UpdateStyleQuery .= " vc_Name = \"$txtStyleName\"";
 			$UpdateStyleQuery .= " WHERE i_StyleSheetId = $hdnStyleId";
 
-			$UpdateStyleQueryId = mysql_query( $UpdateStyleQuery );
+			$UpdateStyleQueryId = mysqli_query ($link,  $UpdateStyleQuery );
 			$UpdateStyleQueryId = $style->update( $hdnStyleId, $txtStyleSheet);
 
 			if( !Empty($btnMakeStyle) )
 			{
 				$UpdateUserStyleQuery = "DELETE FROM UserStyleSheet WHERE i_UID = $hdnUserId";
-				$UpdateUserStyleQueryId = mysql_query( $UpdateUserStyleQuery );
+				$UpdateUserStyleQueryId = mysqli_query ($link,  $UpdateUserStyleQuery );
 
 				$UpdateUserStyleQuery = "INSERT INTO UserStyleSheet (i_UID, i_StyleSheetId)";
 				$UpdateUserStyleQuery .= " VALUES ($hdnUserId, $hdnStyleId)";
-				$UpdateUserStyleQueryId = mysql_query( $UpdateUserStyleQuery );
+				$UpdateUserStyleQueryId = mysqli_query ($link,  $UpdateUserStyleQuery );
 			}
 		}
 	} else if( !Empty( $btnMakePublicStyle ) )
 	{
 		$UpdateUserStyleQuery = "DELETE FROM UserStyleSheet WHERE i_UID = $hdnUserId";
-		$UpdateUserStyleQueryId = mysql_query( $UpdateUserStyleQuery );
+		$UpdateUserStyleQueryId = mysqli_query ($link,  $UpdateUserStyleQuery );
 
 		$UpdateUserStyleQuery = "INSERT INTO UserStyleSheet (i_UID, i_StyleSheetId)";
 		$UpdateUserStyleQuery .= " VALUES ($hdnUserId, $hdnPublicStyleId)";
-		$UpdateUserStyleQueryId = mysql_query( $UpdateUserStyleQuery );
+		$UpdateUserStyleQueryId = mysqli_query ($link,  $UpdateUserStyleQuery );
 	}
 
 	// get a drop-down of all the user's styles and a drop-down of other peoples' styles.
@@ -187,16 +187,16 @@ Page flow:
 	$PublicStylesQuery .= " WHERE StyleSheet.i_Public = 1";
 	$PublicStylesQuery .= " AND DBStyleSheet.i_StyleSheetId = StyleSheet.i_StyleSheetId ";
 	$PublicStylesQuery .= " ORDER BY StyleSheet.i_StyleSheetId ";
-	$UserStylesQueryId = mysql_query ($UserStylesQuery, $link);
+	$UserStylesQueryId = mysqli_query ($link, $UserStylesQuery);
 
-	$PublicStylesQueryId = mysql_query ($PublicStylesQuery, $link);
+	$PublicStylesQueryId = mysqli_query ($link, $PublicStylesQuery);
 
 	echo "<form name=\"frmSelection\" action=\"editstyles.php\" method=\"post\">";
 	echo "Your Styles: <select name=\"selUserStyle\">";
 	echo "<option value=\"-1\"";
 	if( $selUserStyle == -1 ) echo " SELECTED";
 	echo ">Select A Style</option>";
-	while( $UserStyles = mysql_fetch_object($UserStylesQueryId) )
+	while( $UserStyles = mysqli_fetch_object($UserStylesQueryId) )
 	{
 		echo "<option value=\"";
 		echo $UserStyles->i_StyleSheetId;
@@ -216,7 +216,7 @@ Page flow:
 
 	if( $selPublicStyle == -1 ) echo " SELECTED";
 	echo ">Select A Style</option>";
-	while( $PublicStyles = mysql_fetch_object($PublicStylesQueryId) )
+	while( $PublicStyles = mysqli_fetch_object($PublicStylesQueryId) )
 	{
 		echo "<option value=\"";
 		echo $PublicStyles ->i_StyleSheetId;
@@ -255,8 +255,8 @@ Page flow:
 			$UserStylesQuery .= " WHERE StyleSheet.i_StyleSheetId = $selUserStyle";
 			$UserStylesQuery .= " AND DBStyleSheet.i_StyleSheetId = StyleSheet.i_StyleSheetId ";
 
-			$UserStylesQueryId = mysql_query ($UserStylesQuery, $link);
-			$UserStyles = mysql_fetch_object($UserStylesQueryId);
+			$UserStylesQueryId = mysqli_query ($link, $UserStylesQuery);
+			$UserStyles = mysqli_fetch_object($UserStylesQueryId);
 
 			// load the selected stylesheet data
 			// store the stylesheet of the selected style
@@ -307,8 +307,8 @@ Page flow:
 		$UserStylesQuery .= " WHERE StyleSheet.i_StyleSheetId = $selPublicStyle";
 		$UserStylesQuery .= " AND DBStyleSheet.i_StyleSheetId = StyleSheet.i_StyleSheetId ";
 
-		$UserStylesQueryId = mysql_query ($UserStylesQuery, $link);
-		$UserStyles = mysql_fetch_object($UserStylesQueryId);
+		$UserStylesQueryId = mysqli_query ($link, $UserStylesQuery);
+		$UserStyles = mysqli_fetch_object($UserStylesQueryId);
 
 		echo "<form name=\"frmStyleSheet\" action=\"editstyles.php\" method=\"post\">";
 		echo "<input type=\"hidden\" name=\"hdnPublicStyleId\" value=\"";
@@ -331,5 +331,5 @@ Page flow:
 	echo "</html>";
 
 	// close connection to MySQL Database
-	mysql_close($link);
+	mysqli_close($link);
 ?>

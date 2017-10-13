@@ -4,15 +4,15 @@
 	$GraphTitle = "Where is the title?";
 	include("../include.php");
 	// establish connection to MySQL database or output error message.
-	$link = mysql_connect ($dbHost, $dbUser, $dbPassword);
-	if (!mysql_select_db($dbName, $link)) echo mysql_errno().": ".mysql_error()."<BR>";
-//	$link = mysql_connect ("localhost");
-//	if (!mysql_select_db("1142test", $link)) echo mysql_errno().": ".mysql_error()."<BR>";
+	$link = mysqli_connect ($dbHost, $dbUser, $dbPassword);
+	if (!mysqli_select_db($dbName)) echo mysqli_errno().": ".mysqli_error()."<BR>";
+//	$link = mysqli_connect ("localhost");
+//	if (!mysqli_select_db("1142test")) echo mysqli_errno().": ".mysqli_error()."<BR>";
 	if(!Empty($Type)){
 		if($Type=="HATTag"){
 			$GraphTitle = "Number of Taglines by Hour, All Time";
 			$CommentsQuery = " SELECT HOUR(dt_datePosted) AS LABELLER, COUNT(dt_datePosted) AS COUNTER
-								FROM Comment 
+								FROM Comment
 								WHERE t_Comment LIKE '%1142:%'
 								GROUP BY LABELLER ORDER BY LABELLER";
 		}
@@ -86,7 +86,7 @@
 <BODY MARGINWIDTH=0 MARGINHEIGHT=0>
 <FONT FACE=VERDANA SIZE=3>
 
-<?PhP 
+<?PhP
 	$ShowGraph = TRUE;
 	if(!Empty($Type)){
 		// Check for querystring requirements
@@ -160,7 +160,7 @@
 				$ShowGraph = FALSE;
 				// Show a list of categories to select from
 				$CategoryListQuery = "SELECT i_CategoryId, vc_Name FROM Category ORDER BY vc_Name";
-				$CategoryListResultId = mysql_query ($CategoryListQuery, $link);
+				$CategoryListResultId = mysqli_query ($link, $CategoryListQuery);
 
 				// Inputs for a new comment
 				echo "<form name=\"frmUserCatPost\" action=\"Statistics.php?Type=UserCatPost\" method=\"post\">";

@@ -1,7 +1,7 @@
 <?php
 	// establish connection to MySQL database or output error message.
-	$link = mysql_connect ("localhost", "drimmie_org1142", "ultima");
-	if (!mysql_select_db("drimmie_org1142", $link)) echo mysql_errno().": ".mysql_error()."<BR>";
+	$link = mysqli_connect ("localhost", "drimmie_org1142", "ultima");
+	if (!mysqli_select_db("drimmie_org1142")) echo mysqli_errno().": ".mysqli_error()."<BR>";
 
 	// Build the Query to get the comments.
 	$CommentsQuery = " SELECT REPLACE(Comment.t_Comment, '<BR><BR>','<BR>') AS cmt, Comment.dt_DatePosted, Users.i_UID,";	
@@ -74,14 +74,14 @@ font-family: century gothic;
 //(TIME_TO_SEC(now()) - TIME_TO_SEC(dt_LastVisit)) < 900 AND  ORDER BY Users.dt_LastVisit DESC";
 
 	// Get comments
-	$CommentsResultId = mysql_query ($CommentsQuery, $link);
+	$CommentsResultId = mysqli_query ($link, $CommentsQuery);
 	$iCommentCount = 0;
   // output comments
-	  $CommentsResult = mysql_fetch_object($CommentsResultId);
+	  $CommentsResult = mysqli_fetch_object($CommentsResultId);
 	do{
 		$iCommentCount += 1;
 		echo "$CommentsResult->vc_Username | \n";
-	}while($CommentsResult = mysql_fetch_object($CommentsResultId));
+	}while($CommentsResult = mysqli_fetch_object($CommentsResultId));
 	echo $CommentsResult->tim;
 	echo "\n";	
 ?>
@@ -95,10 +95,10 @@ font-family: century gothic;
 	$CommentsQuery .= " ORDER BY Users.dt_LastVisit DESC";
 
 	// Get comments
-	$CommentsResultId = mysql_query ($CommentsQuery, $link);
+	$CommentsResultId = mysqli_query ($link, $CommentsQuery);
 	$iCommentCount = 0;
   // output comments
-	while( 	$CommentsResult = mysql_fetch_object($CommentsResultId) )
+	while( 	$CommentsResult = mysqli_fetch_object($CommentsResultId) )
 	{
 		$iCommentCount += 1;
 		echo "$CommentsResult->vc_Username | \n";
@@ -113,5 +113,5 @@ font-family: century gothic;
 </HTML>
 <?php
 	// close connection to MySQL Database
-	mysql_close($link);
+	mysqli_close($link);
 ?>

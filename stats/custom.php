@@ -20,9 +20,9 @@
 <?php
 	$CatOptions = "<option value=\"-1\">search all categories</option>";
 	$CategoryListQuery = "SELECT i_CategoryId, vc_Name FROM Category ORDER BY vc_Name";
-	$CategoryListResultId =  mysql_query ($CategoryListQuery, $link);
+	$CategoryListResultId =  mysqli_query ($link, $CategoryListQuery);
 
-  	while( $CategoryListResult = mysql_fetch_object($CategoryListResultId)) {
+  	while( $CategoryListResult = mysqli_fetch_object($CategoryListResultId)) {
   		$CatOptions .= "<OPTION VALUE=\"$CategoryListResult->i_CategoryId\"";
   		
         if( $selectedCategory == $CategoryListResult->i_CategoryId ) $CatOptions .= " SELECTED";
@@ -78,15 +78,15 @@
 		$Q2.= "	ORDER BY Comment.i_CommentId ASC";
 
     $Query = $Q2;
-		$UInfId = mysql_query ($Query, $link);
-		$UInfRes = mysql_fetch_object($UInfId);
+		$UInfId = mysqli_query ($link, $Query);
+		$UInfRes = mysqli_fetch_object($UInfId);
 
 		$strCommentRange = "Current Comment Table";
 
 		if(!Empty($UInfRes->COUNTER)){ echo "<HR>$UInfRes->COUNTER Results in $strCommentRange <BR>"; $Total += $UInfRes->COUNTER;}
 		else echo "<HR>0 Results in $strCommentRange<BR>";
-		$UInfId2 = mysql_query ($Q2, $link);
-		while($UInfRes = mysql_fetch_object($UInfId2)){
+		$UInfId2 = mysqli_query ($link, $Q2);
+		while($UInfRes = mysqli_fetch_object($UInfId2)){
 			echo "<A HREF=\"../main.php?ViewPost=$UInfRes->LABELLER\">p$UInfRes->LABELLER</A> | ";
 		}
 	    }

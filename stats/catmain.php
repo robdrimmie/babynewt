@@ -2,8 +2,8 @@
 	include( "../session.php" );
 
 	// establish connection to MySQL database or output error message.
-	$link = mysql_connect ("1142.org", "org1142", "ultima");
-	if (!mysql_select_db("org1142", $link)) echo mysql_errno().": ".mysql_error()."<BR>";
+	$link = mysqli_connect ("1142.org", "org1142", "ultima");
+	if (!mysqli_select_db("org1142")) echo mysqli_errno().": ".mysqli_error()."<BR>";
 
 //	include( "login.php" );
 	
@@ -65,8 +65,8 @@
 <?PHP
 	$UserPreferencesQuery = "SELECT i_PreferenceId, vc_PreferenceValue"; 
 	$UserPreferencesQuery .= " FROM UserPreferences WHERE UserPreferences.i_UID = $sessionUserId ORDER BY i_PreferenceId ASC";
-	$UserPreferencesId = mysql_query ($UserPreferencesQuery, $link);
-	$UserPreferencesResult = mysql_fetch_object($UserPreferencesId);
+	$UserPreferencesId = mysqli_query ($link, $UserPreferencesQuery);
+	$UserPreferencesResult = mysqli_fetch_object($UserPreferencesId);
 		
 	echo "<STYLE>";
 	echo "DIV.logo1142{ position: absolute; top: 2px; left: 10px; font-size: 42px; font-weight: bold; color: #CCCCCC;}";
@@ -79,8 +79,8 @@
 	$UserStyleQuery .= " WHERE DBStyleSheet.i_StyleSheetId = UserStyleSheet.i_StyleSheetId";
 	$UserStyleQuery .= " AND UserStyleSheet.i_UID = $sessionUserId";
 
-	$UserStyleQueryId = mysql_query ($UserStyleQuery, $link);
-	$UserStyleQueryResult = mysql_fetch_object($UserStyleQueryId);
+	$UserStyleQueryId = mysqli_query ($link, $UserStyleQuery);
+	$UserStyleQueryResult = mysqli_fetch_object($UserStyleQueryId);
 	echo $UserStyleQueryResult->t_StyleSheet;
 
 	echo "</STYLE>";
@@ -106,12 +106,12 @@
 	echo "</div>";
 		
 	// Get comments
-	$CommentsResultId = mysql_query ($CommentsQuery, $link);
+	$CommentsResultId = mysqli_query ($link, $CommentsQuery);
 
 	$iCommentCount = 0;
 
 	// output comments
-	while( 	$CommentsResult = mysql_fetch_object($CommentsResultId) )
+	while( 	$CommentsResult = mysqli_fetch_object($CommentsResultId) )
 	{
 		$iCommentCount += 1;
 
@@ -197,5 +197,5 @@
 </HTML>
 <?php
 	// close connection to MySQL Database
-	mysql_close($link);
+	mysqli_close($link);
 ?>
